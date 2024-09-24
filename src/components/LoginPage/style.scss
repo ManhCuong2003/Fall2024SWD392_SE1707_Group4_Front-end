@@ -1,0 +1,76 @@
+*{
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+ }
+ .container{
+  height: 100vh;
+  background: url("../../assets/images/LoginBackground.jfif");
+  background-size: cover;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+ }
+ .form{
+  background-color: rgb(255, 255, 255, 0.25);
+  width: 435px;
+  height: 600px;
+  border-radius: 25px;
+  padding: 10px;
+  text-align: center;
+  
+ }
+
+
+
+ .form h2{
+  color: #333333;
+  font-size: 45px;
+  text-align: start;
+  margin-bottom: 15px;
+ }
+
+ .form p{
+  color: #151515;
+  font-size: 17px;
+ }
+
+ .form a{
+  text-align: end;
+ }
+
+ .form input{
+  width: 335px;
+  height: 40px;
+  border-radius: 8px;
+  margin-bottom: 11px;
+  border: none;
+ }
+
+ .form .signin{
+  width:  335px;
+  margin: 17px 0;
+ }
+
+ 
+ .emaill{
+  text-align: start;
+ }
+ .pass{
+  text-align: start;
+ }
+
+.fb{
+  width: 117px;
+  height: 35px;
+  border-radius: 20px;
+  margin-right: 7px;
+  background-color: rgb(255, 255, 255, 0.11);
+}
+.gg{
+  width: 117px;
+  height: 35px;
+  border-radius: 20px;
+  background-color: rgb(255, 255, 255, 0.11);
+}
+

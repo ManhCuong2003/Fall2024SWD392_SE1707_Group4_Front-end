@@ -1,0 +1,59 @@
+.change-password-page{
+    display: flex;
+    justify-content: space-around;
+    background-color: #F5F5F7;
+    h2{
+        text-align: center;
+        color: #63696A;
+        font-size: 36px;
+    }
+
+    .profile{
+        width: 356px;
+        height: 975px;
+        border-radius: 50px;
+        background: linear-gradient(180deg, #D7E5EE 50%, #D1DAE4 75%);
+    }
+
+    .change-password-content{
+        background-color: #D9D9D9;
+        width: 882px;
+        height: 975px;
+        border-radius: 50px;
+        label, p{
+            color: #63696A;
+            margin: 20px;
+            font-size: 24px;
+        }
+        button{
+            font-size: 22px;
+            width: 193px;
+            height: 58px;
+            border-radius: 30px;
+            background-color: #008000;
+            opacity: 0.75;
+            color: #F5F5F7;
+            margin-left: 640px;
+        }
+        
+        .input-password-content{
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            height: 200px;
+            
+            
+            label{
+               
+            }
+
+            input{
+                width: 412px;
+                height: 46px;
+                border-radius: 30px;
+                background-color: #F5F5F7;
+                margin-top: 10px;
+            }
+        }
+    }
+}
