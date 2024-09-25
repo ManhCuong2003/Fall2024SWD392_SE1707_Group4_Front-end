@@ -1,0 +1,76 @@
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+   }
+   .container{
+    height: 100vh;
+    background: url("../../../assets/images/LoginBackground.png");
+    background-size: cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+   }
+   .form{
+    background-color: rgb(255, 255, 255, 0.25);
+    width: 435px;
+    height: 600px;
+    border-radius: 25px;
+    padding: 10px;
+    text-align: center;
+        img{
+            width: 72px;
+            height: 73px;
+        }
+        h2{
+            color: #333333;
+            font-size: 45px;
+            text-align: start;
+            margin-bottom: 15px;
+           }
+           p{
+            color: #151515;
+            font-size: 17px;
+           }
+           a{
+            text-align: end;
+           }
+           input{
+            width: 335px;
+            height: 40px;
+            border-radius: 8px;
+            margin-bottom: 11px;
+            border: none;
+            background: rgb(255, 255, 255, 0.25);
+           }
+           .signin{
+            width:  335px;
+            margin: 17px 0;
+            height: 32px;
+            color: #F5F5F6;
+           }
+   }
+  
+   
+   .emaill{
+    text-align: start;
+   }
+   .pass{
+    text-align: start;
+   }
+  
+  .fb{
+    width: 117px;
+    height: 35px;
+    border-radius: 20px;
+    margin-right: 7px;
+    background-color: rgb(255, 255, 255, 0.11);
+  }
+  .gg{
+    width: 117px;
+    height: 35px;
+    border-radius: 20px;
+    background-color: rgb(255, 255, 255, 0.11);
+  }
+  
+  
