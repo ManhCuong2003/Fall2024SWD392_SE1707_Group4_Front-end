@@ -1,14 +1,15 @@
-import Appbar from '../../../layouts/Header/Appbar.jsx'
+import Navbar from '../../../layouts/Header/Navbar.jsx'
 import Footer from '../../../layouts/Footer/Footer.jsx'
 import ContentHomePage from '../../../components/ContentHomePage/ContentHomePage.jsx'
-function home() {
+import '../../../scss/Homepage.scss'
+function homePage() {
   return (
     <>
-      <Appbar/>
+      <Navbar/>
       <ContentHomePage/>
       <Footer/>
     </>
   )
 }
 
-export default home
+export default homePage
