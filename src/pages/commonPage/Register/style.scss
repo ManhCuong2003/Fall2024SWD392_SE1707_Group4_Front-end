@@ -1,0 +1,98 @@
+
+
+.containerr {
+    height: fit-content;
+    background: url("../../../assets/images/LoginBackground.png");
+    background-size: cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.formm {
+    background-color: rgb(255, 255, 255, 0.25);
+    width: 435px;
+    height: fit-content;
+    border-radius: 25px;
+    padding: 40px;
+    text-align: center;
+
+    .groupform {
+        display: flex;
+        flex-direction: column;
+        align-items: start;
+        justify-content: center;
+        color: #F5F5F6;
+
+        label {
+            margin-bottom: 5px;
+        }
+    }
+
+    a {
+        text-align: end;
+    }
+
+    h2 {
+        color: #333333;
+        font-size: 45px;
+        text-align: start;
+        margin-bottom: 15px;
+        text-align: center;
+    }
+
+    p {
+        color: #151515;
+        font-size: 17px;
+    }
+
+    img {
+        width: 72px;
+        height: 73px;
+    }
+
+    input {
+        padding: 2%;
+        width: 100%;
+        height: 40px;
+        border-radius: 8px;
+        margin-bottom: 15px;
+        border: none;
+        background: rgb(255, 255, 255, 0.25);
+    }
+    input::placeholder{
+        color: #151515;
+        opacity: .8;
+       }
+    .signin {
+        width: 335px;
+        margin: 17px 0;
+        height: 32px;
+        color: #F5F5F6;
+        border-radius: 13px;
+        border: none;
+    }
+}
+
+.emaill {
+    text-align: start;
+}
+
+.pass {
+    text-align: start;
+}
+
+.fb {
+    width: 117px;
+    height: 35px;
+    border-radius: 20px;
+    margin-right: 7px;
+    background-color: rgb(255, 255, 255, 0.11);
+}
+
+.gg {
+    width: 117px;
+    height: 35px;
+    border-radius: 20px;
+    background-color: rgb(255, 255, 255, 0.11);
+}
