@@ -27,7 +27,7 @@ const Nav = () => {
   
 
   return (
-    <Header className={`navbar ${isScrolled ? 'scrolled' : ''}`} style={{ position: 'fixed', width: '100%', zIndex: 1 }}>
+    <Header className={`navbar ${isScrolled ? 'scrolled' : ''}`} style={{ position: 'fixed', width: '100%', zIndex: 3 }}>
       <div className="navbar-content">
         <div className="logo">
           <img src={Logo}/>

@@ -1,6 +1,6 @@
-import '../../scss/Homepage.scss'
-import koiVideo from '../../assets/videos/koiVideo.mp4'
 
+import koiVideo from '../../assets/videos/koiVideo.mp4'
+import '../../pages/commonPage/Homepage/Homepage.scss';
 function ContentHomePage() {
   return (
     <>
@@ -8,7 +8,7 @@ function ContentHomePage() {
       <div className="overlay"></div>
       <video src={koiVideo} muted autoPlay loop type="video/mp4"></video>
 
-      <div className="homeContent container">
+      <div className="homeContent container_homepage">
         <div className="textDiv">
           <h1 className="homeTitle">
             Chào mừng bạn đến với trang web KOI FARM SHOP của chúng tôi
@@ -23,7 +23,7 @@ function ContentHomePage() {
 
       </div>
     </section>
-    <section className="main container section">
+    <section className="main container_homepage section">
       <div className="secTitle">
         <h3 className="title">
           content
