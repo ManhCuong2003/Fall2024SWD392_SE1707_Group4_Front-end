@@ -49,7 +49,7 @@ function Login() {
         <p>Or Continue With</p>
         <button className='fb'><FaFacebook size={20} /></button>
         <button className='gg'><FaGoogle size={20} /></button>
-        <p style={{ marginTop: '70px' }}>Don't have an account yet? <a href="#"><span style={{ color: '#dff9fb' }}>Sign up for free</span></a></p>
+        <p style={{ marginTop: '70px' }}>Don't have an account yet? <a href="/register"><span style={{ color: '#b8e994' }}>Sign up for free</span></a></p>
       </div>
     </div>
   )
