@@ -31,8 +31,16 @@
 
     a {
         text-align: end;
+
+    }
+    a p{
+        font-size: 18px;
+        color: #b8e994;
     }
 
+    a p:hover{
+     color: #F5F5F6;   
+    }
     h2 {
         color: #333333;
         font-size: 45px;
@@ -72,6 +80,10 @@
         border-radius: 13px;
         border: none;
     }
+    .signin:hover{
+        color: #888888;
+        transition: .3s;
+      }
 }
 
 .emaill {
