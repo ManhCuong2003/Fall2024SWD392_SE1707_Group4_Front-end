@@ -1,7 +1,7 @@
 import Nav from '../../../layouts/Header/Nav.jsx'
 import Footer from '../../../layouts/Footer/Footer.jsx'
 import ContentHomePage from '../../../components/ContentHomePage/ContentHomePage.jsx'
-import '../../../scss/Homepage.scss'
+import './Homepage.scss'
 function homePage() {
 
   return (
