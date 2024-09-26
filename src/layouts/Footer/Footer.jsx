@@ -1,8 +1,8 @@
 
-import {  Col, Layout, Row, Typography } from "antd"
+import {  Col, Row } from "antd"
 import { useState } from "react";
 import logo from "../../assets/Logo/LogoImg.png"
-import '../../scss/Footer.scss'
+import './Footer.scss'
 
 
 function Footer() {
@@ -15,13 +15,13 @@ const branches = {
 
   return (
    <section className="mapSection">
-      <Row gutter={[32, 32]}>
+      <Row >
         <Col xs={24} md={12}>
             <Row>
             <Col span={7} className="logoImg">
               <img src={logo}></img>
             </Col>
-            <Col span={17} className="shopTitle"><h1>KOI FARM SHOP</h1></Col>
+            <Col span={10} className="shopTitle"><h1>KOI FARM SHOP</h1></Col>
             </Row>
 
             <Col className="shopDescription">

@@ -1,11 +1,12 @@
-import Navbar from '../../../layouts/Header/Navbar.jsx'
+import Nav from '../../../layouts/Header/Nav.jsx'
 import Footer from '../../../layouts/Footer/Footer.jsx'
 import ContentHomePage from '../../../components/ContentHomePage/ContentHomePage.jsx'
 import '../../../scss/Homepage.scss'
 function homePage() {
+
   return (
     <>
-      <Navbar/>
+      <Nav/>
       <ContentHomePage/>
       <Footer/>
     </>
