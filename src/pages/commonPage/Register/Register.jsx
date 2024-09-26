@@ -97,7 +97,7 @@ function Register() {
           </div>
           <button className='signin' style={{ background: '#333333' }}>Sign up</button>
         </form>
-        <a href="http://localhost:5174/login"><p>Back to Login</p></a>
+        <a href="#"><p>Back to Login</p></a>
       </div>
     </div>
   );
