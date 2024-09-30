@@ -6,6 +6,8 @@ import Login from './pages/commonPage/Login/Login'
 import Register from './pages/commonPage/Register/Register'
 import ProductListPage from './pages/commonPage/ProductListPage/ProductListPage'
 import ProductDetailPage from './pages/commonPage/ProductDetailPage/ProductDetailPage'
+import CustomerDashboardPage from './pages/customer/CustomerDashboardPage/CustomerDashboardPage'
+
 
 function App() {
   return (
@@ -16,6 +18,7 @@ function App() {
         <Route path="/register" Component={Register}/>
         <Route path="/list-page" Component={ProductListPage}/>
         <Route path="/detail-page" Component={ProductDetailPage}/>
+        <Route path="/customer-dashboard-page" Component={CustomerDashboardPage}/>
       </Routes>
    </BrowserRouter>
   )
