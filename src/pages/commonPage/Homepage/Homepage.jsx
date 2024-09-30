@@ -1,14 +1,14 @@
-import Nav from '../../../layouts/Header/Nav.jsx'
+import Nav from '../../../layouts/Nav.jsx'
 import Footer from '../../../layouts/Footer/Footer.jsx'
 import ContentHomePage from '../../../components/ContentHomePage/ContentHomePage.jsx'
-import './Homepage.scss'
+import './HomePage.scss'
 function homePage() {
 
   return (
     <>
       <Nav/>
-      <ContentHomePage/>
-      <Footer/>
+      {/* <ContentHomePage/>
+      <Footer/> */}
     </>
   )
 }

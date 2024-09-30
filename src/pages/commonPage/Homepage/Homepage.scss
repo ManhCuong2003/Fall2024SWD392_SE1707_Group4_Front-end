@@ -8,10 +8,7 @@
     padding-right: 1.5rem;
 }
 
-.icon{
-    font-size: 2rem;
-    cursor: pointer;
-}
+
 
 .flex{
     display: flex;;
@@ -23,35 +20,10 @@
     align-items: center;
 }
 
-.btn{
-    padding: .6rem 1.5rem;
-    background: var( --gradientColor);
-    border-radius: 3rem;
-    border: none;
-    outline: none;
-    cursor: pointer;
-}
-
-.btn a{
-    color: var(--whiteColor);
-    font-size: 500;
-}
-
-.btn:hover{
-    background: var(--SecondaryColor);
-}
 
 img, video{
     width: 100%;
     height: auto;
-}
-
-input{
-    font-size: 100%;
-}
-
-body{
-    background: var(--bodyColor);
 }
 
 .home{
@@ -99,13 +71,14 @@ body{
             padding: 2rem 0;
 
             .smallText{
-                font-size: 13px;
-                text-transform: uppercase;
+                font-size: 1rem;
+                
             }
 
             .homeTitle{
                 position: relative;
-                font-size: 1.8rem;
+                font-size: 2rem;
+                text-transform: uppercase;
             }
         }
 
