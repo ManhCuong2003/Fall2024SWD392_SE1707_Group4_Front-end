@@ -21,7 +21,7 @@ export default function ProductDetailContentPage() {
         "https://images.unsplash.com/photo-1583212292454-1fe6229603b7"
       ],
       specifications: {
-        size: ["Small", "Medium", "Large"],
+        size: ["Nhỏ", "Vừa", "Lớn"],
         colors: ["Orange", "White", "Black"],
         breed: "Kohaku"
       },
@@ -74,7 +74,7 @@ export default function ProductDetailContentPage() {
     };
 
     return (
-     <div className="container_productDetailContent mx-auto px-4 py-8 ">
+     <div className="container_productDetailContent mx-auto px-4 py-8 pt-20">
       <div className="flex flex-wrap -mx-4 mt-50">
         {/* Product Image Gallery */}
         <div className="w-full md:w-1/2 px-4 mb-8">
@@ -117,11 +117,11 @@ export default function ProductDetailContentPage() {
           <h1 className="text-3xl font-bold mb-4">{product.name}</h1>
           <p className="text-2xl font-semibold text-blue-600 mb-4">${product.price.toFixed(2)}</p>
           <p className="mb-4">{product.description}</p>
-          <p className="mb-4">Available Quantity: {product.availableQuantity}</p>
+          <p className="mb-4">Kho hàng: {product.availableQuantity}</p>
 
           {/* Color Selection */}
           <div className="mb-4">
-            <h3 className="font-semibold mb-2">Color:</h3>
+            <h3 className="font-semibold mb-2">Màu sắc:</h3>
             <div className="flex space-x-2">
               {product.specifications.colors.map((color) => (
                 <button
@@ -137,7 +137,7 @@ export default function ProductDetailContentPage() {
 
           {/* Size Selection */}
           <div className="mb-4">
-            <h3 className="font-semibold mb-2">Size:</h3>
+            <h3 className="font-semibold mb-2">Kích cỡ:</h3>
             <div className="flex space-x-2">
               {product.specifications.size.map((size) => (
                 <button
@@ -153,7 +153,7 @@ export default function ProductDetailContentPage() {
 
           {/* Quantity Selection */}
           <div className="mb-4">
-            <label htmlFor="quantity" className="block font-semibold mb-2">Quantity:</label>
+            <label htmlFor="quantity" className="block font-semibold mb-2">Số lượng:</label>
             <input
               type="number"
               id="quantity"
@@ -171,21 +171,21 @@ export default function ProductDetailContentPage() {
             className="bg-blue-600 text-white px-6 py-3 rounded-md font-semibold hover:bg-blue-700 transition duration-300 flex items-center"
           >
             <FaShoppingCart className="mr-2" />
-            Add to Cart
+            Thêm vào giỏ hàng
           </button>
 
           {/* Cart Items Count */}
           <div className="mt-4 text-lg font-semibold">
-            Cart Items: {cartItems}
+            Giỏ hàng hiện tại: {cartItems}
           </div>
 
           {/* Specifications */}
           <div className="mt-8">
-            <h2 className="text-xl font-bold mb-4">Specifications</h2>
+            <h2 className="text-xl font-bold mb-4">Thông số</h2>
             <ul className="list-disc list-inside">
-              <li>Breed: {product.specifications.breed}</li>
-              <li>Available Sizes: {product.specifications.size.join(", ")}</li>
-              <li>Available Colors: {product.specifications.colors.join(", ")}</li>
+              <li>Giống: {product.specifications.breed}</li>
+              <li>Kích thước có sẵn: {product.specifications.size.join(", ")}</li>
+              <li>Màu sắc có sẵn: {product.specifications.colors.join(", ")}</li>
             </ul>
           </div>
         </div>
@@ -209,7 +209,7 @@ export default function ProductDetailContentPage() {
 
       {/* Reviews and Ratings */}
       <div className="mt-16">
-        <h2 className="text-2xl font-bold mb-6">Customer Reviews</h2>
+        <h2 className="text-2xl font-bold mb-6">Các đánh giá của khách hàng</h2>
         <div className="space-y-4">
           {product.reviews.map((review) => (
             <div key={review.id} className="border-b pb-4">
@@ -224,26 +224,26 @@ export default function ProductDetailContentPage() {
 
         {/* Add Review Form */}
         <div className="mt-8">
-          <h3 className="text-xl font-semibold mb-4">Add Your Review</h3>
+          <h3 className="text-xl font-semibold mb-4">Thêm đánh giá</h3>
           <form className="space-y-4">
             <div>
-              <label htmlFor="rating" className="block mb-2">Rating:</label>
+              <label htmlFor="rating" className="block mb-2">Xếp hạng:</label>
               <div className="flex">{renderStars(5)}</div>
             </div>
             <div>
-              <label htmlFor="comment" className="block mb-2">Comment:</label>
+              <label htmlFor="comment" className="block mb-2">Bình luận:</label>
               <textarea
                 id="comment"
                 rows="4"
                 className="w-full px-3 py-2 border rounded-md"
-                placeholder="Write your review here..."
+                placeholder="Viết đánh giá..."
               ></textarea>
             </div>
             <button
               type="submit"
               className="bg-blue-600 text-white px-6 py-2 rounded-md font-semibold hover:bg-blue-700 transition duration-300"
             >
-              Submit Review
+              Gửi đánh giá
             </button>
           </form>
         </div>

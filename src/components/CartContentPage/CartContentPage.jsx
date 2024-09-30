@@ -62,7 +62,7 @@ const CartContentPage = () => {
     <div className="min-h-screen bg-gradient-to-b from-blue-100 to-blue-200 p-8 pt-20">
       <div className="max-w-4xl mx-auto bg-white rounded-lg shadow-lg p-6">
         <h1 className="text-3xl font-bold mb-8 text-center text-blue-800">
-          Your Koi Fish Cart
+          Giỏ hàng của bạn
         </h1>
         <div className="space-y-6">
           {cartItems.map((item) => (
@@ -117,7 +117,7 @@ const CartContentPage = () => {
               type="text"
               value={discountCode}
               onChange={(e) => setDiscountCode(e.target.value)}
-              placeholder="Enter discount code"
+              placeholder="Mã giảm giá"
               className="border rounded-l px-4 py-2 w-full md:w-64"
               aria-label="Discount code input"
             />
@@ -125,7 +125,7 @@ const CartContentPage = () => {
               onClick={handleApplyDiscount}
               className="bg-green-500 text-white px-4 py-2 rounded-r hover:bg-green-600 transition duration-200"
             >
-              Apply
+              Áp dụng
             </button>
           </div>
           <div className="text-right">
@@ -133,13 +133,13 @@ const CartContentPage = () => {
               Total: ${total.toFixed(2)}
             </p>
             {discountApplied && (
-              <p className="text-green-600 mb-2">10% discount applied!</p>
+              <p className="text-green-600 mb-2">Đã giảm 10%</p>
             )}
             <button
               className="bg-blue-600 text-white px-8 py-3 rounded-lg text-xl font-semibold hover:bg-blue-700 transition duration-200"
               onClick={() => alert("Proceeding to checkout")}
             >
-              Checkout
+              Thanh toán
             </button>
           </div>
         </div>
