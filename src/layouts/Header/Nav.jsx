@@ -1,5 +1,3 @@
-
-
 import { useEffect, useState } from 'react'
 import { FaFish } from 'react-icons/fa';
 import {motion} from "framer-motion"
