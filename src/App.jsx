@@ -9,8 +9,10 @@ import ProductDetailPage from './pages/commonPage/ProductDetailPage/ProductDetai
 import CustomerDashboardPage from './pages/customer/CustomerDashboardPage/CustomerDashboardPage'
 import CartPage from './pages/commonPage/CartPage/CartPage'
 import CheckoutPage from './pages/commonPage/CheckoutPage/CheckoutPage'
-
-
+import HomePageCustomer from './components/HomePageCustomer/HomePageCustomer'
+import StaffDashboard from './components/StaffDashboard/StaffDashboard'
+import KoiFishManagerList from './components/KoiFishManagerList/KoiFishManagerList'
+import ManagerDashboard from './components/ManagerDashboard/ManagerDashboard' 
 function App() {
   return (
    <BrowserRouter>
@@ -23,7 +25,11 @@ function App() {
         <Route path="/customer-dashboard-page" Component={CustomerDashboardPage}/>
         <Route path="/cart-page" Component={CartPage}/>
         <Route path="/checkout-page" Component={CheckoutPage}/>
-
+        <Route path="/home-page" Component={HomePageCustomer}/>
+        <Route path='/staff-dashboard' Component={StaffDashboard}/>
+        <Route path='/koi-list' Component={KoiFishManagerList}/>
+        <Route path='/manager-dashboard' Component={ManagerDashboard}/>
+        
       </Routes>
    </BrowserRouter>
   )
