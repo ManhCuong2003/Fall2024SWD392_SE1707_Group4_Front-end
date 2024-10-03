@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { FaFacebook, FaGoogle } from 'react-icons/fa'
 import { Link, useNavigate } from 'react-router-dom'
-import Logo from '../../../assets/Logo/LogoImg.png'
+import Logo from '../../../assets/Logo/logo2.png'
 import apiClient from '../../../utils/axios'
 import { checkEmailFormat } from '../../../utils/validation'
 import './style.scss'
