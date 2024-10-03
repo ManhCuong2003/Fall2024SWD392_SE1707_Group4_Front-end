@@ -29,8 +29,8 @@ function Login() {
         const {access_token, refresh_token, role} = response.data;
           localStorage.setItem('access_token', access_token);
           localStorage.setItem('refresh_token', refresh_token);
-          if(role === 'customer') navigate('/');
-         else if(role === 'staff') navigate('/staff');
+          navigate('/');
+         if(role === 'staff') navigate('/staff');
          else if(role=== 'manager') navigate('/manager');
 
       } catch (error) {

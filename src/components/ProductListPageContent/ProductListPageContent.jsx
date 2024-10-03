@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { FiSearch, FiShoppingCart, FiChevronLeft, FiChevronRight } from "react-icons/fi";
 import { motion } from "framer-motion";
+import { LuEye } from "react-icons/lu";
 
 const products = [
   {
@@ -135,7 +136,7 @@ const ProductListPageContent = () => {
               onChange={handleCategoryChange}
               value={selectedCategory}
             >
-              <option value="">All Categories</option>
+              <option value="">Tất cả phân loại</option>
               <option value="red">Red</option>
               <option value="white">White</option>
               <option value="multicolor">Multicolor</option>
@@ -145,7 +146,7 @@ const ProductListPageContent = () => {
               onChange={handleSizeChange}
               value={selectedSize}
             >
-              <option value="">All Sizes</option>
+              <option value="">Tất cả kích thước</option>
               <option value="small">Small</option>
               <option value="medium">Medium</option>
               <option value="large">Large</option>
@@ -155,7 +156,7 @@ const ProductListPageContent = () => {
               onChange={handleBreedChange}
               value={selectedBreed}
             >
-              <option value="">All Breeds</option>
+              <option value="">Tất cả các giống</option>
               <option value="Kohaku">Kohaku</option>
               <option value="Showa">Showa</option>
               <option value="Tancho">Tancho</option>
@@ -165,9 +166,9 @@ const ProductListPageContent = () => {
               onChange={handleSortChange}
               value={sortOption}
             >
-              <option value="">Sort by</option>
-              <option value="price-asc">Price: Low to High</option>
-              <option value="price-desc">Price: High to Low</option>
+              <option value="">Sắp xếp</option>
+              <option value="price-asc">Giá: thấp đến cao</option>
+              <option value="price-desc">Giá: cao đến thấp</option>
             </select>
           </div>
         </div>
@@ -196,8 +197,8 @@ const ProductListPageContent = () => {
                   className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition duration-300 flex items-center"
                   aria-label={`Add ${product.name} to cart`}
                 >
-                  <FiShoppingCart className="mr-2" />
-                  Add to Cart
+                  <LuEye className="mr-2"/>
+                  Xem chi tiết
                 </button>
               </div>
             </div>

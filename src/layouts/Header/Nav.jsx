@@ -27,6 +27,8 @@ export default function Nav() {
     }
   });
 
+  const access_token = localStorage.getItem("access_token");
+
   return (
     <nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
@@ -70,7 +72,7 @@ export default function Nav() {
         </div>
         <div className="space-x-4">
           {/* check token */}
-          {user ? (
+          {access_token ? (
             // have token
             <div className="flex items-center space-x-3">
               <span className="text-blue-900 font-bold">

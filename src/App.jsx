@@ -15,7 +15,11 @@ import KoiFishManagerList from './components/KoiFishManagerList/KoiFishManagerLi
 import ManagerDashboard from './components/ManagerDashboard/ManagerDashboard' 
 import NotAuthorized from './authencation/NotAuthorized'
 import RoleBasedRoute from './authencation/RoleBasedRoute'
+
+import StaffManagePage from './pages/staff/StaffManagePage/StaffManagePage'
+
 import NewsPage from './pages/commonPage/NewsPage/NewsPage'
+
 function App() {
   return (
    <BrowserRouter>
@@ -44,7 +48,7 @@ function App() {
         
         
         {/* STAFF DASHBOARD */}
-          <Route path='/staff-dashboard' element={<RoleBasedRoute element={<StaffDashboard/>} requiredRole={['staff']}/>} />
+          {/* <Route path='/staff-dashboard' element={<RoleBasedRoute element={<StaffDashboard/>} requiredRole={['staff']}/>} /> */}
    
         
         {/* MANAGER PAGES */}
@@ -53,7 +57,8 @@ function App() {
 
         
         
-        
+          <Route path='/staff-dashboard' Component={StaffDashboard}/>
+          <Route path='/staff-manage-page' Component={StaffManagePage}/>
 
         <Route path="/home-page" Component={HomePageCustomer}/>
       </Routes>
