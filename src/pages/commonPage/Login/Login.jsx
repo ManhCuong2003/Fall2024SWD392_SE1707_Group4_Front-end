@@ -26,11 +26,13 @@ function Login() {
           email,
           password
         })
-        if (response.status === 200) {
-          localStorage.setItem('access_token', response.data.access_token)
-          localStorage.setItem('refresh_token', response.data.refresh_token)
-          navigate('/')
-        }
+        const {access_token, refresh_token, role} = response.data;
+          localStorage.setItem('access_token', access_token);
+          localStorage.setItem('refresh_token', refresh_token);
+          if(role === 'customer') navigate('/');
+         else if(role === 'staff') navigate('/staff');
+         else if(role=== 'manager') navigate('/manager');
+
       } catch (error) {
         setError(error.response.data.error.message)
       }

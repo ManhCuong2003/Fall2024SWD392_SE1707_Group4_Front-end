@@ -35,25 +35,25 @@ export default function MyOrdersSub() {
         onClick={() => handleTabChange("delivery")}
         className={`px-4 py-2 rounded-full ${activeTab === "delivery" ? "bg-blue-500 text-white" : "bg-gray-200 text-gray-700"} transition-colors duration-200 flex items-center`}
       >
-        <MdLocalShipping className="mr-2" /> Delivery
+        <MdLocalShipping className="mr-2" /> Đơn hàng đang giao
       </button>
       <button
         onClick={() => handleTabChange("complete")}
         className={`px-4 py-2 rounded-full ${activeTab === "complete" ? "bg-blue-500 text-white" : "bg-gray-200 text-gray-700"} transition-colors duration-200 flex items-center`}
       >
-        <MdDoneAll className="mr-2" /> Complete Delivery
+        <MdDoneAll className="mr-2" /> Đơn hàng đã giao
       </button>
       <button
         onClick={() => handleTabChange("cancelled")}
         className={`px-4 py-2 rounded-full ${activeTab === "cancelled" ? "bg-blue-500 text-white" : "bg-gray-200 text-gray-700"} transition-colors duration-200 flex items-center`}
       >
-        <MdCancel className="mr-2" /> Order Cancellation
+        <MdCancel className="mr-2" /> Hủy đơn hàng
       </button>
       <button
         onClick={() => handleTabChange("refund")}
         className={`px-4 py-2 rounded-full ${activeTab === "refund" ? "bg-blue-500 text-white" : "bg-gray-200 text-gray-700"} transition-colors duration-200 flex items-center`}
       >
-        <MdRefresh className="mr-2" /> Refund
+        <MdRefresh className="mr-2" /> Đơn hàng đã hoàn tiền
       </button>
     </div>
     <div className="space-y-4">

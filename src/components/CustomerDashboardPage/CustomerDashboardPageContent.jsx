@@ -24,11 +24,6 @@ export default function CustomerDashboardPageContent() {
         {/* Vertical Navbar */}
         <nav className="w-full md:w-1/3 bg-white rounded-lg shadow-md p-6">
             <div className="flex items-center mb-4">
-              <img
-                src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                alt="User Avatar"
-                className="w-16 h-16 rounded-full mr-4"
-              />
               <div>
                 <h3 className="text-lg font-semibold">truongtuyetngan2407</h3>
                 <p className="text-gray-600">truongtuyetngan2407@gmail.com</p>
@@ -53,6 +48,7 @@ export default function CustomerDashboardPageContent() {
         <main className="w-full md:w-2/3 bg-white rounded-lg shadow-md p-6">
              <h1 className="text-3xl font-bold mb-6">{navItems[activeNavItem].name}</h1>
               {navItems[activeNavItem].label === 'myOrders' && (<MyOrdersSub/>)}
+              
         </main>
 
         </div>

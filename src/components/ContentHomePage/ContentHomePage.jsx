@@ -1,10 +1,12 @@
 
 import {motion} from 'framer-motion'
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 function ContentHomePage() {
   const [activeFilter, setActiveFilter] = useState("all");
   const categories = ["Kohaku", "Showa", "Asagi", "Shusui", "Bekko"];
+  const naviagte = useNavigate();
   return (
     
     <main className='pt-20 container_homecontent mx-auto px-4'>
