@@ -15,7 +15,11 @@ import KoiFishManagerList from './components/KoiFishManagerList/KoiFishManagerLi
 import ManagerDashboard from './components/ManagerDashboard/ManagerDashboard' 
 import NotAuthorized from './authencation/NotAuthorized'
 import RoleBasedRoute from './authencation/RoleBasedRoute'
+
 import StaffManagePage from './pages/staff/StaffManagePage/StaffManagePage'
+
+import NewsPage from './pages/commonPage/NewsPage/NewsPage'
+
 function App() {
   return (
    <BrowserRouter>
@@ -26,6 +30,7 @@ function App() {
         <Route path="/" Component={homePage}/>
         <Route path="/list-page" Component={ProductListPage}/>
         <Route path="/detail-page" Component={ProductDetailPage}/>
+        <Route path="/news" Component={NewsPage}/>
 
         {/* ERROR PAGES */}
         <Route path="/not-authorized" Component={NotAuthorized}/>
@@ -39,6 +44,7 @@ function App() {
           <Route path="/customer-dashboard-page" element={<RoleBasedRoute element={<CustomerDashboardPage/>} requiredRole={['customer']} />} />
           <Route path="/cart-page" element={<RoleBasedRoute element={<CartPage/>} requiredRole={['customer']}/>} />
           <Route path="/checkout-page" element={<RoleBasedRoute element={<CheckoutPage/>} requiredRole={['customer']}/>}/>
+
         
         
         {/* STAFF DASHBOARD */}
