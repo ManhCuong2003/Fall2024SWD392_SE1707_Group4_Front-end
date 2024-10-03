@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { FaFacebook, FaGoogle } from 'react-icons/fa'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import Logo from '../../../assets/Logo/LogoImg.png'
 import apiClient from '../../../utils/axios'
 import { checkEmailFormat } from '../../../utils/validation'
@@ -22,15 +22,17 @@ function Login() {
     if (validEmail) {
       setError('')
       try {
-        const response = await apiClient.post('/users/login', {
+        const response = await apiClient.post('/api/auth/login', {
           email,
           password
         })
-        localStorage.setItem('access_token', response.data.access_token)
-        localStorage.setItem('refresh_token', response.data.refresh_token)
-        navigate('/')
+        if (response.status === 200) {
+          localStorage.setItem('access_token', response.data.access_token)
+          localStorage.setItem('refresh_token', response.data.refresh_token)
+          navigate('/')
+        }
       } catch (error) {
-        console.log(error)
+        setError(error.response.data.error.message)
       }
     } else {
       setError('Wrong email format')
@@ -63,9 +65,9 @@ function Login() {
             {error && <p style={{ color: 'red' }}>{error}</p>}
           </div>
 
-          <a href='#' className='forgot'>
+          <Link to='#' className='forgot'>
             <p>Forgot Password?</p>
-          </a>
+          </Link>
           <button
             className='signin'
             type='submit'
@@ -83,9 +85,9 @@ function Login() {
         </button>
         <p style={{ marginTop: '70px' }}>
           Don't have an account yet?{' '}
-          <a href='/register'>
+          <Link to='/register'>
             <span style={{ color: '#b8e994' }}>Sign up for free</span>
-          </a>
+          </Link>
         </p>
       </div>
     </div>
