@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import Logo from '../../../assets/Logo/LogoImg.png'
+import Logo from '../../../assets/Logo/logo2.png'
 import './style.scss'
 import apiClient from '../../../utils/axios'
 import { checkEmailFormat, checkPhoneFormat } from '../../../utils/validation'
