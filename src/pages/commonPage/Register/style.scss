@@ -10,7 +10,7 @@
 }
 
 .formm {
-    background-color: rgb(255, 255, 255, 0.25);
+    background-color: rgb(255, 255, 255, .68);
     width: 435px;
     height: fit-content;
     border-radius: 25px;
@@ -22,7 +22,7 @@
         flex-direction: column;
         align-items: start;
         justify-content: center;
-        color: #F5F5F6;
+        color: black;
 
         label {
             margin-bottom: 5px;
@@ -35,7 +35,7 @@
     }
     a p{
         font-size: 18px;
-        color: #b8e994;
+        color: #6d6c6e;
     }
 
     a p:hover{

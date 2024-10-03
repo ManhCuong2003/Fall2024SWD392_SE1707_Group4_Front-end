@@ -153,8 +153,8 @@ function Register() {
               <p style={{ color: 'red' }}>{error.phoneError}</p>
             )}
           </div>
-          {msg && <p style={{ color: 'green' }}>{msg}</p>}
-          {errorMsg && <p style={{ color: 'red' }}>{errorMsg}</p>}
+          {msg && <p style={{ color: '#82bd69' }}>{msg}</p>}
+          {errorMsg && <p style={{ color: '#ff5757' }}>{errorMsg}</p>}
           <button className='signin' style={{ background: '#333333' }}>
             Sign up
           </button>
