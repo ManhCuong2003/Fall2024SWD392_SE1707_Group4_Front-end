@@ -1,79 +1,134 @@
-.product-list-page {
-    background-color: #F5F5F7;
-    h2 {
-        text-align: center;
-        color: #63696A;
-        font-size: 40px;
-        margin: 50px 0;
-    }
-}
-.product-list {
-    width: 100%;
-    display: flex;
-    justify-content: space-around;
-    margin-top: 30px;
-}
-.product-content {
-    width: 80%;
-    input {
-        padding: 8px 12%;
-        border: none;
-        margin: 20px 0;
-        background-color: #DDDDDA;
-        color: black;
-        text-align: start;
-        border-radius: 30px;
-    }
-    .product {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-evenly;
-        transition: 1s;
-        .fish-box {
-            background-color: #EDECEC;
-            border-radius: 30px;
-            border: none;
-            width: 237px;
-            height: 550px;
-            margin-bottom: 5px;
-            color: #877A6F;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: start;
-            transition: .5s;
-            h3 {
-                font-size: 28px;
-            }
-            p,
-            h5 {
-                font-size: 24px;
-            }
-            img {
-                width: 134px;
-                height: 220px;
-            }
-            button {
-                width: 50px;
-                height: 50px;
-                border-radius: 50%;
-                background: none;
-                border: none;
-                margin-top: 30px;
-                transition: .3s;
+// <<<<<<< HEAD
+// * {
+//     box-sizing: border-box;
+//     padding: 0;
+//     margin: 0;
+// }
+
+// .product-list-page {
+//     background-color: #F5F5F7;
+
+// =======
+// .product-list-page {
+//     background-color: #F5F5F7;
+// >>>>>>> daf97303d28a46591b416cb6eef3390c6a13dffb
+//     h2 {
+//         text-align: center;
+//         color: #63696A;
+//         font-size: 40px;
+//         margin: 50px 0;
+//     }
+// }
+// <<<<<<< HEAD
+
+// =======
+// >>>>>>> daf97303d28a46591b416cb6eef3390c6a13dffb
+// .product-list {
+//     width: 100%;
+//     display: flex;
+//     justify-content: space-around;
+//     margin-top: 30px;
+// }
+// <<<<<<< HEAD
+
+
+
+// .product-content {
+//     width: 80%;
+
+// =======
+// .product-content {
+//     width: 80%;
+// >>>>>>> daf97303d28a46591b416cb6eef3390c6a13dffb
+//     input {
+//         padding: 8px 12%;
+//         border: none;
+//         margin: 20px 0;
+//         background-color: #DDDDDA;
+//         color: black;
+//         text-align: start;
+//         border-radius: 30px;
+// <<<<<<< HEAD
+
+//     }
+
+// =======
+//     }
+// >>>>>>> daf97303d28a46591b416cb6eef3390c6a13dffb
+//     .product {
+//         display: flex;
+//         flex-wrap: wrap;
+//         justify-content: space-evenly;
+//         transition: 1s;
+// <<<<<<< HEAD
+
+// =======
+// >>>>>>> daf97303d28a46591b416cb6eef3390c6a13dffb
+//         .fish-box {
+//             background-color: #EDECEC;
+//             border-radius: 30px;
+//             border: none;
+//             width: 237px;
+//             height: 550px;
+//             margin-bottom: 5px;
+//             color: #877A6F;
+//             display: flex;
+//             flex-direction: column;
+//             align-items: center;
+//             justify-content: start;
+//             transition: .5s;
+//             h3 {
+//                 font-size: 28px;
+//             }
+// <<<<<<< HEAD
+
+// =======
+// >>>>>>> daf97303d28a46591b416cb6eef3390c6a13dffb
+//             p,
+//             h5 {
+//                 font-size: 24px;
+//             }
+// <<<<<<< HEAD
+
+// =======
+// >>>>>>> daf97303d28a46591b416cb6eef3390c6a13dffb
+//             img {
+//                 width: 134px;
+//                 height: 220px;
+//             }
+// <<<<<<< HEAD
+
+// =======
+// >>>>>>> daf97303d28a46591b416cb6eef3390c6a13dffb
+//             button {
+//                 width: 50px;
+//                 height: 50px;
+//                 border-radius: 50%;
+//                 background: none;
+//                 border: none;
+//                 margin-top: 30px;
+//                 transition: .3s;
                 
-            }
-            button:hover {
-                background: #F5F5F7;
-                border: solid 1px black;
-                transition: 1s;
-            }
-        }
-        .fish-box:hover {
-            border: 2px solid black;
-            transition: .7s;
-            transform: translateY(-8px);
-            background: linear-gradient(180deg, #d7e9f4 85%, #bbc4ce 100%);
-        }
-    }
-}
+//             }
+// <<<<<<< HEAD
+
+// =======
+// >>>>>>> daf97303d28a46591b416cb6eef3390c6a13dffb
+//             button:hover {
+//                 background: #F5F5F7;
+//                 border: solid 1px black;
+//                 transition: 1s;
+//             }
+//         }
+// <<<<<<< HEAD
+
+// =======
+// >>>>>>> daf97303d28a46591b416cb6eef3390c6a13dffb
+//         .fish-box:hover {
+//             border: 2px solid black;
+//             transition: .7s;
+//             transform: translateY(-8px);
+//             background: linear-gradient(180deg, #d7e9f4 85%, #bbc4ce 100%);
+//         }
+//     }
+// }

@@ -80,15 +80,15 @@ function Login() {
         </form>
         <p>Or Continue With</p>
         <button className='fb'>
-          <FaFacebook size={20} />
+          <FaFacebook size={20} style={{marginLeft:"48px"}}/>
         </button>
         <button className='gg'>
-          <FaGoogle size={20} />
+          <FaGoogle size={20} style={{marginLeft:"48px"}}/>
         </button>
         <p style={{ marginTop: '70px' }}>
           Don't have an account yet?{' '}
           <Link to='/register'>
-            <span style={{ color: '#b8e994' }}>Sign up for free</span>
+            <span style={{ color: '#7df87f' }}>Sign up for free</span>
           </Link>
         </p>
       </div>
