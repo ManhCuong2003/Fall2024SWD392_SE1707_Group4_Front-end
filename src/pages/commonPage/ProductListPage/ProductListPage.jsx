@@ -11,7 +11,7 @@ const ProductListPage = () => {
 
   return (
     <div>
-        <Nav></Nav>
+        <Nav/>
         <ProductListPageContent/>
         <Footer/>
     </div>

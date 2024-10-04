@@ -1,55 +1,44 @@
-import React, { useState, useEffect } from "react";
-import { FiSearch, FiShoppingCart, FiChevronLeft, FiChevronRight } from "react-icons/fi";
+import { useState, useEffect } from "react";
+import { FiSearch, FiChevronLeft, FiChevronRight } from "react-icons/fi";
 import { motion } from "framer-motion";
 import { LuEye } from "react-icons/lu";
+import apiClient from "../../utils/axios";
 
-const products = [
-  {
-    id: 1,
-    name: "Kohaku Koi",
-    price: 299.99,
-    description: "Beautiful red and white patterned Koi",
-    image: "https://images.unsplash.com/photo-1571752726703-5e7d1f6a986d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
-    category: "red",
-    size: "medium",
-    breed: "Kohaku"
-  },
-  {
-    id: 2,
-    name: "Showa Koi",
-    price: 399.99,
-    description: "Striking black, red, and white Koi",
-    image: "https://images.unsplash.com/photo-1534043464124-3be32fe000c9?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
-    category: "multicolor",
-    size: "large",
-    breed: "Showa"
-  },
-  {
-    id: 3,
-    name: "Tancho Koi",
-    price: 499.99,
-    description: "Elegant white Koi with red spot on head",
-    image: "https://images.unsplash.com/photo-1524704654690-b56c05c78a00?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1169&q=80",
-    category: "white",
-    size: "small",
-    breed: "Tancho"
-  },
-  // Add more products as needed
-];
 
 const ProductListPageContent = () => {
-  const [filteredProducts, setFilteredProducts] = useState(products);
+  const [filteredProducts, setFilteredProducts] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedCategory, setSelectedCategory] = useState("");
   const [selectedSize, setSelectedSize] = useState("");
   const [selectedBreed, setSelectedBreed] = useState("");
   const [sortOption, setSortOption] = useState("");
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  const productsPerPage = 6;
+  const productsPerPage = 10;
 
   useEffect(() => {
-    let result = products;
+    const fetchProducts = async() => {
+      try {
+        setLoading(true); // start loading
+        const response = await apiClient.get("/api/products");
+        console.log(response.data);
+        
+        setFilteredProducts(response.data);
+      }catch(err){
+        console.log(err);
+        setError("Fail to fetch product. Please try again");
+      }finally{
+          setLoading(false) //End loading
+      }
+    };
+    fetchProducts();
+  }, []); 
+
+  useEffect(() => {
+  const filterAndSortProducts = () => {
+    let result = [...filteredProducts];
 
     if (searchTerm) {
       result = result.filter((product) =>
@@ -66,7 +55,7 @@ const ProductListPageContent = () => {
     }
 
     if (selectedBreed) {
-      result = result.filter((product) => product.breed === selectedBreed);
+      result = result.filter((product) => product.species === selectedBreed);
     }
 
     if (sortOption === "price-asc") {
@@ -77,6 +66,9 @@ const ProductListPageContent = () => {
 
     setFilteredProducts(result);
     setCurrentPage(1);
+    
+  }
+  filterAndSortProducts();
   }, [searchTerm, selectedCategory, selectedSize, selectedBreed, sortOption]);
 
   const indexOfLastProduct = currentPage * productsPerPage;
@@ -113,6 +105,15 @@ const ProductListPageContent = () => {
 
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
+
+    //handle loading and error states
+    if(loading){
+      return <div>Loading products...</div>
+    }
+
+    if(error){
+      return <div>{error}</div>
+    }
   };
 
   return (
@@ -173,29 +174,29 @@ const ProductListPageContent = () => {
           </div>
         </div>
       </div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-20">
         {currentProducts.map((product) => (
           <motion.div
             key={product.id}
-            className="bg-white rounded-lg shadow-md overflow-hidden"
+            className="w-full h-84 rounded-lg shadow-md overflow-hidden"
             whileHover={{ scale: 1.05 }}
             transition={{ duration: 0.3 }}
           >
             <img
-              src={product.image}
-              alt={product.name}
-              className="w-full h-48 object-cover"
+              src={product.koi_image_url}
+              alt={product.koi_name}
+              className="w-full h-3/4 object-cover"
             />
             <div className="p-4">
-              <h2 className="text-xl font-semibold mb-2">{product.name}</h2>
-              <p className="text-gray-600 mb-2">{product.description}</p>
+              <h2 className="text-xl font-semibold mb-2">{product.koi_name}</h2>
+              <p className="text-gray-600 mb-2">{product.koi_description}</p>
               <div className="flex justify-between items-center">
                 <span className="text-lg font-bold text-blue-600">
-                  ${product.price.toFixed(2)}
+                  ${product.koi_price.toFixed(2)}
                 </span>
                 <button
                   className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition duration-300 flex items-center"
-                  aria-label={`Add ${product.name} to cart`}
+                  aria-label={`Thêm ${product.name} vào giỏ hàng`}
                 >
                   <LuEye className="mr-2"/>
                   Xem chi tiết
@@ -243,3 +244,4 @@ const ProductListPageContent = () => {
 };
 
 export default ProductListPageContent;
+
