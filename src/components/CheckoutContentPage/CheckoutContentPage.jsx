@@ -64,20 +64,9 @@ const CheckoutContentPage = () => {
                 <div className="flex-grow">
                   <h3 className="font-semibold">{item.name}</h3>
                   <p className="text-gray-600">${item.price.toFixed(2)}</p>
-                  <div className="flex items-center mt-2">
-                    <button onClick={() => handleQuantityChange(item.id, -1)} className="text-gray-500 focus:outline-none focus:text-gray-600">
-                      <FaMinus />
-                    </button>
-                    <span className="mx-2 text-gray-700">{item.quantity}</span>
-                    <button onClick={() => handleQuantityChange(item.id, 1)} className="text-gray-500 focus:outline-none focus:text-gray-600">
-                      <FaPlus />
-                    </button>
-                  </div>
+                  <p className="text-gray-600">x 5</p>
                 </div>
                 <span className="font-semibold">${(item.price * item.quantity).toFixed(2)}</span>
-                <button onClick={() => handleRemoveItem(item.id)} className="ml-4 text-red-500 focus:outline-none">
-                  <FaTrash />
-                </button>
               </div>
             ))}
           </div>
@@ -149,17 +138,7 @@ const CheckoutContentPage = () => {
                     onChange={() => setShippingMethod("standard")}
                     className="form-radio text-blue-500"
                   />
-                  <span className="ml-2">Vận chuyển tiêu chuẩn ($10)</span>
-                </label>
-                <label className="inline-flex items-center">
-                  <input
-                    type="radio"
-                    value="express"
-                    checked={shippingMethod === "express"}
-                    onChange={() => setShippingMethod("express")}
-                    className="form-radio text-blue-500"
-                  />
-                  <span className="ml-2">Vận chuyển nhanh ($25)</span>
+                  <span className="ml-2">Ship code ($10)</span>
                 </label>
               </div>
             </div>
@@ -176,7 +155,7 @@ const CheckoutContentPage = () => {
                     onChange={() => setPaymentMethod("credit")}
                     className="form-radio text-blue-500"
                   />
-                  <span className="ml-2 flex items-center"><FaCreditCard className="mr-2" /> Credit Card</span>
+                  <span className="ml-2 flex items-center"><FaCreditCard className="mr-2" />Zalopay</span>
                 </label>
                 <label className="inline-flex items-center">
                   <input
@@ -186,7 +165,7 @@ const CheckoutContentPage = () => {
                     onChange={() => setPaymentMethod("paypal")}
                     className="form-radio text-blue-500"
                   />
-                  <span className="ml-2 flex items-center"><FaPaypal className="mr-2" /> PayPal</span>
+                  <span className="ml-2 flex items-center"><FaPaypal className="mr-2" />VNPAY</span>
                 </label>
               </div>
             </div>

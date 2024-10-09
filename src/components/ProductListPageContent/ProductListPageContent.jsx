@@ -3,6 +3,7 @@ import { FiSearch, FiChevronLeft, FiChevronRight } from "react-icons/fi";
 import { motion } from "framer-motion";
 import { LuEye } from "react-icons/lu";
 import apiClient from "../../utils/axios";
+import { Link } from "react-router-dom";
 
 
 const ProductListPageContent = () => {
@@ -16,14 +17,13 @@ const ProductListPageContent = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  const productsPerPage = 10;
+  const productsPerPage = 6;
 
   useEffect(() => {
     const fetchProducts = async() => {
       try {
         setLoading(true); // start loading
         const response = await apiClient.get("/api/products");
-        console.log(response.data);
         
         setFilteredProducts(response.data);
       }catch(err){
@@ -117,7 +117,7 @@ const ProductListPageContent = () => {
   };
 
   return (
-    <div className="container_productListPage mx-auto px-4 py-8 pt-20">
+    <div className="container_productListPage mx-auto px-4 py-8 pt-20 bg-gradient-to-b from-blue-50 to-blue-100">
       <h1 className="text-4xl font-bold mb-8 text-center text-blue-600">Koi Fish Shop</h1>
       <div className="mb-8">
         <div className="flex flex-col md:flex-row justify-between items-center mb-4">
@@ -174,33 +174,36 @@ const ProductListPageContent = () => {
           </div>
         </div>
       </div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-20">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-20">
         {currentProducts.map((product) => (
           <motion.div
             key={product.id}
-            className="w-full h-84 rounded-lg shadow-md overflow-hidden"
+            className="w-full h-84 rounded-lg shadow-md overflow-hidden bg-white"
             whileHover={{ scale: 1.05 }}
             transition={{ duration: 0.3 }}
           >
-            <img
+            <div className="w-full h-fit">
+              <img
               src={product.koi_image_url}
               alt={product.koi_name}
-              className="w-full h-3/4 object-cover"
+              className="w-full h-56 object-contain transform rotate-90"
             />
+            </div>
             <div className="p-4">
               <h2 className="text-xl font-semibold mb-2">{product.koi_name}</h2>
-              <p className="text-gray-600 mb-2">{product.koi_description}</p>
+              <p className="text-gray-600 mb-2 truncate hover:text-clip">{product.koi_description}</p>
               <div className="flex justify-between items-center">
                 <span className="text-lg font-bold text-blue-600">
                   ${product.koi_price.toFixed(2)}
                 </span>
-                <button
-                  className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition duration-300 flex items-center"
-                  aria-label={`Thêm ${product.name} vào giỏ hàng`}
+                <Link to={`/detail-page/${product.koi_id}`}>
+                  <button
+                    className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition duration-300 flex items-center"
                 >
                   <LuEye className="mr-2"/>
                   Xem chi tiết
-                </button>
+                  </button>
+                </Link>
               </div>
             </div>
           </motion.div>
