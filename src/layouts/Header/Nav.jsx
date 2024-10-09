@@ -49,7 +49,7 @@ export default function Nav() {
             Trang chủ
           </Link>
           <Link
-            to={"/list-page"}
+            to={"/product-list"}
             className="text-blue-900 hover:text-blue-600 transition-colors"
             aria-label="Product"
           >

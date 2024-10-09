@@ -113,16 +113,8 @@ const CartContentPage = () => {
         </div>
         <div className="mt-8">
           <div className="flex items-center justify-between mb-4">
-            <input
-              type="text"
-              value={discountCode}
-              onChange={(e) => setDiscountCode(e.target.value)}
-              placeholder="Mã giảm giá"
-              className="border rounded-l px-4 py-2 w-full md:w-64"
-              aria-label="Discount code input"
-            />
+          <p ><span className="inline-block mb-4 font-semibold">Điểm giảm giá đã tích lũy:</span> 100 điểm</p>
             <button
-              onClick={handleApplyDiscount}
               className="bg-green-500 text-white px-4 py-2 rounded-r hover:bg-green-600 transition duration-200"
             >
               Áp dụng
@@ -132,9 +124,6 @@ const CartContentPage = () => {
             <p className="text-xl font-semibold mb-2">
               Total: ${total.toFixed(2)}
             </p>
-            {discountApplied && (
-              <p className="text-green-600 mb-2">Đã giảm 10%</p>
-            )}
             <button
               className="bg-blue-600 text-white px-8 py-3 rounded-lg text-xl font-semibold hover:bg-blue-700 transition duration-200"
               onClick={() => alert("Proceeding to checkout")}
