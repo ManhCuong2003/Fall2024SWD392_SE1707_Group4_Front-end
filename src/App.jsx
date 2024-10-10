@@ -15,6 +15,8 @@ import StaffManagePage from "./pages/staff/StaffManagePage/StaffManagePage";
 
 import NewsPage from "./pages/commonPage/NewsPage/NewsPage";
 import ProductListPage from "./pages/commonPage/ProductListPage/ProductListPage";
+import SalesReportPage from "./pages/commonPage/SalesReportPage/SalesReportPage";
+import FarmManager from "./pages/commonPage/Inventory/FarmManager";
 import ConsignmentPage from "./pages/commonPage/ConsignmentPage/ConsignmentPage";
 
 function App() {
@@ -42,9 +44,10 @@ function App() {
             />
           }
         />
-
+        <Route path="/farm-manager" Component={FarmManager}/>
         <Route path="/customer-dashboard" Component={CustomerDashboardPage} />
         <Route path="/staff-manage-page" Component={StaffManagePage} />
+        <Route path="/sales-report-page" Component={SalesReportPage} />
       </Routes>
     </BrowserRouter>
   );
