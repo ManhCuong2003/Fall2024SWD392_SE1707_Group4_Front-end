@@ -56,7 +56,7 @@ export default function Nav() {
             Sản phẩm
           </Link>
           <Link
-            to={"/"}
+            to={"/new-page"}
             className="text-blue-900 hover:text-blue-600 transition-colors"
             aria-label="News"
           >
@@ -72,7 +72,7 @@ export default function Nav() {
         </div>
         <div className="space-x-4">
           {/* check token */}
-          {access_token ? (
+          {/* {access_token ? (
             // have token
             <div className="flex items-center space-x-3">
               <span className="text-blue-900 font-bold">
@@ -111,7 +111,7 @@ export default function Nav() {
                 Đăng ký
               </motion.button>
             </>
-          )}
+          )} */}
         </div>
       </div>
     </nav>
