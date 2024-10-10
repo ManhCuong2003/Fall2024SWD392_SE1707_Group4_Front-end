@@ -15,6 +15,7 @@ import StaffManagePage from "./pages/staff/StaffManagePage/StaffManagePage";
 
 import NewsPage from "./pages/commonPage/NewsPage/NewsPage";
 import ProductListPage from "./pages/commonPage/ProductListPage/ProductListPage";
+import ConsignmentPage from "./pages/commonPage/ConsignmentPage/ConsignmentPage";
 
 function App() {
   return (
@@ -27,11 +28,11 @@ function App() {
         <Route path="/detail-page/:id" Component={ProductDetailPage} />
         <Route path="/news" Component={NewsPage} />
         <Route path="/not-authorized" Component={NotAuthorized} />
-        <Route path="/register" Component={Register} />
         <Route path="/login" Component={Login} />
         <Route path="/register" Component={Register} />
         <Route path="/cart-page" Component={CartPage}/>
         <Route path="/checkout-page" Component= {CheckoutPage}/>
+        <Route path="/consignment" Component= {ConsignmentPage}/>
         <Route
           path="/koi-list"
           element={
