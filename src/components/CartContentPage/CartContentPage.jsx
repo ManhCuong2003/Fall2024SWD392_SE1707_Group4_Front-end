@@ -1,26 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { FaTrash, FaMinus, FaPlus } from "react-icons/fa";
 import { motion } from "framer-motion";
+import { CartContext } from "../Context/UserContext";
 
 const CartContentPage = () => {
-  const [cartItems, setCartItems] = useState([
-    {
-      id: 1,
-      name: "Kohaku Koi",
-      price: 299.99,
-      quantity: 2,
-      image: "https://images.unsplash.com/photo-1522069169874-c58ec4b76be5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1012&q=80",
-    },
-    {
-      id: 2,
-      name: "Showa Koi",
-      price: 349.99,
-      quantity: 1,
-      image: "https://images.unsplash.com/photo-1571752726703-5e7d1f6a986d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
-    },
-  ]);
-  const [discountCode, setDiscountCode] = useState("");
-  const [discountApplied, setDiscountApplied] = useState(false);
+  const { cartItems, updateQuantity, removeFromcart } = useContext(CartContext);
   const [total, setTotal] = useState(0);
 
   useEffect(() => {
@@ -32,30 +16,11 @@ const CartContentPage = () => {
       (acc, item) => acc + item.price * item.quantity,
       0
     );
-    setTotal(discountApplied ? sum * 0.9 : sum);
+    setTotal(sum);
   };
 
   const handleQuantityChange = (id, change) => {
-    setCartItems((prevItems) =>
-      prevItems.map((item) =>
-        item.id === id
-          ? { ...item, quantity: Math.max(0, item.quantity + change) }
-          : item
-      )
-    );
-  };
-
-  const handleRemoveItem = (id) => {
-    setCartItems((prevItems) => prevItems.filter((item) => item.id !== id));
-  };
-
-  const handleApplyDiscount = () => {
-    if (discountCode.toLowerCase() === "koi10") {
-      setDiscountApplied(true);
-      calculateTotal();
-    } else {
-      alert("Invalid discount code");
-    }
+    removeFromcart(id);
   };
 
   return (
@@ -67,7 +32,7 @@ const CartContentPage = () => {
         <div className="space-y-6">
           {cartItems.map((item) => (
             <motion.div
-              key={item.id}
+              key={item.koi_id}
               className="flex flex-col md:flex-row items-center justify-between bg-blue-50 p-4 rounded-lg shadow-md"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -75,12 +40,14 @@ const CartContentPage = () => {
             >
               <div className="flex items-center mb-4 md:mb-0">
                 <img
-                  src={item.image}
-                  alt={item.name}
+                  src={item.koi_image_url}
+                  alt={item.koi_name}
                   className="w-24 h-24 object-cover rounded-md mr-4"
                 />
                 <div>
-                  <h2 className="text-xl font-semibold text-blue-800">{item.name}</h2>
+                  <h2 className="text-xl font-semibold text-blue-800">
+                    {item.name}
+                  </h2>
                   <p className="text-gray-600">${item.price.toFixed(2)}</p>
                 </div>
               </div>
@@ -92,7 +59,9 @@ const CartContentPage = () => {
                 >
                   <FaMinus />
                 </button>
-                <span className="mx-4 text-xl font-semibold">{item.quantity}</span>
+                <span className="mx-4 text-xl font-semibold">
+                  {item.quantity}
+                </span>
                 <button
                   onClick={() => handleQuantityChange(item.id, 1)}
                   className="bg-blue-500 text-white p-2 rounded-full hover:bg-blue-600 transition duration-200"
@@ -113,10 +82,13 @@ const CartContentPage = () => {
         </div>
         <div className="mt-8">
           <div className="flex items-center justify-between mb-4">
-          <p ><span className="inline-block mb-4 font-semibold">Điểm giảm giá đã tích lũy:</span> 100 điểm</p>
-            <button
-              className="bg-green-500 text-white px-4 py-2 rounded-r hover:bg-green-600 transition duration-200"
-            >
+            <p>
+              <span className="inline-block mb-4 font-semibold">
+                Điểm giảm giá đã tích lũy:
+              </span>{" "}
+              100 điểm
+            </p>
+            <button className="bg-green-500 text-white px-4 py-2 rounded-r hover:bg-green-600 transition duration-200">
               Áp dụng
             </button>
           </div>
