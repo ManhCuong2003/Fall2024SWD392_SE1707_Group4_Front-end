@@ -108,7 +108,7 @@ const ProductListPageContent = () => {
 
     //handle loading and error states
     if(loading){
-      return <div>Loading products...</div>
+      return <div>Đang tải...</div>
     }
 
     if(error){
@@ -124,7 +124,7 @@ const ProductListPageContent = () => {
           <div className="relative w-full md:w-1/3 mb-4 md:mb-0">
             <input
               type="text"
-              placeholder="Search products..."
+              placeholder="Tìm kiếm..."
               className="w-full p-2 pl-10 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               value={searchTerm}
               onChange={handleSearchChange}
@@ -138,9 +138,9 @@ const ProductListPageContent = () => {
               value={selectedCategory}
             >
               <option value="">Tất cả phân loại</option>
-              <option value="red">Red</option>
-              <option value="white">White</option>
-              <option value="multicolor">Multicolor</option>
+              <option value="red">Đỏ</option>
+              <option value="white">Trắng</option>
+              <option value="multicolor">Đa sắc</option>
             </select>
             <select
               className="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -148,9 +148,9 @@ const ProductListPageContent = () => {
               value={selectedSize}
             >
               <option value="">Tất cả kích thước</option>
-              <option value="small">Small</option>
-              <option value="medium">Medium</option>
-              <option value="large">Large</option>
+              <option value="small">Nhỏ</option>
+              <option value="medium">Trung bình</option>
+              <option value="large">Lớn</option>
             </select>
             <select
               className="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -216,7 +216,7 @@ const ProductListPageContent = () => {
             disabled={currentPage === 1}
             className="px-3 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50"
           >
-            <span className="sr-only">Previous</span>
+            <span className="sr-only">Trước</span>
             <FiChevronLeft className="h-5 w-5" aria-hidden="true" />
           </button>
           {pageNumbers.map((number) => (
@@ -237,7 +237,7 @@ const ProductListPageContent = () => {
             disabled={currentPage === Math.ceil(filteredProducts.length / productsPerPage)}
             className="px-3 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50"
           >
-            <span className="sr-only">Next</span>
+            <span className="sr-only">Sau</span>
             <FiChevronRight className="h-5 w-5" aria-hidden="true" />
           </button>
         </nav>
