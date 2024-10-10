@@ -56,14 +56,14 @@ export default function Nav() {
             Sản phẩm
           </Link>
           <Link
-            to={"/"}
+            to={"/news"}
             className="text-blue-900 hover:text-blue-600 transition-colors"
             aria-label="News"
           >
             Tin tức
           </Link>
           <Link
-            to={"/"}
+            to={"/consignment"}
             className="text-blue-900 hover:text-blue-600 transition-colors"
             aria-label="Service"
           >

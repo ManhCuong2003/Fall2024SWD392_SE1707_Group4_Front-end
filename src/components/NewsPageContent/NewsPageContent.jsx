@@ -19,7 +19,7 @@ const NewsPageContent = () => {
         id: 1,
         title: "New Koi Varieties Arrive at Our Shop",
         excerpt: "Discover the latest and most beautiful Koi fish varieties that have just arrived at our shop.",
-        image: "https://images.unsplash.com/photo-1520379120126-929efff4c15a",
+        image: "https://i.pinimg.com/236x/27/b4/99/27b4994916fff954f624923815d0cd87.jpg",
         date: "2023-05-15",
         category: "New Arrivals"
       },
@@ -51,7 +51,7 @@ const NewsPageContent = () => {
         id: 5,
         title: "Koi Breeding Workshop Next Month",
         excerpt: "Join our expert-led workshop on Koi breeding techniques and genetic selection.",
-        image: "https://images.unsplash.com/photo-1584268297869-bfb8f075d3f5",
+        image: "https://i.pinimg.com/236x/27/b4/99/27b4994916fff954f624923815d0cd87.jpg",
         date: "2023-06-05",
         category: "Events"
       },
@@ -75,7 +75,7 @@ const NewsPageContent = () => {
         id: 8,
         title: "Summer Koi Care: Keeping Your Fish Healthy in Hot Weather",
         excerpt: "Learn essential tips for maintaining your Koi's health during the hot summer months.",
-        image: "https://images.unsplash.com/photo-1513550363509-bce7815ee284",
+        image: "https://i.pinimg.com/236x/27/b4/99/27b4994916fff954f624923815d0cd87.jpg",
         date: "2023-06-20",
         category: "Tips"
       }
@@ -111,7 +111,7 @@ const NewsPageContent = () => {
 
   return (
     <div className="container_newsPage mx-auto px-4 py-8 pt-20">
-      <h1 className="text-4xl font-bold text-center mb-8 text-blue-600">Koi Fish News</h1>
+      <h1 className="text-4xl font-bold text-center mb-8 text-blue-600">Tin tức</h1>
       
       <div className="mb-8">
         <div className="flex flex-col md:flex-row justify-between items-center mb-4">
@@ -119,7 +119,7 @@ const NewsPageContent = () => {
             <div className="relative">
               <input
                 type="text"
-                placeholder="Search articles..."
+                placeholder="Tìm kiếm bài báo..."
                 value={searchTerm}
                 onChange={handleSearch}
                 className="w-full p-2 pl-10 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -182,7 +182,7 @@ const NewsPageContent = () => {
                 </div>
               </div>
               <button className="mt-4 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition duration-300">
-                Read More
+                Đọc thêm
               </button>
             </div>
           </div>
