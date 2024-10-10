@@ -71,8 +71,8 @@ export default function Nav() {
           </Link>
         </div>
         <div className="space-x-4">
-          {/* check token */}
-          {/* {access_token ? (
+         {/* check token */}
+         {access_token ? (
             // have token
             <div className="flex items-center space-x-3">
               <span className="text-blue-900 font-bold">
@@ -110,8 +110,8 @@ export default function Nav() {
               >
                 Đăng ký
               </motion.button>
-            </>
-          )} */}
+              </>
+          )}
         </div>
       </div>
     </nav>
