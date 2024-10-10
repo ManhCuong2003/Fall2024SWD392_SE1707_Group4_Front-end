@@ -9,6 +9,7 @@ export default function Nav() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [user, setUser] = useState(null);
   const navigate = useNavigate();
+
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
@@ -25,9 +26,16 @@ export default function Nav() {
       };
       setUser(userInfor);
     }
-  });
+  }, []);
 
   const access_token = localStorage.getItem("access_token");
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("access_token");
+    setUser(null); // Clear user state
+    navigate("/login");
+  };
 
   return (
     <nav
@@ -41,58 +49,43 @@ export default function Nav() {
           <span className="text-xl font-bold text-blue-900">KOI FARM SHOP</span>
         </div>
         <div className="hidden md:flex space-x-6">
-          <Link
-            to={"/"}
-            className="text-blue-900 hover:text-blue-600 transition-colors"
-            aria-label="Home"
-          >
+          <Link to={"/"} className="text-blue-900 hover:text-blue-600 transition-colors" aria-label="Home">
             Trang chủ
           </Link>
-          <Link
-            to={"/product-list"}
-            className="text-blue-900 hover:text-blue-600 transition-colors"
-            aria-label="Product"
-          >
+          <Link to={"/product-list"} className="text-blue-900 hover:text-blue-600 transition-colors" aria-label="Product">
             Sản phẩm
           </Link>
-          <Link
-            to={"/news"}
-            className="text-blue-900 hover:text-blue-600 transition-colors"
-            aria-label="News"
-          >
+          <Link to={"/news"} className="text-blue-900 hover:text-blue-600 transition-colors" aria-label="News">
             Tin tức
           </Link>
-          <Link
-            to={"/consignment"}
-            className="text-blue-900 hover:text-blue-600 transition-colors"
-            aria-label="Service"
-          >
+          <Link to={"/consignment"} className="text-blue-900 hover:text-blue-600 transition-colors" aria-label="Service">
             Dịch vụ
           </Link>
         </div>
         <div className="space-x-4">
-         {/* check token */}
-         {access_token ? (
-            // have token
+          {access_token ? (
+            // User is logged in
             <div className="flex items-center space-x-3">
               <span className="text-blue-900 font-bold">
                 Welcome, Trương Tuyết Ngân
               </span>
-              <Link
-                to={"/cart-page"}
-                className="text-2xl text-blue-900 hover:text-blue-600"
-              >
+              <Link to={"/cart-page"} className="text-2xl text-blue-900 hover:text-blue-600">
                 <IoCart />
               </Link>
-              <Link
-                to={"/customer-dashboard-page"}
-                className="text-2xl text-blue-900 hover:text-blue-600"
-              >
+              <Link to={"/customer-dashboard-page"} className="text-2xl text-blue-900 hover:text-blue-600">
                 <IoMdMore />
               </Link>
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="px-4 py-2 bg-red-600 text-white rounded-full hover:bg-red-700 transition-colors focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50"
+                onClick={handleLogout}
+              >
+                Đăng xuất
+              </motion.button>
             </div>
           ) : (
-            //no token
+            // User is not logged in
             <>
               <motion.button
                 whileHover={{ scale: 1.05 }}
@@ -110,7 +103,7 @@ export default function Nav() {
               >
                 Đăng ký
               </motion.button>
-              </>
+            </>
           )}
         </div>
       </div>
