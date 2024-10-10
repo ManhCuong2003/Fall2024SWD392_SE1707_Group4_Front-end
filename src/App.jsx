@@ -17,6 +17,7 @@ import NewsPage from "./pages/commonPage/NewsPage/NewsPage";
 import ProductListPage from "./pages/commonPage/ProductListPage/ProductListPage";
 import SalesReportPage from "./pages/commonPage/SalesReportPage/SalesReportPage";
 import FarmManager from "./pages/commonPage/Inventory/FarmManager";
+import ConsignmentPage from "./pages/commonPage/ConsignmentPage/ConsignmentPage";
 
 function App() {
   return (
@@ -29,12 +30,11 @@ function App() {
         <Route path="/detail-page/:id" Component={ProductDetailPage} />
         <Route path="/news" Component={NewsPage} />
         <Route path="/not-authorized" Component={NotAuthorized} />
-        <Route path="/register" Component={Register} />
         <Route path="/login" Component={Login} />
         <Route path="/register" Component={Register} />
         <Route path="/cart-page" Component={CartPage}/>
         <Route path="/checkout-page" Component= {CheckoutPage}/>
-        <Route path="/new-page" Component={NewsPage} />
+        <Route path="/consignment" Component= {ConsignmentPage}/>
         <Route
           path="/koi-list"
           element={
