@@ -1,10 +1,11 @@
 import React, { useState, useEffect, useContext } from "react";
 import { FaTrash, FaMinus, FaPlus } from "react-icons/fa";
 import { motion } from "framer-motion";
-import { CartContext } from "../Context/UserContext";
+import { userContext } from "../Context/UserContext";
+import { Link } from "react-router-dom";
 
 const CartContentPage = () => {
-  const { cartItems, updateQuantity, removeFromcart } = useContext(CartContext);
+  const { cartItems, updateQuantity, removeFromcart } = useContext(userContext);
   const [total, setTotal] = useState(0);
 
   useEffect(() => {
@@ -13,13 +14,17 @@ const CartContentPage = () => {
 
   const calculateTotal = () => {
     const sum = cartItems.reduce(
-      (acc, item) => acc + item.price * item.quantity,
+      (acc, item) => acc + item.koi_price * item.quantity,
       0
     );
     setTotal(sum);
   };
 
   const handleQuantityChange = (id, change) => {
+    updateQuantity(id, change);
+  };
+
+  const handleRemoveItem = (id) => {
     removeFromcart(id);
   };
 
@@ -46,16 +51,21 @@ const CartContentPage = () => {
                 />
                 <div>
                   <h2 className="text-xl font-semibold text-blue-800">
-                    {item.name}
+                    {item.koi_name}
                   </h2>
-                  <p className="text-gray-600">${item.price.toFixed(2)}</p>
+                  <p className="text-gray-600">${item.koi_price}</p>
                 </div>
               </div>
               <div className="flex items-center">
                 <button
-                  onClick={() => handleQuantityChange(item.id, -1)}
-                  className="bg-blue-500 text-white p-2 rounded-full hover:bg-blue-600 transition duration-200"
-                  aria-label={`Decrease quantity of ${item.name}`}
+                  onClick={() => handleQuantityChange(item.koi_id, -1)}
+                  className={`${
+                    item.quantity === 1
+                      ? "bg-gray-300"
+                      : "bg-blue-500 hover:bg-blue-600"
+                  } text-white p-2 rounded-full transition duration-200`}
+                  aria-label={`Decrease quantity of ${item.koi_name}`}
+                  disabled={item.quantity === 1}
                 >
                   <FaMinus />
                 </button>
@@ -63,14 +73,19 @@ const CartContentPage = () => {
                   {item.quantity}
                 </span>
                 <button
-                  onClick={() => handleQuantityChange(item.id, 1)}
-                  className="bg-blue-500 text-white p-2 rounded-full hover:bg-blue-600 transition duration-200"
-                  aria-label={`Increase quantity of ${item.name}`}
+                  onClick={() => handleQuantityChange(item.koi_id, 1)}
+                  className={`${
+                    item.quantity === item.koi_quantity
+                      ? "bg-gray-300"
+                      : "bg-blue-500 hover:bg-blue-600"
+                  }  text-white p-2 rounded-full  transition duration-200`}
+                  aria-label={`Increase quantity of ${item.koi_name}`}
+                  disabled={item.quantity === item.koi_quantity}
                 >
                   <FaPlus />
                 </button>
                 <button
-                  onClick={() => handleRemoveItem(item.id)}
+                  onClick={() => handleRemoveItem(item.koi_id)}
                   className="ml-4 text-red-500 hover:text-red-600 transition duration-200"
                   aria-label={`Remove ${item.name} from cart`}
                 >
@@ -93,15 +108,13 @@ const CartContentPage = () => {
             </button>
           </div>
           <div className="text-right">
-            <p className="text-xl font-semibold mb-2">
-              Total: ${total.toFixed(2)}
-            </p>
-            <button
+            <p className="text-xl font-semibold mb-2">Total: ${total}</p>
+            <Link
               className="bg-blue-600 text-white px-8 py-3 rounded-lg text-xl font-semibold hover:bg-blue-700 transition duration-200"
-              onClick={() => alert("Proceeding to checkout")}
+              to={"/checkout-page"}
             >
               Thanh toán
-            </button>
+            </Link>
           </div>
         </div>
       </div>

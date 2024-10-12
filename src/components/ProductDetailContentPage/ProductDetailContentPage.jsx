@@ -3,36 +3,43 @@ import { motion } from "framer-motion";
 import { FaRegStar, FaShoppingCart, FaStar } from "react-icons/fa";
 import apiClient from "../../utils/axios";
 import { useParams } from "react-router-dom";
-import { CartContext } from "../Context/UserContext";
+import { userContext } from "../Context/UserContext";
 
 export default function ProductDetailContentPage() {
   const [quantity, setQuantity] = useState(1);
   const [product, setProduct] = useState(null);
   const { id } = useParams();
-  const { addToCart } = useContext(CartContext);
+  const { addToCart } = useContext(userContext);
 
   useEffect(() => {
     const fetchProductData = async () => {
       try {
         const response = await apiClient.get(`/api/products/${id}`);
         setProduct(response.data);
-        setTotalPrice(response.data.koi_price); //set initial price
       } catch (err) {
         console.log("Error fetching product data: ", err);
       }
     };
     fetchProductData();
-  }, []);
-
-  const handleAddToCart = () => {
-    if (product) {
-      addToCart(product, quantity);
-      alert(`${product.koi_name} added to cart`);
-    }
-  };
+  }, [id]);
 
   const handleQuantityChange = (e) => {
     setQuantity(parseInt(e.target.value));
+  };
+
+  const handleSubmitFeedback = async (e) => {
+    e.preventDefault();
+    const newFeedback = {
+      user: "Anonymous",
+      comment: e.target.comment.value,
+    };
+
+    try {
+      const response = await apiClient.post("lam sau", newFeedback);
+      setFeedbacks([...feedbacks, response.data]);
+    } catch (err) {
+      console.log("Error submitting reviews:", err);
+    }
   };
 
   if (!product) {
@@ -41,6 +48,16 @@ export default function ProductDetailContentPage() {
 
   return (
     <div className="container_productDetailContent mx-auto px-4 py-8 pt-20">
+      {/* Shopping Cart Icon */}
+      <div className="absolute top-5 right-5 flex items-center">
+        <FaShoppingCart className="text-2xl" />
+        {/* {cartItems > 0 && (
+          <span className="bg-red-500 text-white rounded-full text-xs px-1 ml-1">
+            {cartItems}
+          </span>
+        )} */}
+      </div>
+
       <div className="flex flex-wrap -mx-4 mt-50">
         {/* Product Image Gallery */}
         <div className="w-full md:w-1/2 px-4 mb-8">
@@ -65,7 +82,7 @@ export default function ProductDetailContentPage() {
 
           {/* Quantity Selection */}
           <div className="mb-4">
-            <label htmlFor="quantity" className=" font-semibold mb-2 mr-2">
+            <label htmlFor="quantity" className="font-semibold mb-2 mr-2">
               Số lượng:
             </label>
             <input
@@ -81,7 +98,7 @@ export default function ProductDetailContentPage() {
 
           {/* Add to Cart Button */}
           <button
-            onClick={handleAddToCart}
+            onClick={() => addToCart(product, quantity)}
             className="bg-blue-600 text-white px-6 py-3 rounded-md font-semibold hover:bg-blue-700 transition duration-300 flex items-center"
           >
             <FaShoppingCart className="mr-2" />

@@ -15,24 +15,72 @@ import StaffManagePage from "./pages/staff/StaffManagePage/StaffManagePage";
 
 import NewsPage from "./pages/commonPage/NewsPage/NewsPage";
 import ProductListPage from "./pages/commonPage/ProductListPage/ProductListPage";
-import { CartProvider } from "./components/Context/UserContext";
+import SalesReportPage from "./pages/commonPage/SalesReportPage/SalesReportPage";
+import FarmManager from "./pages/commonPage/Inventory/FarmManager";
+import ConsignmentPage from "./pages/commonPage/ConsignmentPage/ConsignmentPage";
+import { UserProvider } from "./components/Context/UserContext";
 
 function App() {
   return (
-    <CartProvider>
+    <UserProvider>
       <BrowserRouter>
         <Routes>
+          {/* Not Authorized page */}
           <Route path="*" Component={NotAuthorized} />
+
+          {/* Authorized */}
+          <Route path="/login" Component={Login} />
+          <Route path="/register" Component={Register} />
+
+          {/* Public page */}
+          <Route path="/not-authorized" Component={NotAuthorized} />
           <Route path="/" Component={homePage} />
           <Route path="/product-list" Component={ProductListPage} />
           <Route path="/detail-page/:id" Component={ProductDetailPage} />
           <Route path="/news" Component={NewsPage} />
-          <Route path="/not-authorized" Component={NotAuthorized} />
-          <Route path="/register" Component={Register} />
-          <Route path="/login" Component={Login} />
-          <Route path="/register" Component={Register} />
-          <Route path="/cart-page" Component={CartPage} />
-          <Route path="/checkout-page" Component={CheckoutPage} />
+
+          {/* Customer page */}
+          <Route
+            path="/cart-page"
+            element={
+              <RoleBasedRoute
+                element={<CartPage />}
+                requiredRole={["customer"]}
+              />
+            }
+          />
+          <Route
+            path="/checkout-page"
+            element={
+              // <RoleBasedRoute
+              //   element={<CheckoutPage />}
+              //   requiredRole={["customer"]}
+              // />
+              <CheckoutPage />
+            }
+          />
+          <Route
+            path="/customer-dashboard"
+            element={
+              <RoleBasedRoute
+                element={<CustomerDashboardPage />}
+                requiredRole={["customer"]}
+              />
+            }
+          />
+
+          {/* Staff page */}
+          <Route
+            path="/staff-manage-page"
+            element={
+              <RoleBasedRoute
+                element={<StaffManagePage />}
+                requiredRole={["staff"]}
+              />
+            }
+          />
+
+          {/* Manager page */}
           <Route
             path="/koi-list"
             element={
@@ -42,12 +90,21 @@ function App() {
               />
             }
           />
+          <Route
+            path="/koi-list"
+            element={
+              <RoleBasedRoute
+                element={<KoiFishManagerList />}
+                requiredRole={["manager"]}
+              />
+            }
+          />
+          <Route path="/farm-manager" Component={FarmManager} />
 
-          <Route path="/customer-dashboard" Component={CustomerDashboardPage} />
-          <Route path="/staff-manage-page" Component={StaffManagePage} />
+          <Route path="/sales-report-page" Component={SalesReportPage} />
         </Routes>
       </BrowserRouter>
-    </CartProvider>
+    </UserProvider>
   );
 }
 

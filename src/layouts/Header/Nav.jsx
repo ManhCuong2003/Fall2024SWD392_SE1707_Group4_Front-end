@@ -1,14 +1,16 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { FaFish } from "react-icons/fa";
 import { motion } from "framer-motion";
 import { Link, useNavigate } from "react-router-dom";
 import { IoMdMore } from "react-icons/io";
 import { IoCart } from "react-icons/io5";
+import { userContext } from "../../components/Context/UserContext";
 
 export default function Nav() {
   const [isScrolled, setIsScrolled] = useState(false);
-  const [user, setUser] = useState(null);
   const navigate = useNavigate();
+  const { user, cartItems } = useContext(userContext);
+
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
@@ -17,17 +19,11 @@ export default function Nav() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (token) {
-      const userInfor = {
-        name: "Truong Tuyet Ngan",
-      };
-      setUser(userInfor);
-    }
-  });
-
-  const access_token = localStorage.getItem("access_token");
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("access_token");
+    navigate("/login");
+  };
 
   return (
     <nav
@@ -56,14 +52,14 @@ export default function Nav() {
             Sản phẩm
           </Link>
           <Link
-            to={"/"}
+            to={"/news"}
             className="text-blue-900 hover:text-blue-600 transition-colors"
             aria-label="News"
           >
             Tin tức
           </Link>
           <Link
-            to={"/"}
+            to={"/consignment"}
             className="text-blue-900 hover:text-blue-600 transition-colors"
             aria-label="Service"
           >
@@ -71,18 +67,22 @@ export default function Nav() {
           </Link>
         </div>
         <div className="space-x-4">
-          {/* check token */}
-          {access_token ? (
-            // have token
+          {user ? (
+            // User is logged in
             <div className="flex items-center space-x-3">
               <span className="text-blue-900 font-bold">
-                Welcome, Trương Tuyết Ngân
+                Welcome, {user.userfullname}
               </span>
               <Link
                 to={"/cart-page"}
-                className="text-2xl text-blue-900 hover:text-blue-600"
+                className="relative text-2xl text-blue-900 hover:text-blue-600"
               >
                 <IoCart />
+                {cartItems.length > 0 && (
+                  <span class="absolute -top-2.5 -right-2 inline-block bg-blue-500 text-xs text-white px-2 py-1 rounded-full">
+                    {cartItems.length}
+                  </span>
+                )}
               </Link>
               <Link
                 to={"/customer-dashboard-page"}
@@ -90,9 +90,17 @@ export default function Nav() {
               >
                 <IoMdMore />
               </Link>
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="px-4 py-2 bg-red-600 text-white rounded-full hover:bg-red-700 transition-colors focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50"
+                onClick={handleLogout}
+              >
+                Đăng xuất
+              </motion.button>
             </div>
           ) : (
-            //no token
+            // User is not logged in
             <>
               <motion.button
                 whileHover={{ scale: 1.05 }}
