@@ -85,7 +85,7 @@ export default function Nav() {
                 )}
               </Link>
               <Link
-                to={"/customer-dashboard-page"}
+                to={"/customer-dashboard"}
                 className="text-2xl text-blue-900 hover:text-blue-600"
               >
                 <IoMdMore />
