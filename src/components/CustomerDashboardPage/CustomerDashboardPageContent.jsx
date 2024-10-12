@@ -1,21 +1,19 @@
 import { useState } from "react";
 import { AiFillProfile } from "react-icons/ai";
 import { BiSolidPackage } from "react-icons/bi";
-import { FaBell, FaHeart, FaLock, FaSignOutAlt } from "react-icons/fa";
+import { FaBell, FaHeart, FaSignOutAlt } from "react-icons/fa";
 import { PiHandDepositFill } from "react-icons/pi";
 import MyOrdersSub from "./DashboardContentComponent/MyOrdersSub";
-import ConsignmentPage from "../../pages/commonPage/ConsignmentPage/ConsignmentPage";
+import Profile from "./DashboardContentComponent/Profile";
+import FavoriteProducts from "./DashboardContentComponent/FavoriteProducts";
+import ConsignProfile from "./DashboardContentComponent/ConsignProfile";
+
 export default function CustomerDashboardPageContent() {
   const [activeNavItem, setActiveNavItem] = useState(0);
 
   const navItems = [
     { icon: <AiFillProfile />, label: "myProfile", name: "Hồ sơ của tôi" },
     { icon: <FaHeart />, label: "myWishlist", name: "Sản phẩm yêu thích" },
-    {
-      icon: <MdLibraryAdd />,
-      label: "addConsignment",
-      name: "Thêm đơn ký gửi",
-    },
     { icon: <BiSolidPackage />, label: "myOrders", name: "Đơn hàng của tôi" },
     {
       icon: <PiHandDepositFill />,
@@ -23,7 +21,6 @@ export default function CustomerDashboardPageContent() {
       name: "Đơn ký gửi của tôi",
     },
     { icon: <FaBell />, label: "notification", name: "Thông báo" },
-    { icon: <FaLock />, label: "changePassword", name: "Thay đổi mật khẩu" },
     { icon: <FaSignOutAlt />, label: "logout", name: "Đăng xuất" },
   ];
 
@@ -42,7 +39,7 @@ export default function CustomerDashboardPageContent() {
             {navItems.map((item, index) => (
               <li key={index}>
                 <button
-                  className={`flex items-center text-gray-700 hover:text-blue-500 transition-colors duration-200  ${
+                  className={`flex items-center text-gray-700 hover:text-blue-500 transition-colors duration-200 ${
                     activeNavItem === index ? "text-blue-500" : "text-gray-700"
                   }`}
                   onClick={() => setActiveNavItem(index)}
@@ -61,41 +58,15 @@ export default function CustomerDashboardPageContent() {
             {navItems[activeNavItem].name}
           </h1>
           {navItems[activeNavItem].label === "myOrders" && <MyOrdersSub />}
-          {navItems[activeNavItem].label === "addConsignment" && (
-            <ConsignmentPage />
+          {navItems[activeNavItem].label === "myProfile" && <Profile />}
+          {navItems[activeNavItem].label === "myWishlist" && (
+            <FavoriteProducts />
+          )}
+          {navItems[activeNavItem].label === "myConsigment" && (
+            <ConsignProfile />
           )}
         </main>
       </div>
     </div>
   );
-}
-
-{
-  /* tabs */
-}
-{
-  /* <div className="mb-6">
-                <nav className="flex space-x-4">
-                    {tabContent.map((tab, index) => (
-                    <button
-                        key={index}
-                        className={`px-4 py-2 font-medium rounded-md transition-colors ${
-                        activeTab === index ? "bg-blue-500 text-white": "text-gray-600 hover:bg-gray-100"}`}
-                        onClick={() => setActiveTab(index)}
-                        >
-                            {tab.label}
-                     </button>
-                    ))}
-                </nav>
-            </div> */
-}
-
-{
-  /* Tab Content */
-}
-{
-  /* <div className="bg-white p-6 rounded-lg shadow-md">
-                <h2 className="text-2xl font-semibold mb-4">{tabContent[activeTab].label}</h2>
-                <p>{tabContent[activeTab].content}</p>
-            </div> */
 }
