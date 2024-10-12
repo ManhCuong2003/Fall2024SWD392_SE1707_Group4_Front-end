@@ -5,7 +5,6 @@ import { LuEye } from "react-icons/lu";
 import apiClient from "../../utils/axios";
 import { Link } from "react-router-dom";
 
-
 const ProductListPageContent = () => {
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
@@ -20,55 +19,56 @@ const ProductListPageContent = () => {
   const productsPerPage = 6;
 
   useEffect(() => {
-    const fetchProducts = async() => {
+    const fetchProducts = async () => {
       try {
         setLoading(true); // start loading
         const response = await apiClient.get("/api/products");
-        
+
         setFilteredProducts(response.data);
-      }catch(err){
+      } catch (err) {
         console.log(err);
         setError("Fail to fetch product. Please try again");
-      }finally{
-          setLoading(false) //End loading
+      } finally {
+        setLoading(false); //End loading
       }
     };
     fetchProducts();
-  }, []); 
+  }, []);
 
   useEffect(() => {
-  const filterAndSortProducts = () => {
-    let result = [...filteredProducts];
+    const filterAndSortProducts = () => {
+      let result = [...filteredProducts];
 
-    if (searchTerm) {
-      result = result.filter((product) =>
-        product.name.toLowerCase().includes(searchTerm.toLowerCase())
-      );
-    }
+      if (searchTerm) {
+        result = result.filter((product) =>
+          product.name.toLowerCase().includes(searchTerm.toLowerCase())
+        );
+      }
 
-    if (selectedCategory) {
-      result = result.filter((product) => product.category === selectedCategory);
-    }
+      if (selectedCategory) {
+        result = result.filter(
+          (product) => product.category === selectedCategory
+        );
+      }
 
-    if (selectedSize) {
-      result = result.filter((product) => product.size === selectedSize);
-    }
+      if (selectedSize) {
+        result = result.filter((product) => product.size === selectedSize);
+      }
 
-    if (selectedBreed) {
-      result = result.filter((product) => product.species === selectedBreed);
-    }
+      if (selectedBreed) {
+        result = result.filter((product) => product.species === selectedBreed);
+      }
 
-    if (sortOption === "price-asc") {
-      result.sort((a, b) => a.price - b.price);
-    } else if (sortOption === "price-desc") {
-      result.sort((a, b) => b.price - a.price);
-    }
+      if (sortOption === "price-asc") {
+        result.sort((a, b) => a.price - b.price);
+      } else if (sortOption === "price-desc") {
+        result.sort((a, b) => b.price - a.price);
+      }
 
-    setFilteredProducts(result);
-    setCurrentPage(1);
-    
-  }
-  filterAndSortProducts();
+      setFilteredProducts(result);
+      setCurrentPage(1);
+    };
+    filterAndSortProducts();
   }, [searchTerm, selectedCategory, selectedSize, selectedBreed, sortOption]);
 
   const indexOfLastProduct = currentPage * productsPerPage;
@@ -79,7 +79,11 @@ const ProductListPageContent = () => {
   );
 
   const pageNumbers = [];
-  for (let i = 1; i <= Math.ceil(filteredProducts.length / productsPerPage); i++) {
+  for (
+    let i = 1;
+    i <= Math.ceil(filteredProducts.length / productsPerPage);
+    i++
+  ) {
     pageNumbers.push(i);
   }
 
@@ -107,18 +111,20 @@ const ProductListPageContent = () => {
     setCurrentPage(pageNumber);
 
     //handle loading and error states
-    if(loading){
-      return <div>Đang tải...</div>
+    if (loading) {
+      return <div>Đang tải...</div>;
     }
 
-    if(error){
-      return <div>{error}</div>
+    if (error) {
+      return <div>{error}</div>;
     }
   };
 
   return (
     <div className="container_productListPage mx-auto px-4 py-8 pt-20 bg-gradient-to-b from-blue-50 to-blue-100">
-      <h1 className="text-4xl font-bold mb-8 text-center text-blue-600">Koi Fish Shop</h1>
+      <h1 className="text-4xl font-bold mb-8 text-center text-blue-600">
+        Koi Fish Shop
+      </h1>
       <div className="mb-8">
         <div className="flex flex-col md:flex-row justify-between items-center mb-4">
           <div className="relative w-full md:w-1/3 mb-4 md:mb-0">
@@ -184,24 +190,24 @@ const ProductListPageContent = () => {
           >
             <div className="w-full h-fit">
               <img
-              src={product.koi_image_url}
-              alt={product.koi_name}
-              className="w-full h-56 object-contain transform rotate-90"
-            />
+                src={product.koi_image_url}
+                alt={product.koi_name}
+                className="w-full h-56 object-contain transform rotate-90"
+              />
             </div>
             <div className="p-4">
               <h2 className="text-xl font-semibold mb-2">{product.koi_name}</h2>
-              <p className="text-gray-600 mb-2 truncate hover:text-clip">{product.koi_description}</p>
+              <p className="text-gray-600 mb-2 truncate hover:text-clip">
+                {product.koi_description}
+              </p>
               <div className="flex justify-between items-center">
                 <span className="text-lg font-bold text-blue-600">
                   ${product.koi_price.toFixed(2)}
                 </span>
                 <Link to={`/detail-page/${product.koi_id}`}>
-                  <button
-                    className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition duration-300 flex items-center"
-                >
-                  <LuEye className="mr-2"/>
-                  Xem chi tiết
+                  <button className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition duration-300 flex items-center">
+                    <LuEye className="mr-2" />
+                    Xem chi tiết
                   </button>
                 </Link>
               </div>
@@ -234,7 +240,10 @@ const ProductListPageContent = () => {
           ))}
           <button
             onClick={() => handlePageChange(currentPage + 1)}
-            disabled={currentPage === Math.ceil(filteredProducts.length / productsPerPage)}
+            disabled={
+              currentPage ===
+              Math.ceil(filteredProducts.length / productsPerPage)
+            }
             className="px-3 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50"
           >
             <span className="sr-only">Sau</span>
@@ -247,4 +256,3 @@ const ProductListPageContent = () => {
 };
 
 export default ProductListPageContent;
-

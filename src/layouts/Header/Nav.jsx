@@ -1,14 +1,15 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { FaFish } from "react-icons/fa";
 import { motion } from "framer-motion";
 import { Link, useNavigate } from "react-router-dom";
 import { IoMdMore } from "react-icons/io";
 import { IoCart } from "react-icons/io5";
+import { userContext } from "../../components/Context/UserContext";
 
 export default function Nav() {
   const [isScrolled, setIsScrolled] = useState(false);
-  const [user, setUser] = useState(null);
   const navigate = useNavigate();
+  const { user, cartItems } = useContext(userContext);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -18,22 +19,9 @@ export default function Nav() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (token) {
-      const userInfor = {
-        name: "Truong Tuyet Ngan",
-      };
-      setUser(userInfor);
-    }
-  }, []);
-
-  const access_token = localStorage.getItem("access_token");
-
   const handleLogout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("access_token");
-    setUser(null); // Clear user state
     navigate("/login");
   };
 
@@ -49,30 +37,57 @@ export default function Nav() {
           <span className="text-xl font-bold text-blue-900">KOI FARM SHOP</span>
         </div>
         <div className="hidden md:flex space-x-6">
-          <Link to={"/"} className="text-blue-900 hover:text-blue-600 transition-colors" aria-label="Home">
+          <Link
+            to={"/"}
+            className="text-blue-900 hover:text-blue-600 transition-colors"
+            aria-label="Home"
+          >
             Trang chủ
           </Link>
-          <Link to={"/product-list"} className="text-blue-900 hover:text-blue-600 transition-colors" aria-label="Product">
+          <Link
+            to={"/product-list"}
+            className="text-blue-900 hover:text-blue-600 transition-colors"
+            aria-label="Product"
+          >
             Sản phẩm
           </Link>
-          <Link to={"/news"} className="text-blue-900 hover:text-blue-600 transition-colors" aria-label="News">
+          <Link
+            to={"/news"}
+            className="text-blue-900 hover:text-blue-600 transition-colors"
+            aria-label="News"
+          >
             Tin tức
           </Link>
-          <Link to={"/consignment"} className="text-blue-900 hover:text-blue-600 transition-colors" aria-label="Service">
+          <Link
+            to={"/consignment"}
+            className="text-blue-900 hover:text-blue-600 transition-colors"
+            aria-label="Service"
+          >
             Dịch vụ
           </Link>
         </div>
         <div className="space-x-4">
-          {access_token ? (
+          {user ? (
             // User is logged in
             <div className="flex items-center space-x-3">
               <span className="text-blue-900 font-bold">
-                Welcome, Trương Tuyết Ngân
+                Welcome, {user.userfullname}
               </span>
-              <Link to={"/cart-page"} className="text-2xl text-blue-900 hover:text-blue-600">
+              <Link
+                to={"/cart-page"}
+                className="relative text-2xl text-blue-900 hover:text-blue-600"
+              >
                 <IoCart />
+                {cartItems.length > 0 && (
+                  <span class="absolute -top-2.5 -right-2 inline-block bg-blue-500 text-xs text-white px-2 py-1 rounded-full">
+                    {cartItems.length}
+                  </span>
+                )}
               </Link>
-              <Link to={"/customer-dashboard-page"} className="text-2xl text-blue-900 hover:text-blue-600">
+              <Link
+                to={"/customer-dashboard-page"}
+                className="text-2xl text-blue-900 hover:text-blue-600"
+              >
                 <IoMdMore />
               </Link>
               <motion.button
