@@ -1,8 +1,7 @@
-import React, { useContext, useEffect, useState } from "react";
-import { motion } from "framer-motion";
-import { FaRegStar, FaShoppingCart, FaStar } from "react-icons/fa";
+import { useContext, useEffect, useState } from "react";
+import { FaShoppingCart } from "react-icons/fa";
 import apiClient from "../../utils/axios";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { userContext } from "../Context/UserContext";
 
 export default function ProductDetailContentPage() {
@@ -10,6 +9,7 @@ export default function ProductDetailContentPage() {
   const [product, setProduct] = useState(null);
   const { id } = useParams();
   const { addToCart } = useContext(userContext);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchProductData = async () => {
@@ -27,19 +27,13 @@ export default function ProductDetailContentPage() {
     setQuantity(parseInt(e.target.value));
   };
 
-  const handleSubmitFeedback = async (e) => {
-    e.preventDefault();
-    const newFeedback = {
-      user: "Anonymous",
-      comment: e.target.comment.value,
-    };
+  const handleBuyNow = () => {
+    navigate("/checkout-page");
+  };
 
-    try {
-      const response = await apiClient.post("lam sau", newFeedback);
-      setFeedbacks([...feedbacks, response.data]);
-    } catch (err) {
-      console.log("Error submitting reviews:", err);
-    }
+  const handleBuyAndSend = () => {
+    addToCart(product, quantity);
+    navigate("/checkout-consign");
   };
 
   if (!product) {
@@ -51,23 +45,16 @@ export default function ProductDetailContentPage() {
       {/* Shopping Cart Icon */}
       <div className="absolute top-5 right-5 flex items-center">
         <FaShoppingCart className="text-2xl" />
-        {/* {cartItems > 0 && (
-          <span className="bg-red-500 text-white rounded-full text-xs px-1 ml-1">
-            {cartItems}
-          </span>
-        )} */}
       </div>
 
-      <div className="flex flex-wrap -mx-4 mt-50">
+      <div className="flex flex-wrap -mx-4 mt-10">
         {/* Product Image Gallery */}
         <div className="w-full md:w-1/2 px-4 mb-8">
-          <div className="relative">
-            <img
-              src={product.koi_image_url}
-              alt={product.koi_name}
-              className="w-full h-auto rounded-lg shadow-lg"
-            />
-          </div>
+          <img
+            src={product.koi_image_url}
+            alt={product.koi_name}
+            className="w-3/4 h-auto mx-auto rounded-lg shadow-lg" // Hình ảnh nhỏ lại và căn giữa
+          />
         </div>
 
         {/* Product Information */}
@@ -99,10 +86,61 @@ export default function ProductDetailContentPage() {
           {/* Add to Cart Button */}
           <button
             onClick={() => addToCart(product, quantity)}
-            className="bg-blue-600 text-white px-6 py-3 rounded-md font-semibold hover:bg-blue-700 transition duration-300 flex items-center"
+            style={{
+              backgroundColor: '#1D4ED8',
+              color: 'white',
+              padding: '12px 24px',
+              borderRadius: '8px',
+              fontWeight: '600',
+              transition: 'background-color 0.3s',
+              marginBottom: '8px',
+              display: 'flex',
+              alignItems: 'center',
+            }}
+            onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#1E40AF'}
+            onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#1D4ED8'}
           >
             <FaShoppingCart className="mr-2" />
             Thêm vào giỏ hàng
+          </button>
+
+          {/* Buy Now Button */}
+          <button
+            onClick={handleBuyNow}
+            style={{
+              backgroundColor: '#22C55E',
+              color: 'white',
+              padding: '12px 24px',
+              borderRadius: '8px',
+              fontWeight: '600',
+              transition: 'background-color 0.3s',
+              marginBottom: '8px',
+              display: 'flex',
+              alignItems: 'center',
+            }}
+            onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#16A34A'}
+            onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#22C55E'}
+          >
+            Mua ngay
+          </button>
+
+          {/* Buy and Send Button */}
+          <button
+            onClick={handleBuyAndSend}
+            style={{
+              backgroundColor: '#FBBF24',
+              color: 'white',
+              padding: '12px 24px',
+              borderRadius: '8px',
+              fontWeight: '600',
+              transition: 'background-color 0.3s',
+              display: 'flex',
+              alignItems: 'center',
+            }}
+            onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#F59E0B'}
+            onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#FBBF24'}
+          >
+            Mua và ký gửi
           </button>
 
           {/* Specifications */}
