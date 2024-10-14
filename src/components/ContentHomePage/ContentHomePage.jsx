@@ -1,9 +1,8 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { motion } from "framer-motion";
 import { LuEye } from "react-icons/lu";
 import apiClient from "../../utils/axios";
-import { Link } from "react-router-dom";
 
 function ContentHomePage() {
   const [filteredProducts, setFilteredProducts] = useState([]);
@@ -18,19 +17,16 @@ function ContentHomePage() {
       try {
         setLoading(true); // start loading
         const response = await apiClient.get("/api/products");
-
         setFilteredProducts(response.data);
       } catch (err) {
         console.log(err);
         setError("Fail to fetch product. Please try again");
       } finally {
-        setLoading(false) //End loading
+        setLoading(false); // End loading
       }
     };
     fetchProducts();
   }, []);
-
-
 
   const indexOfLastProduct = currentPage * productsPerPage;
   const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
@@ -39,17 +35,10 @@ function ContentHomePage() {
     indexOfLastProduct
   );
 
-  const pageNumbers = [];
-  for (let i = 1; i <= Math.ceil(filteredProducts.length / productsPerPage); i++) {
-    pageNumbers.push(i);
-  }
-
-
-
   const [activeFilter, setActiveFilter] = useState("all");
   const categories = ["Kohaku", "Showa", "Asagi", "Shusui", "Bekko"];
+  
   return (
-
     <main className='pt-20 container_homecontent mx-auto px-4'>
       <section className='text-center py-20'>
         <h1 className='text-4xl md:text-6xl font-bold text-blue-900 mb-6'>
@@ -58,13 +47,15 @@ function ContentHomePage() {
         <p className="text-xl text-blue-700 mb-8">
           Nơi chúng tôi cung cấp những dòng sản phẩm cá koi và dịch vụ chắm sóc khách hàng tuyệt vời nhất tại thị trường Việt Nam
         </p>
-        <motion.button
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-          className="px-8 py-3 bg-blue-600 text-white rounded-full text-lg hover:bg-blue-700 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
-        >
-          Explore Our Collection
-        </motion.button>
+        <Link to="/product-list">
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="px-8 py-3 bg-blue-600 text-white rounded-full text-lg hover:bg-blue-700 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
+          >
+            Explore Our Collection
+          </motion.button>
+        </Link>
       </section>
 
       <section className="py-12">
@@ -121,7 +112,7 @@ function ContentHomePage() {
         </div>
       </section>
     </main>
-  )
+  );
 }
 
-export default ContentHomePage
+export default ContentHomePage;

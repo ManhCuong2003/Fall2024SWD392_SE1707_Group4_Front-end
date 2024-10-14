@@ -17,9 +17,10 @@ import NewsPage from "./pages/commonPage/NewsPage/NewsPage";
 import ProductListPage from "./pages/commonPage/ProductListPage/ProductListPage";
 import SalesReportPage from "./pages/commonPage/SalesReportPage/SalesReportPage";
 import FarmManager from "./pages/commonPage/Inventory/FarmManager";
-import ConsignmentPage from "./pages/commonPage/ConsignmentPage/ConsignmentPage";
 import { UserProvider } from "./components/Context/UserContext";
 import ReadMore from "./components/NewsPageContent/ReadMore";
+import ConsignCheckOut from "./pages/commonPage/ConsignCheckout/ConsignCheckout";
+
 
 function App() {
   return (
@@ -102,6 +103,7 @@ function App() {
           />
           <Route path="/farm-manager" Component={FarmManager} />
           <Route path="/read-more" Component={ReadMore} />
+          <Route path="/checkout-consign" Component={ConsignCheckOut} />
 
           <Route path="/sales-report-page" Component={SalesReportPage} />
         </Routes>
