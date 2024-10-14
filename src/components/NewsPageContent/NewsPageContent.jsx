@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from "react";
+import  { useState, useEffect } from "react";
 import { FaSearch, FaChevronLeft, FaChevronRight, FaHeart, FaShareAlt } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 const NewsPageContent = () => {
   const [articles, setArticles] = useState([]);
@@ -181,8 +182,10 @@ const NewsPageContent = () => {
                   </button>
                 </div>
               </div>
-              <button className="mt-4 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition duration-300">
-                Đọc thêm
+              <button 
+                    onClick={() => {/* Your logic to handle reading more */}} 
+                    className="mt-4 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition duration-300">
+                    <Link to="/read-more">Đọc thêm</Link>
               </button>
             </div>
           </div>
