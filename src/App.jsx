@@ -19,6 +19,7 @@ import SalesReportPage from "./pages/commonPage/SalesReportPage/SalesReportPage"
 import FarmManager from "./pages/commonPage/Inventory/FarmManager";
 import ConsignmentPage from "./pages/commonPage/ConsignmentPage/ConsignmentPage";
 import { UserProvider } from "./components/Context/UserContext";
+import ReadMore from "./components/NewsPageContent/ReadMore";
 
 function App() {
   return (
@@ -100,6 +101,7 @@ function App() {
             }
           />
           <Route path="/farm-manager" Component={FarmManager} />
+          <Route path="/read-more" Component={ReadMore} />
 
           <Route path="/sales-report-page" Component={SalesReportPage} />
         </Routes>
