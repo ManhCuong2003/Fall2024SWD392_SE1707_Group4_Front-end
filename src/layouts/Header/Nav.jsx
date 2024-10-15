@@ -9,7 +9,8 @@ import { userContext } from "../../components/Context/UserContext";
 export default function Nav() {
   const [isScrolled, setIsScrolled] = useState(false);
   const navigate = useNavigate();
-  const { user, cartItems } = useContext(userContext);
+  const { cartItems } = useContext(userContext);
+  const user = JSON.parse(localStorage.getItem("userInfor"));
 
   useEffect(() => {
     const handleScroll = () => {
@@ -20,8 +21,9 @@ export default function Nav() {
   }, []);
 
   const handleLogout = () => {
-    localStorage.removeItem("token");
+    localStorage.removeItem("userInfor");
     localStorage.removeItem("access_token");
+    localStorage.removeItem("refresh_token");
     navigate("/login");
   };
 

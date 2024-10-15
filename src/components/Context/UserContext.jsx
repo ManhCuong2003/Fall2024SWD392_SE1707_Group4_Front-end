@@ -1,12 +1,20 @@
-import React, { Component, createContext, useState } from "react";
+import React, { Component, createContext, useEffect, useState } from "react";
 
 export const userContext = createContext();
 
 //CartProvider component to provide global cart state
 export const UserProvider = ({ children }) => {
-  const [cartItems, setCartItems] = useState([]);
+  const [cartItems, setCartItems] = useState(() => {
+    // lấy giỏ hàng từ localStorage
+    const savedCart = localStorage.getItem("cart");
+    return savedCart ? JSON.parse(savedCart) : [];
+  });
   const [user, setUser] = useState(null);
-  console.log(cartItems);
+
+  useEffect(() => {
+    localStorage.setItem("cart", JSON.stringify(cartItems));
+  }, [cartItems]);
+
   //function to add item to the cart
   const addToCart = (product, quantity) => {
     const existingItem = cartItems.find(
@@ -22,7 +30,7 @@ export const UserProvider = ({ children }) => {
         )
       );
     } else {
-      setCartItems([...cartItems, { ...product, quantity }]);
+      setCartItems((prev) => [...prev, { ...product, quantity }]);
     }
   };
 

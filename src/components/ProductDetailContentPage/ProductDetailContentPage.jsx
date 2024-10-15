@@ -8,8 +8,9 @@ export default function ProductDetailContentPage() {
   const [quantity, setQuantity] = useState(1);
   const [product, setProduct] = useState(null);
   const { id } = useParams();
-  const { addToCart } = useContext(userContext);
+  const { addToCart, cartItems } = useContext(userContext);
   const navigate = useNavigate();
+  const itemInCart = cartItems.find((item) => item.koi_id == id);
 
   useEffect(() => {
     const fetchProductData = async () => {
@@ -61,44 +62,17 @@ export default function ProductDetailContentPage() {
         <div className="w-full md:w-1/2 px-4">
           <h1 className="text-3xl font-bold mb-4">{product.koi_name}</h1>
           <p className="text-2xl font-semibold text-blue-600 mb-4">
-            ${product.koi_price.toFixed(2)}
+            {product.koi_price.toFixed(2)} VNĐ
           </p>
           <p className="mb-4">{product.koi_description}</p>
           <p className="inline-block mb-4 mr-2 font-semibold">Kho hàng: </p>
           {product.koi_quantity}
 
-          {/* Quantity Selection */}
-          <div className="mb-4">
-            <label htmlFor="quantity" className="font-semibold mb-2 mr-2">
-              Số lượng:
-            </label>
-            <input
-              type="number"
-              id="quantity"
-              min="1"
-              max={product.koi_quantity}
-              value={quantity}
-              onChange={handleQuantityChange}
-              className="w-20 px-2 py-1 border rounded-md"
-            />
-          </div>
-
           {/* Add to Cart Button */}
           <button
+            className="bg-blue-700 hover:bg-blue-800 text-white px-2 py-4 mb-2 font-bold flex items-center rounded-lg disabled:opacity-50"
+            disabled={itemInCart?.quantity >= product.koi_quantity}
             onClick={() => addToCart(product, quantity)}
-            style={{
-              backgroundColor: '#1D4ED8',
-              color: 'white',
-              padding: '12px 24px',
-              borderRadius: '8px',
-              fontWeight: '600',
-              transition: 'background-color 0.3s',
-              marginBottom: '8px',
-              display: 'flex',
-              alignItems: 'center',
-            }}
-            onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#1E40AF'}
-            onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#1D4ED8'}
           >
             <FaShoppingCart className="mr-2" />
             Thêm vào giỏ hàng
@@ -108,18 +82,22 @@ export default function ProductDetailContentPage() {
           <button
             onClick={handleBuyNow}
             style={{
-              backgroundColor: '#22C55E',
-              color: 'white',
-              padding: '12px 24px',
-              borderRadius: '8px',
-              fontWeight: '600',
-              transition: 'background-color 0.3s',
-              marginBottom: '8px',
-              display: 'flex',
-              alignItems: 'center',
+              backgroundColor: "#22C55E",
+              color: "white",
+              padding: "12px 24px",
+              borderRadius: "8px",
+              fontWeight: "600",
+              transition: "background-color 0.3s",
+              marginBottom: "8px",
+              display: "flex",
+              alignItems: "center",
             }}
-            onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#16A34A'}
-            onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#22C55E'}
+            onMouseEnter={(e) =>
+              (e.currentTarget.style.backgroundColor = "#16A34A")
+            }
+            onMouseLeave={(e) =>
+              (e.currentTarget.style.backgroundColor = "#22C55E")
+            }
           >
             Mua ngay
           </button>
@@ -128,17 +106,21 @@ export default function ProductDetailContentPage() {
           <button
             onClick={handleBuyAndSend}
             style={{
-              backgroundColor: '#FBBF24',
-              color: 'white',
-              padding: '12px 24px',
-              borderRadius: '8px',
-              fontWeight: '600',
-              transition: 'background-color 0.3s',
-              display: 'flex',
-              alignItems: 'center',
+              backgroundColor: "#FBBF24",
+              color: "white",
+              padding: "12px 24px",
+              borderRadius: "8px",
+              fontWeight: "600",
+              transition: "background-color 0.3s",
+              display: "flex",
+              alignItems: "center",
             }}
-            onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#F59E0B'}
-            onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#FBBF24'}
+            onMouseEnter={(e) =>
+              (e.currentTarget.style.backgroundColor = "#F59E0B")
+            }
+            onMouseLeave={(e) =>
+              (e.currentTarget.style.backgroundColor = "#FBBF24")
+            }
           >
             Mua và ký gửi
           </button>

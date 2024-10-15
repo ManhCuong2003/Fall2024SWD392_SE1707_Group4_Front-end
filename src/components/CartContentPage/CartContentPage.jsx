@@ -53,7 +53,7 @@ const CartContentPage = () => {
                   <h2 className="text-xl font-semibold text-blue-800">
                     {item.koi_name}
                   </h2>
-                  <p className="text-gray-600">${item.koi_price}</p>
+                  <p className="text-gray-600">{item.koi_price} VNĐ</p>
                 </div>
               </div>
               <div className="flex items-center">
@@ -108,7 +108,7 @@ const CartContentPage = () => {
             </button>
           </div>
           <div className="text-right">
-            <p className="text-xl font-semibold mb-2">Total: ${total}</p>
+            <p className="text-xl font-semibold mb-2">Total: {total} VNĐ</p>
             <Link
               className="bg-blue-600 text-white px-8 py-3 rounded-lg text-xl font-semibold hover:bg-blue-700 transition duration-200"
               to={"/checkout-page"}
