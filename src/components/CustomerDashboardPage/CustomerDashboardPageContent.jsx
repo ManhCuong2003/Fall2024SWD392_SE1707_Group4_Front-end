@@ -21,14 +21,13 @@ export default function CustomerDashboardPageContent() {
       name: "Đơn ký gửi của tôi",
     },
     { icon: <FaBell />, label: "notification", name: "Thông báo" },
-    { icon: <FaSignOutAlt />, label: "logout", name: "Đăng xuất" },
   ];
 
   return (
     <div className="container_myOrders mx-auto px-4 py-8">
       <div className="flex flex-col md:flex-row gap-8 mt-10">
         {/* Vertical Navbar */}
-        <nav className="w-full md:w-1/3 bg-white rounded-lg shadow-md p-6">
+        <nav className="w-full md:w-1/4 bg-white rounded-lg shadow-md p-6">
           <div className="flex items-center mb-4">
             <div>
               <h3 className="text-lg font-semibold">truongtuyetngan2407</h3>
@@ -53,7 +52,7 @@ export default function CustomerDashboardPageContent() {
         </nav>
 
         {/* Main Content Area */}
-        <main className="w-full md:w-2/3 bg-white rounded-lg shadow-md p-6">
+        <main className="w-full md:w-3/4 bg-white rounded-lg shadow-md p-6">
           <h1 className="text-3xl font-bold mb-6">
             {navItems[activeNavItem].name}
           </h1>

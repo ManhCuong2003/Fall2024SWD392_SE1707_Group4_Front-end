@@ -52,7 +52,9 @@ const ProductListPageContent = () => {
       }
 
       if (selectedBreed) {
-        result = result.filter((product) => product.species === selectedBreed);
+        result = result.filter(
+          (product) => product.koi_species === selectedBreed
+        );
       }
 
       if (sortOption === "price-asc") {
@@ -85,10 +87,6 @@ const ProductListPageContent = () => {
 
   const handleSearchChange = (e) => {
     setSearchTerm(e.target.value);
-  };
-
-  const handleCategoryChange = (e) => {
-    setSelectedCategory(e.target.value);
   };
 
   const handleSizeChange = (e) => {
@@ -141,7 +139,7 @@ const ProductListPageContent = () => {
             >
               <option value="">Tất cả kích thước</option>
               <option value="Nhỏ">Nhỏ</option>
-              <option value="Trung bình">Trung bình</option>
+              <option value="Trung">Trung bình</option>
               <option value="Lớn">Lớn</option>
             </select>
             <select
@@ -151,7 +149,12 @@ const ProductListPageContent = () => {
             >
               <option value="">Tất cả các giống</option>
               <option value="Kohaku">Kohaku</option>
+              <option value="Sanke">Sanke</option>
               <option value="Showa">Showa</option>
+              <option value="Utsuri">Utsuri</option>
+              <option value="Bekko">Bekko</option>
+              <option value="Asagi">Asagi</option>
+              <option value="Shusui">Shusui</option>
               <option value="Tancho">Tancho</option>
             </select>
             <select

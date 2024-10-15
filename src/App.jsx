@@ -20,6 +20,7 @@ import FarmManager from "./pages/commonPage/Inventory/FarmManager";
 import { UserProvider } from "./components/Context/UserContext";
 import ReadMore from "./components/NewsPageContent/ReadMore";
 import ConsignCheckOut from "./pages/commonPage/ConsignCheckout/ConsignCheckout";
+import ConsignmentPage from "./pages/commonPage/ConsignmentPage/ConsignmentPage";
 function App() {
   return (
     <UserProvider>
@@ -58,11 +59,32 @@ function App() {
               />
             }
           />
+
+          <Route
+            path="/checkout-consign"
+            element={
+              <RoleBasedRoute
+                element={<ConsignCheckOut />}
+                requiredRole={["customer"]}
+              ></RoleBasedRoute>
+            }
+          />
+
           <Route
             path="/customer-dashboard"
             element={
               <RoleBasedRoute
                 element={<CustomerDashboardPage />}
+                requiredRole={["customer"]}
+              />
+            }
+          />
+
+          <Route
+            path="/consignment"
+            element={
+              <RoleBasedRoute
+                element={<ConsignmentPage />}
                 requiredRole={["customer"]}
               />
             }
@@ -89,19 +111,9 @@ function App() {
               />
             }
           />
-          <Route
-            path="/koi-list"
-            element={
-              <RoleBasedRoute
-                element={<KoiFishManagerList />}
-                requiredRole={["manager"]}
-              />
-            }
-          />
+
           <Route path="/farm-manager" Component={FarmManager} />
           <Route path="/read-more" Component={ReadMore} />
-          <Route path="/checkout-consign" Component={ConsignCheckOut} />
-
           <Route path="/sales-report-page" Component={SalesReportPage} />
         </Routes>
       </BrowserRouter>
