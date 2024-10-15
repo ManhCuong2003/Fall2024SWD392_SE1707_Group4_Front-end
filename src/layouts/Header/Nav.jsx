@@ -67,6 +67,13 @@ export default function Nav() {
           >
             Dịch vụ
           </Link>
+          <Link
+            to={"/compareKoi"}
+            className="text-blue-900 hover:text-blue-600 transition-colors"
+            aria-label="Compare"
+          >
+            So sánh Koi
+          </Link>
         </div>
         <div className="space-x-4">
           {user ? (

@@ -21,6 +21,7 @@ import { UserProvider } from "./components/Context/UserContext";
 import ReadMore from "./components/NewsPageContent/ReadMore";
 import ConsignCheckOut from "./pages/commonPage/ConsignCheckout/ConsignCheckout";
 import ConsignmentPage from "./pages/commonPage/ConsignmentPage/ConsignmentPage";
+import CompareKoiPage from "./pages/commonPage/CompareKoiPage/CompareKoiPage";
 function App() {
   return (
     <UserProvider>
@@ -39,6 +40,7 @@ function App() {
           <Route path="/product-list" Component={ProductListPage} />
           <Route path="/detail-page/:id" Component={ProductDetailPage} />
           <Route path="/news" Component={NewsPage} />
+          <Route path="/compareKoi" Component={CompareKoiPage}/>
 
           {/* Customer page */}
           <Route
@@ -89,6 +91,7 @@ function App() {
               />
             }
           />
+        
 
           {/* Staff page */}
           <Route
