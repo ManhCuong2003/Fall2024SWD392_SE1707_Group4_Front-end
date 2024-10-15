@@ -1,8 +1,9 @@
 import { useContext, useEffect, useState } from "react";
-import { FaShoppingCart } from "react-icons/fa";
+import { FaHeart, FaShoppingCart, FaUserMd } from "react-icons/fa";
 import apiClient from "../../utils/axios";
 import { useParams, useNavigate } from "react-router-dom";
 import { userContext } from "../Context/UserContext";
+import { BsCartCheckFill } from "react-icons/bs";
 
 export default function ProductDetailContentPage() {
   const [quantity, setQuantity] = useState(1);
@@ -23,10 +24,6 @@ export default function ProductDetailContentPage() {
     };
     fetchProductData();
   }, [id]);
-
-  const handleQuantityChange = (e) => {
-    setQuantity(parseInt(e.target.value));
-  };
 
   const handleBuyNow = () => {
     navigate("/checkout-page");
@@ -62,68 +59,46 @@ export default function ProductDetailContentPage() {
         <div className="w-full md:w-1/2 px-4">
           <h1 className="text-3xl font-bold mb-4">{product.koi_name}</h1>
           <p className="text-2xl font-semibold text-blue-600 mb-4">
-            {product.koi_price.toFixed(2)} VNĐ
+            {product.koi_price} VNĐ
           </p>
           <p className="mb-4">{product.koi_description}</p>
           <p className="inline-block mb-4 mr-2 font-semibold">Kho hàng: </p>
           {product.koi_quantity}
 
           {/* Add to Cart Button */}
-          <button
-            className="bg-blue-700 hover:bg-blue-800 text-white px-2 py-4 mb-2 font-bold flex items-center rounded-lg disabled:opacity-50"
-            disabled={itemInCart?.quantity >= product.koi_quantity}
-            onClick={() => addToCart(product, quantity)}
-          >
-            <FaShoppingCart className="mr-2" />
-            Thêm vào giỏ hàng
-          </button>
+          <div className="flex">
+            <button
+              className="bg-blue-700 hover:bg-blue-800 text-white px-2 py-4 mb-2 mr-2 font-bold flex items-center rounded-lg disabled:opacity-50"
+              disabled={itemInCart?.quantity >= product.koi_quantity}
+              onClick={() => addToCart(product, quantity)}
+            >
+              <FaShoppingCart className="mr-2" />
+              Thêm vào giỏ hàng
+            </button>
 
-          {/* Buy Now Button */}
-          <button
-            onClick={handleBuyNow}
-            style={{
-              backgroundColor: "#22C55E",
-              color: "white",
-              padding: "12px 24px",
-              borderRadius: "8px",
-              fontWeight: "600",
-              transition: "background-color 0.3s",
-              marginBottom: "8px",
-              display: "flex",
-              alignItems: "center",
-            }}
-            onMouseEnter={(e) =>
-              (e.currentTarget.style.backgroundColor = "#16A34A")
-            }
-            onMouseLeave={(e) =>
-              (e.currentTarget.style.backgroundColor = "#22C55E")
-            }
-          >
-            Mua ngay
-          </button>
+            {/* Buy Now Button */}
+            <button
+              className="bg-amber-500 hover:bg-amber-600 text-white px-2 py-4 mb-2 mr-2 font-bold flex items-center rounded-lg"
+              onClick={handleBuyNow}
+            >
+              <BsCartCheckFill className="mr-2" />
+              Mua ngay
+            </button>
 
-          {/* Buy and Send Button */}
-          <button
-            onClick={handleBuyAndSend}
-            style={{
-              backgroundColor: "#FBBF24",
-              color: "white",
-              padding: "12px 24px",
-              borderRadius: "8px",
-              fontWeight: "600",
-              transition: "background-color 0.3s",
-              display: "flex",
-              alignItems: "center",
-            }}
-            onMouseEnter={(e) =>
-              (e.currentTarget.style.backgroundColor = "#F59E0B")
-            }
-            onMouseLeave={(e) =>
-              (e.currentTarget.style.backgroundColor = "#FBBF24")
-            }
-          >
-            Mua và ký gửi
-          </button>
+            {/* Buy and Send Button */}
+            <button
+              className="bg-lime-600 hover:bg-lime-700 text-white px-2 py-4 mb-2 mr-2 font-bold flex items-center rounded-lg"
+              onClick={handleBuyAndSend}
+            >
+              <FaUserMd className="mr-2 " />
+              Mua và ký gửi
+            </button>
+
+            <button className="bg-red-600 hover:bg-red-700 text-white px-2 py-4 mb-2 mr-2 font-bold flex items-center rounded-lg">
+              <FaHeart className="mr-2 " />
+              Thêm vào yêu thích
+            </button>
+          </div>
 
           {/* Specifications */}
           <div className="mt-8">
