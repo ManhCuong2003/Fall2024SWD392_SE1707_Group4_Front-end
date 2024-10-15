@@ -10,25 +10,8 @@ import { MdLocalShipping } from "react-icons/md";
 import { userContext } from "../Context/UserContext";
 
 const CheckoutContentPage = () => {
-  const { cartItems, user } = useContext(userContext);
-  const [cart, setCart] = useState([
-    {
-      id: 1,
-      name: "Kohaku Koi",
-      price: 150,
-      quantity: 2,
-      image:
-        "https://images.unsplash.com/photo-1571752726703-5e7d1f6a986d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
-    },
-    {
-      id: 2,
-      name: "Showa Koi",
-      price: 200,
-      quantity: 1,
-      image:
-        "https://images.unsplash.com/photo-1524704654690-b56c05c78a00?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1169&q=80",
-    },
-  ]);
+  const { cartItems } = useContext(userContext);
+  const user = JSON.parse(localStorage.getItem("userInfor"));
   const [billingInfo, setBillingInfo] = useState({
     name: "",
     address: "",
@@ -110,7 +93,7 @@ const CheckoutContentPage = () => {
                   <p className="text-gray-600">x {item.quantity}</p>
                 </div>
                 <span className="font-semibold">
-                  ${(item.koi_price * item.quantity).toFixed(2)}
+                  {(item.koi_price * item.quantity).toFixed(2)} VNĐ
                 </span>
               </div>
             ))}
@@ -287,24 +270,6 @@ const CheckoutContentPage = () => {
                 />
               </div>
             )}
-
-            <div className="mb-4">
-              <label
-                htmlFor="promo"
-                className="block text-gray-700 font-semibold mb-2"
-              >
-                Promo Code
-              </label>
-              <input
-                type="text"
-                id="promo"
-                value={promoCode}
-                onChange={(e) => setPromoCode(e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                placeholder="Nhập promo code"
-              />
-            </div>
-
             <button
               type="submit"
               className="w-full bg-blue-500 text-white font-semibold py-3 rounded-lg hover:bg-blue-600 transition duration-300 ease-in-out transform hover:scale-105"
@@ -327,7 +292,7 @@ const CheckoutContentPage = () => {
             </div>
             <div className="flex justify-between font-semibold text-lg border-t pt-2">
               <span>Tổng cộng</span>
-              <span>${total.toFixed(2)}</span>
+              <span>{total.toFixed(2)} VNĐ</span>
             </div>
           </div>
         </div>

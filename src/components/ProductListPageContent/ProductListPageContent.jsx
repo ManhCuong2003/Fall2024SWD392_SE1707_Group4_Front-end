@@ -7,6 +7,8 @@ import { Link } from "react-router-dom";
 
 const ProductListPageContent = () => {
   const [filteredProducts, setFilteredProducts] = useState([]);
+  console.log(filteredProducts);
+
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedCategory, setSelectedCategory] = useState("");
@@ -41,18 +43,12 @@ const ProductListPageContent = () => {
 
       if (searchTerm) {
         result = result.filter((product) =>
-          product.name.toLowerCase().includes(searchTerm.toLowerCase())
-        );
-      }
-
-      if (selectedCategory) {
-        result = result.filter(
-          (product) => product.category === selectedCategory
+          product.koi_name.toLowerCase().includes(searchTerm.toLowerCase())
         );
       }
 
       if (selectedSize) {
-        result = result.filter((product) => product.size === selectedSize);
+        result = result.filter((product) => product.koi_size === selectedSize);
       }
 
       if (selectedBreed) {
@@ -60,16 +56,16 @@ const ProductListPageContent = () => {
       }
 
       if (sortOption === "price-asc") {
-        result.sort((a, b) => a.price - b.price);
+        result.sort((a, b) => a.koi_price - b.koi_price);
       } else if (sortOption === "price-desc") {
-        result.sort((a, b) => b.price - a.price);
+        result.sort((a, b) => b.koi_price - a.koi_price);
       }
 
       setFilteredProducts(result);
       setCurrentPage(1);
     };
     filterAndSortProducts();
-  }, [searchTerm, selectedCategory, selectedSize, selectedBreed, sortOption]);
+  }, [searchTerm, selectedSize, selectedBreed, sortOption]);
 
   const indexOfLastProduct = currentPage * productsPerPage;
   const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
@@ -140,23 +136,13 @@ const ProductListPageContent = () => {
           <div className="flex space-x-4">
             <select
               className="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-              onChange={handleCategoryChange}
-              value={selectedCategory}
-            >
-              <option value="">Tất cả phân loại</option>
-              <option value="red">Đỏ</option>
-              <option value="white">Trắng</option>
-              <option value="multicolor">Đa sắc</option>
-            </select>
-            <select
-              className="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               onChange={handleSizeChange}
               value={selectedSize}
             >
               <option value="">Tất cả kích thước</option>
-              <option value="small">Nhỏ</option>
-              <option value="medium">Trung bình</option>
-              <option value="large">Lớn</option>
+              <option value="Nhỏ">Nhỏ</option>
+              <option value="Trung bình">Trung bình</option>
+              <option value="Lớn">Lớn</option>
             </select>
             <select
               className="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -202,7 +188,7 @@ const ProductListPageContent = () => {
               </p>
               <div className="flex justify-between items-center">
                 <span className="text-lg font-bold text-blue-600">
-                  ${product.koi_price.toFixed(2)}
+                  {product.koi_price} VNĐ
                 </span>
                 <Link to={`/detail-page/${product.koi_id}`}>
                   <button className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition duration-300 flex items-center">

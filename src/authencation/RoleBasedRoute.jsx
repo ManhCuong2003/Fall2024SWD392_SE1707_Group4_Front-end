@@ -6,7 +6,7 @@ import { useContext } from "react";
 import { userContext } from "../components/Context/UserContext";
 
 function RoleBasedRoute({ element, requiredRole, ...rest }) {
-  const { user } = useContext(userContext);
+  const user = JSON.parse(localStorage.getItem("userInfor"));
   const role = user?.role_name;
   if (!user) {
     localStorage.removeItem("access_token");

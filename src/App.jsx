@@ -20,8 +20,6 @@ import FarmManager from "./pages/commonPage/Inventory/FarmManager";
 import { UserProvider } from "./components/Context/UserContext";
 import ReadMore from "./components/NewsPageContent/ReadMore";
 import ConsignCheckOut from "./pages/commonPage/ConsignCheckout/ConsignCheckout";
-
-
 function App() {
   return (
     <UserProvider>
@@ -54,11 +52,10 @@ function App() {
           <Route
             path="/checkout-page"
             element={
-              // <RoleBasedRoute
-              //   element={<CheckoutPage />}
-              //   requiredRole={["customer"]}
-              // />
-              <CheckoutPage />
+              <RoleBasedRoute
+                element={<CheckoutPage />}
+                requiredRole={["customer"]}
+              />
             }
           />
           <Route
