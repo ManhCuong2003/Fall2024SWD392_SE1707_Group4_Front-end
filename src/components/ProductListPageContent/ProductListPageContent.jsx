@@ -11,7 +11,6 @@ const ProductListPageContent = () => {
 
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
-  const [selectedCategory, setSelectedCategory] = useState("");
   const [selectedSize, setSelectedSize] = useState("");
   const [selectedBreed, setSelectedBreed] = useState("");
   const [sortOption, setSortOption] = useState("");
