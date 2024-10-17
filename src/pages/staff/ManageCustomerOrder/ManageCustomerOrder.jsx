@@ -183,47 +183,55 @@ function ManageCustomerOrder() {
                 )}{" "}
                 VNĐ
               </p>
-              <div className="mt-4">
-                <h4 className="font-semibold mb-2">Thay đổi trạng thái:</h4>
-                <div className="flex flex-wrap gap-2">
-                  <button
-                    className="flex items-center bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-600 transition-colors duration-300"
-                    onClick={() =>
-                      handleStatusChange(selectedOrder.id, "đang chuẩn bị")
-                    }
-                    aria-label="Change status to preparing order"
-                    disabled={disabledStatuses[selectedOrder.id]?.includes(
-                      "đang chuẩn bị"
+              {selectedOrder.status !== "hoàn thành" && (
+                <div className="mt-4">
+                  <h4 className="font-semibold mb-2">Thay đổi trạng thái:</h4>
+                  <div className="flex flex-wrap gap-2">
+                    {selectedOrder.status === "đang xử lý" && (
+                      <button
+                        className="flex items-center bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-600 transition-colors duration-300"
+                        onClick={() =>
+                          handleStatusChange(selectedOrder.id, "đang chuẩn bị")
+                        }
+                        aria-label="Change status to preparing order"
+                        disabled={disabledStatuses[selectedOrder.id]?.includes(
+                          "đang chuẩn bị"
+                        )}
+                      >
+                        <FaBox className="mr-2" /> Đang chuẩn bị
+                      </button>
                     )}
-                  >
-                    <FaBox className="mr-2" /> Đang chuẩn bị
-                  </button>
-                  <button
-                    className="flex items-center bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors duration-300"
-                    onClick={() =>
-                      handleStatusChange(selectedOrder.id, "đang giao")
-                    }
-                    aria-label="Change status to shipping"
-                    disabled={disabledStatuses[selectedOrder.id]?.includes(
-                      "đang giao"
+                    {selectedOrder.status === "đang chuẩn bị" && (
+                      <button
+                        className="flex items-center bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors duration-300"
+                        onClick={() =>
+                          handleStatusChange(selectedOrder.id, "đang giao")
+                        }
+                        aria-label="Change status to shipping"
+                        disabled={disabledStatuses[selectedOrder.id]?.includes(
+                          "đang giao"
+                        )}
+                      >
+                        <FaShippingFast className="mr-2" /> Đang giao
+                      </button>
                     )}
-                  >
-                    <FaShippingFast className="mr-2" /> Đang giao
-                  </button>
-                  <button
-                    className="flex items-center bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition-colors duration-300"
-                    onClick={() =>
-                      handleStatusChange(selectedOrder.id, "hoàn thành")
-                    }
-                    aria-label="Change status to complete delivery"
-                    disabled={disabledStatuses[selectedOrder.id]?.includes(
-                      "Hoàn thành"
+                    {selectedOrder.status === "đang giao" && (
+                      <button
+                        className="flex items-center bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition-colors duration-300"
+                        onClick={() =>
+                          handleStatusChange(selectedOrder.id, "hoàn thành")
+                        }
+                        aria-label="Change status to complete delivery"
+                        disabled={disabledStatuses[selectedOrder.id]?.includes(
+                          "Hoàn thành"
+                        )}
+                      >
+                        <FaCheckCircle className="mr-2" /> Hoàn thành
+                      </button>
                     )}
-                  >
-                    <FaCheckCircle className="mr-2" /> Hoàn thành
-                  </button>
+                  </div>
                 </div>
-              </div>
+              )}
             </div>
           ) : (
             <p>Chọn đơn hàng để xem chi tiết</p>

@@ -11,7 +11,7 @@ export default function ProductDetailContentPage() {
   const { id } = useParams();
   const { addToCart, cartItems, addToFavorites } = useContext(userContext);
   const navigate = useNavigate();
-  const itemInCart = cartItems.find((item) => item.koi_id === id);
+  const itemInCart = cartItems.find((item) => item.koi_id == id);
   const [isFavorite, setIsFavorite] = useState(false); // Trạng thái yêu thích
 
   useEffect(() => {
