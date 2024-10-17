@@ -106,7 +106,7 @@ export default function ProductDetailContentPage() {
             <ul className="list-disc list-inside">
               <li>
                 <span className="font-semibold">Giống:</span>{" "}
-                {product.koi_species_ID}
+                {product.Species_Name}
               </li>
               <li>
                 <span className="font-semibold">Kích thước:</span>{" "}
@@ -115,6 +115,13 @@ export default function ProductDetailContentPage() {
               <li>
                 <span className="font-semibold">Màu sắc:</span>{" "}
                 {product.koi_color}
+              </li>
+              <li>
+                <span className="font-semibold">Tuổi:</span> {product.koi_age}
+              </li>
+              <li>
+                <span className="font-semibold">Giới tính:</span>{" "}
+                {product.koi_gender === 1 ? "Cái" : "Đực"}
               </li>
             </ul>
           </div>
