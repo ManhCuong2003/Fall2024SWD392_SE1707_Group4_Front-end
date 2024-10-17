@@ -23,7 +23,7 @@ const CheckoutContentPage = () => {
   const [promoCode, setPromoCode] = useState("");
   const [errors, setErrors] = useState({});
 
-  const shippingCosts = { standard: 10, express: 25 };
+  const shippingCosts = { economy: 15000,standard: 35000, express: 60000 };
 
   const handleQuantityChange = (id, change) => {
     setCart(
@@ -89,11 +89,11 @@ const CheckoutContentPage = () => {
                 />
                 <div className="flex-grow">
                   <h3 className="font-semibold">{item.koi_name}</h3>
-                  <p className="text-gray-600">{item.koi_price.toFixed(2)}</p>
+                  <p className="text-gray-600">{item.koi_price}</p>
                   <p className="text-gray-600">x {item.quantity}</p>
                 </div>
                 <span className="font-semibold">
-                  {(item.koi_price * item.quantity).toFixed(2)} VNĐ
+                  {(item.koi_price * item.quantity)} VNĐ
                 </span>
               </div>
             ))}
@@ -119,9 +119,8 @@ const CheckoutContentPage = () => {
                 name="name"
                 value={user.userfullname}
                 onChange={handleInputChange}
-                className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-                  errors.name ? "border-red-500" : "border-gray-300"
-                }`}
+                className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${errors.name ? "border-red-500" : "border-gray-300"
+                  }`}
                 required
                 disabled
               />
@@ -142,9 +141,8 @@ const CheckoutContentPage = () => {
                 name="address"
                 value={user.address}
                 onChange={handleInputChange}
-                className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-                  errors.address ? "border-red-500" : "border-gray-300"
-                }`}
+                className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${errors.address ? "border-red-500" : "border-gray-300"
+                  }`}
                 required
                 disabled
               />
@@ -165,9 +163,8 @@ const CheckoutContentPage = () => {
                 name="phone"
                 value={user.phone}
                 onChange={handleInputChange}
-                className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-                  errors.phone ? "border-red-500" : "border-gray-300"
-                }`}
+                className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${errors.phone ? "border-red-500" : "border-gray-300"
+                  }`}
                 required
                 disabled
               />
@@ -188,9 +185,8 @@ const CheckoutContentPage = () => {
                 name="email"
                 value={user.email}
                 onChange={handleInputChange}
-                className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-                  errors.email ? "border-red-500" : "border-gray-300"
-                }`}
+                className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${errors.email ? "border-red-500" : "border-gray-300"
+                  }`}
                 required
                 disabled
               />
@@ -208,15 +204,40 @@ const CheckoutContentPage = () => {
                 <label className="inline-flex items-center mr-4">
                   <input
                     type="radio"
+                    value="economy"
+                    checked={shippingMethod === "economy"}
+                    onChange={() => setShippingMethod("economy")}
+                    className="form-radio text-blue-500"
+                  />
+                  <span className="ml-2">Giao hàng tiết kiệm (15.000 VNĐ)</span>
+                </label>
+              </div>
+              <div>
+                <label className="inline-flex items-center mr-4">
+                  <input
+                    type="radio"
                     value="standard"
                     checked={shippingMethod === "standard"}
                     onChange={() => setShippingMethod("standard")}
                     className="form-radio text-blue-500"
                   />
-                  <span className="ml-2">Ship code ($10)</span>
+                  <span className="ml-2">Giao hàng tiêu chuẩn (35.000 VNĐ)</span>
+                </label>
+              </div>
+              <div>
+                <label className="inline-flex items-center mr-4">
+                  <input
+                    type="radio"
+                    value="express"
+                    checked={shippingMethod === "express"}
+                    onChange={() => setShippingMethod("express")}
+                    className="form-radio text-blue-500"
+                  />
+                  <span className="ml-2">Giao hàng nhanh (60.000 VNĐ)</span>
                 </label>
               </div>
             </div>
+
 
             <h2 className="text-2xl font-semibold mb-4">Thanh toán</h2>
             <div className="mb-4">
@@ -237,7 +258,7 @@ const CheckoutContentPage = () => {
                     Zalopay
                   </span>
                 </label>
-                <label className="inline-flex items-center">
+                {/* <label className="inline-flex items-center">
                   <input
                     type="radio"
                     value="paypal"
@@ -249,11 +270,11 @@ const CheckoutContentPage = () => {
                     <FaPaypal className="mr-2" />
                     VNPAY
                   </span>
-                </label>
+                </label> */}
               </div>
             </div>
 
-            {paymentMethod === "credit" && (
+            {/* {paymentMethod === "credit" && (
               <div className="mb-4">
                 <label
                   htmlFor="card"
@@ -269,7 +290,7 @@ const CheckoutContentPage = () => {
                   required
                 />
               </div>
-            )}
+            )} */}
             <button
               type="submit"
               className="w-full bg-blue-500 text-white font-semibold py-3 rounded-lg hover:bg-blue-600 transition duration-300 ease-in-out transform hover:scale-105"
@@ -284,15 +305,15 @@ const CheckoutContentPage = () => {
             <h2 className="text-2xl font-semibold mb-4">Tổng đơn hàng</h2>
             <div className="flex justify-between mb-2">
               <span>Đơn hàng</span>
-              <span>${subtotal.toFixed(2)}</span>
+              <span>{subtotal} VNĐ</span>
             </div>
             <div className="flex justify-between mb-2">
               <span>Phí vận chuyển</span>
-              <span>${shipping.toFixed(2)}</span>
+              <span>{shipping} VNĐ</span>
             </div>
             <div className="flex justify-between font-semibold text-lg border-t pt-2">
               <span>Tổng cộng</span>
-              <span>{total.toFixed(2)} VNĐ</span>
+              <span>{total} VNĐ</span>
             </div>
           </div>
         </div>

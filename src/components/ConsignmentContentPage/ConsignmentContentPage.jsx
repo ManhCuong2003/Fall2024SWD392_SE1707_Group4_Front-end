@@ -6,6 +6,7 @@ import {
   FaHome,
   FaFish,
 } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
 const ConsignmentContentPage = () => {
   const [formData, setFormData] = useState({
@@ -14,6 +15,7 @@ const ConsignmentContentPage = () => {
     fishSize: "",
     fishBreed: "",
     fishColor: "",
+    fishGender: "",
     fishMarkings: "",
     customerName: "",
     customerEmail: "",
@@ -22,6 +24,7 @@ const ConsignmentContentPage = () => {
   });
 
   const [errors, setErrors] = useState({});
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -77,6 +80,31 @@ const ConsignmentContentPage = () => {
     }
   };
 
+ const handleBuyNow = (e) => {
+    e.preventDefault();
+
+    let formErrors = {};
+    Object.keys(formData).forEach((key) => {
+      validateField(key, formData[key]);
+      if (!formData[key]) {
+        formErrors[key] = `${key
+          .replace(/([A-Z])/g, " $1")
+          .toLowerCase()} is required`;
+      }
+    });
+    setErrors(formErrors);
+
+    // Check if there are no errors
+    if (Object.keys(formErrors).length === 0) {
+      console.log("Form submitted:", formData);
+      // Lưu thông tin và chuyển hướng sang trang checkout
+      localStorage.setItem("consignmentData", JSON.stringify(formData));
+      navigate("/checkout-page");
+    }
+  };
+
+  
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-100 to-blue-300 py-12 px-4 sm:px-6 lg:px-8 pt-20">
       <div className="max-w-3xl mx-auto bg-white rounded-lg shadow-xl overflow-hidden">
@@ -98,9 +126,8 @@ const ConsignmentContentPage = () => {
                   name="consignmentType"
                   value={formData.consignmentType}
                   onChange={handleChange}
-                  className={`mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md ${
-                    errors.consignmentType ? "border-red-500" : ""
-                  }`}
+                  className={`mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md ${errors.consignmentType ? "border-red-500" : ""
+                    }`}
                   aria-invalid={errors.consignmentType ? "true" : "false"}
                   aria-describedby={
                     errors.consignmentType ? "consignmentType-error" : undefined
@@ -139,9 +166,8 @@ const ConsignmentContentPage = () => {
                     id="fishName"
                     value={formData.fishName}
                     onChange={handleChange}
-                    className={`block w-full pl-10 sm:text-sm border-gray-300 rounded-md ${
-                      errors.fishName ? "border-red-500" : ""
-                    }`}
+                    className={`block w-full pl-10 sm:text-sm border-gray-300 rounded-md ${errors.fishName ? "border-red-500" : ""
+                      }`}
                     placeholder="Tên cá Koi"
                     aria-invalid={errors.fishName ? "true" : "false"}
                     aria-describedby={
@@ -158,23 +184,47 @@ const ConsignmentContentPage = () => {
             </div>
 
             <div className="space-y-4 sm:flex sm:space-x-4 sm:space-y-0">
+            <div className="flex-1">
+  <label
+    htmlFor="fishSize"
+    className="block text-sm font-medium text-gray-700"
+  >
+    Kích thước
+  </label>
+  <select
+    id="fishSize"
+    name="fishSize"
+    value={formData.fishSize}
+    onChange={handleChange}
+    className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+  >
+    <option value="">Chọn kích thước</option>
+    <option value="small">Nhỏ</option>
+    <option value="medium">Trung bình</option>
+    <option value="large">Lớn</option>
+  </select>
+</div>
+
               <div className="flex-1">
                 <label
-                  htmlFor="fishSize"
+                  htmlFor="fishGender"
                   className="block text-sm font-medium text-gray-700"
                 >
-                  Kích thước
+                  Giới tính
                 </label>
-                <input
-                  type="text"
-                  name="fishSize"
-                  id="fishSize"
-                  value={formData.fishSize}
+                <select
+                  id="fishGender"
+                  name="fishGender"
+                  value={formData.fishGender}
                   onChange={handleChange}
                   className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                  placeholder="Kích thước"
-                />
+                >
+                  <option value="">Chọn giới tính</option>
+                  <option value="male">Đực</option>
+                  <option value="female">Cái</option>
+                </select>
               </div>
+
               <div className="flex-1">
                 <label
                   htmlFor="fishBreed"
@@ -182,15 +232,23 @@ const ConsignmentContentPage = () => {
                 >
                   Giống cá
                 </label>
-                <input
-                  type="text"
-                  name="fishBreed"
+                <select
                   id="fishBreed"
+                  name="fishBreed"
                   value={formData.fishBreed}
                   onChange={handleChange}
                   className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                  placeholder="Giống"
-                />
+                >
+                  <option value="">Chọn giống cá</option>
+                  <option value="Kohaku">Kohaku</option>
+                  <option value="Tanke">Tanke</option>
+                  <option value="Showa">Showa</option>
+                  <option value="Utsuri">Utsuri</option>
+                  <option value="Bekko">Bekko</option>
+                  <option value="Asagi">Asagi</option>
+                  <option value="Shusui">Shusui</option>
+                  <option value="Tancho">Tancho</option>
+                </select>
               </div>
             </div>
 
@@ -269,9 +327,8 @@ const ConsignmentContentPage = () => {
                     id="customerEmail"
                     value={formData.customerEmail}
                     onChange={handleChange}
-                    className={`block w-full pl-10 sm:text-sm border-gray-300 rounded-md ${
-                      errors.customerEmail ? "border-red-500" : ""
-                    }`}
+                    className={`block w-full pl-10 sm:text-sm border-gray-300 rounded-md ${errors.customerEmail ? "border-red-500" : ""
+                      }`}
                     placeholder="you@example.com"
                     aria-invalid={errors.customerEmail ? "true" : "false"}
                     aria-describedby={
@@ -311,9 +368,8 @@ const ConsignmentContentPage = () => {
                     id="customerPhone"
                     value={formData.customerPhone}
                     onChange={handleChange}
-                    className={`block w-full pl-10 sm:text-sm border-gray-300 rounded-md ${
-                      errors.customerPhone ? "border-red-500" : ""
-                    }`}
+                    className={`block w-full pl-10 sm:text-sm border-gray-300 rounded-md ${errors.customerPhone ? "border-red-500" : ""
+                      }`}
                     placeholder="(123) 456-7890"
                     aria-invalid={errors.customerPhone ? "true" : "false"}
                     aria-describedby={
@@ -360,7 +416,8 @@ const ConsignmentContentPage = () => {
             <div className="pt-5">
               <div className="flex justify-end">
                 <button
-                  type="submit"
+                  // type="submit"
+                  onClick={handleBuyNow}
                   className="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition duration-150 ease-in-out"
                 >
                   Xác nhận ký gửi
