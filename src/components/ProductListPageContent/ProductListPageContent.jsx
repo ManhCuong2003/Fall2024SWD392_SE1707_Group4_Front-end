@@ -6,14 +6,13 @@ import apiClient from "../../utils/axios";
 import { Link } from "react-router-dom";
 
 const ProductListPageContent = () => {
-  const [filteredProducts, setFilteredProducts] = useState([]);
-  console.log(filteredProducts);
-
+  const [allProducts, setAllProducts] = useState([]); // Tất cả sản phẩm
+  const [filteredProducts, setFilteredProducts] = useState([]); // Sản phẩm đã lọc
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
-  const [selectedCategory, setSelectedCategory] = useState("");
   const [selectedSize, setSelectedSize] = useState("");
   const [selectedBreed, setSelectedBreed] = useState("");
+  const [priceRange, setPriceRange] = useState([0, 1000000]); // Giá tối thiểu và tối đa
   const [sortOption, setSortOption] = useState("");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -25,8 +24,8 @@ const ProductListPageContent = () => {
       try {
         setLoading(true); // start loading
         const response = await apiClient.get("/api/products");
-
-        setFilteredProducts(response.data);
+        setAllProducts(response.data); // Lưu tất cả sản phẩm
+        setFilteredProducts(response.data); // Khởi tạo sản phẩm hiển thị
       } catch (err) {
         console.log(err);
         setError("Fail to fetch product. Please try again");
@@ -39,7 +38,7 @@ const ProductListPageContent = () => {
 
   useEffect(() => {
     const filterAndSortProducts = () => {
-      let result = [...filteredProducts];
+      let result = [...allProducts];
 
       if (searchTerm) {
         result = result.filter((product) =>
@@ -51,11 +50,13 @@ const ProductListPageContent = () => {
         result = result.filter((product) => product.koi_size === selectedSize);
       }
 
-      if (selectedBreed) {
-        result = result.filter(
-          (product) => product.koi_species === selectedBreed
-        );
-      }
+     
+
+      // Lọc theo giá
+      result = result.filter(
+        (product) =>
+          product.koi_price >= priceRange[0] && product.koi_price <= priceRange[1]
+      );
 
       if (sortOption === "price-asc") {
         result.sort((a, b) => a.koi_price - b.koi_price);
@@ -67,7 +68,7 @@ const ProductListPageContent = () => {
       setCurrentPage(1);
     };
     filterAndSortProducts();
-  }, [searchTerm, selectedSize, selectedBreed, sortOption]);
+  }, [searchTerm, selectedSize, selectedBreed, priceRange, sortOption, allProducts]);
 
   const indexOfLastProduct = currentPage * productsPerPage;
   const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
@@ -97,21 +98,14 @@ const ProductListPageContent = () => {
     setSelectedBreed(e.target.value);
   };
 
+  
+
   const handleSortChange = (e) => {
     setSortOption(e.target.value);
   };
 
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
-
-    //handle loading and error states
-    if (loading) {
-      return <div>Đang tải...</div>;
-    }
-
-    if (error) {
-      return <div>{error}</div>;
-    }
   };
 
   return (
@@ -144,8 +138,8 @@ const ProductListPageContent = () => {
             </select>
             <select
               className="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-              onChange={handleBreedChange}
-              value={selectedBreed}
+              onChange={handleSearchChange}
+              value={searchTerm}
             >
               <option value="">Tất cả các giống</option>
               <option value="Kohaku">Kohaku</option>
@@ -157,6 +151,7 @@ const ProductListPageContent = () => {
               <option value="Shusui">Shusui</option>
               <option value="Tancho">Tancho</option>
             </select>
+            
             <select
               className="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               onChange={handleSortChange}
