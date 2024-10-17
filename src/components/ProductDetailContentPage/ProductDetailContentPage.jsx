@@ -9,9 +9,9 @@ export default function ProductDetailContentPage() {
   const [quantity, setQuantity] = useState(1);
   const [product, setProduct] = useState(null);
   const { id } = useParams();
-  const { addToCart, cartItems } = useContext(userContext);
+  const { addToCart, cartItems, addToFavorites } = useContext(userContext);
   const navigate = useNavigate();
-  const itemInCart = cartItems.find((item) => item.koi_id == id);
+  const itemInCart = cartItems.find((item) => item.koi_id === id);
 
   useEffect(() => {
     const fetchProductData = async () => {
@@ -34,28 +34,29 @@ export default function ProductDetailContentPage() {
     navigate("/checkout-consign");
   };
 
+  const handleAddToFavorites = () => {
+    addToFavorites(product);
+  };
+
   if (!product) {
     return <div>Loading...</div>;
   }
 
   return (
     <div className="container_productDetailContent mx-auto px-4 py-8 pt-20">
-      {/* Shopping Cart Icon */}
       <div className="absolute top-5 right-5 flex items-center">
         <FaShoppingCart className="text-2xl" />
       </div>
 
       <div className="flex flex-wrap -mx-4 mt-10">
-        {/* Product Image Gallery */}
         <div className="w-full md:w-1/2 px-4 mb-8">
           <img
             src={product.koi_image_url}
             alt={product.koi_name}
-            className="w-3/4 h-auto mx-auto rounded-lg shadow-lg" // Hình ảnh nhỏ lại và căn giữa
+            className="w-3/4 h-auto mx-auto rounded-lg shadow-lg"
           />
         </div>
 
-        {/* Product Information */}
         <div className="w-full md:w-1/2 px-4">
           <h1 className="text-3xl font-bold mb-4">{product.koi_name}</h1>
           <p className="text-2xl font-semibold text-blue-600 mb-4">
@@ -65,7 +66,6 @@ export default function ProductDetailContentPage() {
           <p className="inline-block mb-4 mr-2 font-semibold">Kho hàng: </p>
           {product.koi_quantity}
 
-          {/* Add to Cart Button */}
           <div className="flex">
             <button
               className="bg-blue-700 hover:bg-blue-800 text-white px-2 py-4 mb-2 mr-2 font-bold flex items-center rounded-lg disabled:opacity-50"
@@ -76,7 +76,6 @@ export default function ProductDetailContentPage() {
               Thêm vào giỏ hàng
             </button>
 
-            {/* Buy Now Button */}
             <button
               className="bg-amber-500 hover:bg-amber-600 text-white px-2 py-4 mb-2 mr-2 font-bold flex items-center rounded-lg"
               onClick={handleBuyNow}
@@ -85,7 +84,6 @@ export default function ProductDetailContentPage() {
               Mua ngay
             </button>
 
-            {/* Buy and Send Button */}
             <button
               className="bg-lime-600 hover:bg-lime-700 text-white px-2 py-4 mb-2 mr-2 font-bold flex items-center rounded-lg"
               onClick={handleBuyAndSend}
@@ -94,13 +92,15 @@ export default function ProductDetailContentPage() {
               Mua và ký gửi
             </button>
 
-            <button className="bg-red-600 hover:bg-red-700 text-white px-2 py-4 mb-2 mr-2 font-bold flex items-center rounded-lg">
+            <button
+              className="bg-red-600 hover:bg-red-700 text-white px-2 py-4 mb-2 mr-2 font-bold flex items-center rounded-lg"
+              onClick={handleAddToFavorites}
+            >
               <FaHeart className="mr-2 " />
               Thêm vào yêu thích
             </button>
           </div>
 
-          {/* Specifications */}
           <div className="mt-8">
             <h2 className="text-xl font-bold mb-4">Thông số</h2>
             <ul className="list-disc list-inside">

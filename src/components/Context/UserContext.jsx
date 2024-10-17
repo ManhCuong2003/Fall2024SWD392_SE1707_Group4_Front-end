@@ -1,44 +1,55 @@
-import React, { Component, createContext, useEffect, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 
 export const userContext = createContext();
 
-//CartProvider component to provide global cart state
 export const UserProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState(() => {
-    // lấy giỏ hàng từ localStorage
     const savedCart = localStorage.getItem("cart");
     return savedCart ? JSON.parse(savedCart) : [];
   });
+
+  const [favoriteProducts, setFavoriteProducts] = useState(() => {
+    const savedFavorites = localStorage.getItem("favorites");
+    return savedFavorites ? JSON.parse(savedFavorites) : [];
+  });
+
   const [user, setUser] = useState(null);
 
   useEffect(() => {
     localStorage.setItem("cart", JSON.stringify(cartItems));
   }, [cartItems]);
 
-  //function to add item to the cart
+  useEffect(() => {
+    localStorage.setItem("favorites", JSON.stringify(favoriteProducts));
+  }, [favoriteProducts]);
+
   const addToCart = (product, quantity) => {
-    const existingItem = cartItems.find(
-      (item) => item.koi_id === product.koi_id
-    );
+    const existingItem = cartItems.find(item => item.koi_id === product.koi_id);
 
     if (existingItem) {
-      setCartItems(
-        cartItems.map((item) =>
-          item.id === product.id
-            ? { ...item, quantity: item.quantity + quantity }
-            : item
-        )
-      );
+      setCartItems(cartItems.map(item =>
+        item.koi_id === product.koi_id
+          ? { ...item, quantity: item.quantity + quantity }
+          : item
+      ));
     } else {
-      setCartItems((prev) => [...prev, { ...product, quantity }]);
+      setCartItems(prev => [...prev, { ...product, quantity }]);
     }
   };
 
-  //function to update an item's quantity in the cart
+  const addToFavorites = (product) => {
+    if (!favoriteProducts.some(item => item.koi_id === product.koi_id)) {
+      setFavoriteProducts(prev => [...prev, product]);
+    }
+  };
+
+  const removeFromFavorites = (productId) => {
+    setFavoriteProducts(favoriteProducts.filter(product => product.koi_id !== productId));
+  };
+
   const updateQuantity = (id, change) => {
-    console.log("thay doi so luong");
-    setCartItems((prevItems) => {
-      return prevItems.map((item) =>
+    setCartItems(prevItems => {
+      return prevItems.map(item =>
         item.koi_id === id
           ? { ...item, quantity: Math.max(0, item.quantity + change) }
           : item
@@ -46,12 +57,10 @@ export const UserProvider = ({ children }) => {
     });
   };
 
-  //Function to remove item from the cart (optional)
   const removeFromcart = (productId) => {
-    setCartItems(cartItems.filter((item) => item.koi_id !== productId));
+    setCartItems(cartItems.filter(item => item.koi_id !== productId));
   };
 
-  //provide the cart state and functions to the context consumers
   return (
     <userContext.Provider
       value={{
@@ -61,6 +70,9 @@ export const UserProvider = ({ children }) => {
         user,
         setUser,
         updateQuantity,
+        favoriteProducts,
+        addToFavorites,
+        removeFromFavorites,
       }}
     >
       {children}
