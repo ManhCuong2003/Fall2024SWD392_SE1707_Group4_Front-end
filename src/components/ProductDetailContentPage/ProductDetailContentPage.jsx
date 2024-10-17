@@ -11,8 +11,7 @@ export default function ProductDetailContentPage() {
   const { id } = useParams();
   const { addToCart, cartItems, addToFavorites } = useContext(userContext);
   const navigate = useNavigate();
-  const itemInCart = cartItems.find((item) => item.koi_id === id);
-
+  const itemInCart = cartItems.find((item) => item.koi_id == id);
   useEffect(() => {
     const fetchProductData = async () => {
       try {

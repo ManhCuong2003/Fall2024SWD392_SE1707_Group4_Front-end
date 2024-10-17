@@ -10,6 +10,7 @@ import ConsignProfile from "./DashboardContentComponent/ConsignProfile";
 
 export default function CustomerDashboardPageContent() {
   const [activeNavItem, setActiveNavItem] = useState(0);
+  const user = JSON.parse(localStorage.getItem("userInfor"));
 
   const navItems = [
     { icon: <AiFillProfile />, label: "myProfile", name: "Hồ sơ của tôi" },
@@ -30,16 +31,20 @@ export default function CustomerDashboardPageContent() {
         <nav className="w-full md:w-1/4 bg-white rounded-lg shadow-md p-6">
           <div className="flex items-center mb-4">
             <div>
-              <h3 className="text-lg font-semibold">truongtuyetngan2407</h3>
-              <p className="text-gray-600">truongtuyetngan2407@gmail.com</p>
+              <h3 className="text-lg font-semibold">
+                Welcome, {user.userfullname}
+              </h3>
+              <p className="text-gray-600">{user.email}</p>
             </div>
           </div>
           <ul className="py-4">
             {navItems.map((item, index) => (
               <li key={index}>
                 <button
-                  className={`flex items-center text-gray-700 hover:text-blue-500 transition-colors duration-200 ${
-                    activeNavItem === index ? "text-blue-500" : "text-gray-700"
+                  className={`flex items-center hover:text-blue-500 transition-colors duration-200 ${
+                    activeNavItem === index
+                      ? "text-blue-600 font-semibold"
+                      : "text-gray-700"
                   }`}
                   onClick={() => setActiveNavItem(index)}
                 >
