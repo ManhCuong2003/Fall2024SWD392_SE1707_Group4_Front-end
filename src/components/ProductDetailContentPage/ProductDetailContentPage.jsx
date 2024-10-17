@@ -12,6 +12,8 @@ export default function ProductDetailContentPage() {
   const { addToCart, cartItems, addToFavorites } = useContext(userContext);
   const navigate = useNavigate();
   const itemInCart = cartItems.find((item) => item.koi_id == id);
+  const [isFavorite, setIsFavorite] = useState(false); // Trạng thái yêu thích
+
   useEffect(() => {
     const fetchProductData = async () => {
       try {
@@ -35,6 +37,7 @@ export default function ProductDetailContentPage() {
 
   const handleAddToFavorites = () => {
     addToFavorites(product);
+    setIsFavorite(true); // Cập nhật trạng thái yêu thích
   };
 
   if (!product) {
@@ -92,11 +95,13 @@ export default function ProductDetailContentPage() {
             </button>
 
             <button
-              className="bg-red-600 hover:bg-red-700 text-white px-2 py-4 mb-2 mr-2 font-bold flex items-center rounded-lg"
+              className={`${
+                isFavorite ? "bg-green-600" : "bg-red-600"
+              } hover:bg-red-700 text-white px-2 py-4 mb-2 mr-2 font-bold flex items-center rounded-lg`}
               onClick={handleAddToFavorites}
             >
               <FaHeart className="mr-2 " />
-              Thêm vào yêu thích
+              {isFavorite ? "Đã thích" : "Thêm vào yêu thích"}
             </button>
           </div>
 
