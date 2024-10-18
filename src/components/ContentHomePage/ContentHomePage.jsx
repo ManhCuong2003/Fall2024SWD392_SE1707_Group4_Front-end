@@ -5,7 +5,8 @@ import { LuEye } from "react-icons/lu";
 import apiClient from "../../utils/axios";
 
 function ContentHomePage() {
-  const [filteredProducts, setFilteredProducts] = useState([]);
+  const [products, setProducts] = useState([]); // Lưu trữ tất cả sản phẩm
+  const [filteredProducts, setFilteredProducts] = useState([]); // Lưu trữ sản phẩm đã lọc
   const [currentPage, setCurrentPage] = useState(1);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -17,7 +18,8 @@ function ContentHomePage() {
       try {
         setLoading(true); // start loading
         const response = await apiClient.get("/api/products");
-        setFilteredProducts(response.data);
+        setProducts(response.data); // Lưu tất cả sản phẩm
+        setFilteredProducts(response.data); // Khởi tạo sản phẩm hiển thị
       } catch (err) {
         console.log(err);
         setError("Fail to fetch product. Please try again");
@@ -37,6 +39,19 @@ function ContentHomePage() {
 
   const [activeFilter, setActiveFilter] = useState("all");
   const categories = ["Kohaku", "Showa", "Asagi", "Shusui", "Bekko"];
+
+  // Function to filter products based on selected category
+  const handleFilter = (category) => {
+    setActiveFilter(category);
+    if (category === "all") {
+      setFilteredProducts(products); // Hiển thị tất cả sản phẩm nếu chọn "all"
+    } else {
+      const filtered = products.filter((product) => product.koi_name.toLowerCase().includes(category.toLowerCase()));
+
+      setFilteredProducts(filtered);
+    }
+    setCurrentPage(1); // Reset về trang đầu khi lọc
+  };
 
   return (
     <main className="pt-20 container_homecontent mx-auto px-4">
@@ -74,45 +89,51 @@ function ContentHomePage() {
                   ? "bg-blue-600 text-white"
                   : "bg-blue-100 text-blue-600 hover:bg-blue-200"
               } transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50`}
-              onClick={() => setActiveFilter(category)}
+              onClick={() => handleFilter(category)}
             >
               {category}
             </motion.button>
           ))}
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-20">
-          {currentProducts.map((product) => (
-            <motion.div
-              key={product.id}
-              className="w-full h-84 rounded-lg shadow-md overflow-hidden bg-white"
-              whileHover={{ scale: 1.05 }}
-              transition={{ duration: 0.3 }}
-            >
-              <div className="w-full h-fit">
-                <img
-                  src={product.koi_image_url}
-                  alt={product.koi_name}
-                  className="w-full h-56 object-contain transform rotate-90"
-                />
-              </div>
-              <div className="p-4">
-                <h2 className="text-xl font-semibold mb-2">
-                  {product.koi_name}
-                </h2>
-                <p className="text-gray-600 mb-2 truncate hover:text-clip">
-                  {product.koi_description}
-                </p>
-                <div className="flex justify-between items-center">
-                  <Link to={`/detail-page/${product.koi_id}`}>
-                    <button className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition duration-300 flex items-center">
-                      <LuEye className="mr-2" />
-                      Xem chi tiết
-                    </button>
-                  </Link>
+          {currentProducts.length > 0 ? (
+            currentProducts.map((product) => (
+              <motion.div
+                key={product.id}
+                className="w-full h-84 rounded-lg shadow-md overflow-hidden bg-white"
+                whileHover={{ scale: 1.05 }}
+                transition={{ duration: 0.3 }}
+              >
+                <div className="w-full h-fit">
+                  <img
+                    src={product.koi_image_url}
+                    alt={product.koi_name}
+                    className="w-full h-56 object-contain transform rotate-90"
+                  />
                 </div>
-              </div>
-            </motion.div>
-          ))}
+                <div className="p-4">
+                  <h2 className="text-xl font-semibold mb-2">
+                    {product.koi_name}
+                  </h2>
+                  <p className="text-gray-600 mb-2 truncate hover:text-clip">
+                    {product.koi_description}
+                  </p>
+                  <div className="flex justify-between items-center">
+                    <Link to={`/detail-page/${product.koi_id}`}>
+                      <button className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition duration-300 flex items-center">
+                        <LuEye className="mr-2" />
+                        Xem chi tiết
+                      </button>
+                    </Link>
+                  </div>
+                </div>
+              </motion.div>
+            ))
+          ) : (
+            <div className="col-span-3 text-center text-gray-500 text-xl">
+              Không tìm thấy sản phẩm
+            </div>
+          )}
         </div>
       </section>
     </main>
