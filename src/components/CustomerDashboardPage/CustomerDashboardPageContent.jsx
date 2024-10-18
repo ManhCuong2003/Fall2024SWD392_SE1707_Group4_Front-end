@@ -9,7 +9,7 @@ import FavoriteProducts from "./DashboardContentComponent/FavoriteProducts";
 import ConsignProfile from "./DashboardContentComponent/ConsignProfile";
 
 export default function CustomerDashboardPageContent() {
-  const [activeNavItem, setActiveNavItem] = useState(0);
+  const [activeNavItem, setActiveNavItem] = useState(2);
   const user = JSON.parse(localStorage.getItem("userInfor"));
 
   const navItems = [

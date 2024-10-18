@@ -1,103 +1,225 @@
-import { useState } from 'react'
-import { FaStar } from 'react-icons/fa';
-import { MdCancel, MdDoneAll, MdLocalShipping, MdRefresh } from 'react-icons/md';
+import { useState } from "react";
+import { FaBox, FaCheckCircle, FaShippingFast, FaStar } from "react-icons/fa";
+import {
+  MdCancel,
+  MdDoneAll,
+  MdLocalShipping,
+  MdRefresh,
+} from "react-icons/md";
 
 export default function MyOrdersSub() {
   const [activeTab, setActiveTab] = useState("all");
+  const [selectedOrder, setSelectedOrder] = useState(null);
   const [orders, setOrders] = useState([
-    { id: 1, details: "Order 1 details", price: 100, status: "delivery" },
-    { id: 2, details: "Order 2 details", price: 150, status: "complete" },
-    { id: 3, details: "Order 3 details", price: 200, status: "cancelled" },
-    { id: 4, details: "Order 4 details", price: 75, status: "refund" },
+    {
+      id: 1,
+      details: "Order 1 details",
+      price: 100,
+      items: [
+        { name: "Product D", quantity: 3, price: 15 },
+        { name: "Product E", quantity: 2, price: 20 },
+      ],
+      status: "đang xử lý",
+    },
+    {
+      id: 2,
+      details: "Order 2 details",
+      price: 150,
+      items: [
+        { name: "Product D", quantity: 3, price: 15 },
+        { name: "Product E", quantity: 2, price: 20 },
+      ],
+      status: "đang chuẩn bị",
+    },
+    {
+      id: 3,
+      details: "Order 3 details",
+      price: 200,
+      items: [
+        { name: "Product D", quantity: 3, price: 15 },
+        { name: "Product E", quantity: 2, price: 20 },
+      ],
+      status: "đang giao",
+    },
+    {
+      id: 4,
+      details: "Order 4 details",
+      price: 75,
+      items: [
+        { name: "Product D", quantity: 3, price: 15 },
+        { name: "Product E", quantity: 2, price: 20 },
+      ],
+      status: "hoàn thành",
+    },
   ]);
+
+  const [disabledStatuses, setDisabledStatuses] = useState({});
 
   const handleTabChange = (tab) => {
     setActiveTab(tab);
+    setSelectedOrder(null);
   };
 
-  const handleRating = (orderId, rating) => {
-    setOrders(orders.map(order => 
-      order.id === orderId ? { ...order, rating } : order
-    ));
+  const handleViewOrder = (order) => {
+    setSelectedOrder(order);
   };
 
-  const filteredOrders = activeTab === "all" ? orders : orders.filter(order => order.status === activeTab);
+  const handleStatusChange = (orderId, newStatus) => {
+    setOrders(
+      orders.map((order) =>
+        order.id === orderId ? { ...order, status: newStatus } : order
+      )
+    );
+    setDisabledStatuses((prevState) => ({
+      ...prevState,
+      [orderId]: [...(prevState[orderId] || []), newStatus],
+    }));
+    // setSelectedOrder((prevOrder) => ({ ...prevOrder, status: newStatus }));
+    setSelectedOrder(null);
+    setActiveTab(newStatus);
+  };
+
+  const filteredOrders =
+    activeTab === "all"
+      ? orders
+      : orders.filter((order) => order.status === activeTab);
   return (
-    <div>
-    <div className="flex space-x-4 mb-6 overflow-x-auto">
-      <button
-        onClick={() => handleTabChange("all")}
-        className={`px-4 py-2 rounded-full ${activeTab === "all" ? "bg-blue-500 text-white" : "bg-gray-200 text-gray-700"} transition-colors duration-200`}
-      >
-        All
-      </button>
-      <button
-        onClick={() => handleTabChange("delivery")}
-        className={`px-4 py-2 rounded-full ${activeTab === "delivery" ? "bg-blue-500 text-white" : "bg-gray-200 text-gray-700"} transition-colors duration-200 flex items-center`}
-      >
-        <MdLocalShipping className="mr-2" /> Đơn hàng đang giao
-      </button>
-      <button
-        onClick={() => handleTabChange("complete")}
-        className={`px-4 py-2 rounded-full ${activeTab === "complete" ? "bg-blue-500 text-white" : "bg-gray-200 text-gray-700"} transition-colors duration-200 flex items-center`}
-      >
-        <MdDoneAll className="mr-2" /> Đơn hàng đã giao
-      </button>
-      <button
-        onClick={() => handleTabChange("cancelled")}
-        className={`px-4 py-2 rounded-full ${activeTab === "cancelled" ? "bg-blue-500 text-white" : "bg-gray-200 text-gray-700"} transition-colors duration-200 flex items-center`}
-      >
-        <MdCancel className="mr-2" /> Hủy đơn hàng
-      </button>
-      <button
-        onClick={() => handleTabChange("refund")}
-        className={`px-4 py-2 rounded-full ${activeTab === "refund" ? "bg-blue-500 text-white" : "bg-gray-200 text-gray-700"} transition-colors duration-200 flex items-center`}
-      >
-        <MdRefresh className="mr-2" /> Đơn hàng đã hoàn tiền
-      </button>
-    </div>
-    <div className="space-y-4">
-      {filteredOrders.map((order) => (
-        <div key={order.id} className="border rounded-lg p-4 flex justify-between items-center hover:shadow-md transition-shadow duration-200">
-          <div>
-            <p className="font-semibold">Order #{order.id}</p>
-            <p className="text-gray-600">{order.details}</p>
-            <div className="mt-2">
-              {[1, 2, 3, 4, 5].map((star) => (
-                <button
-                  key={star}
-                  onClick={() => handleRating(order.id, star)}
-                  className={`focus:outline-none ${order.rating && star <= order.rating ? "text-yellow-400" : "text-gray-300"}`}
-                  aria-label={`Rate ${star} stars`}
-                >
-                  <FaStar />
-                </button>
-              ))}
-            </div>
-          </div>
-          <div className="text-right">
-            <p className="font-bold text-lg">${order.price.toFixed(2)}</p>
-            <p className="text-sm text-gray-500 capitalize">{order.status}</p>
-          </div>
+    <div className="container_cus_order mx-auto p-4">
+      <div className="mb-6">
+        <div className="flex border-b">
+          <button
+            className={`py-2 px-4 ${
+              activeTab === "all" ? "border-b-2 border-blue-500" : ""
+            }`}
+            onClick={() => handleTabChange("all")}
+          >
+            Tất cả đơn hàng
+          </button>
+          <button
+            className={`py-2 px-4 ${
+              activeTab === "đang xử lý" ? "border-b-2 border-blue-500" : ""
+            }`}
+            onClick={() => handleTabChange("đang xử lý")}
+          >
+            Đang xử lý
+          </button>
+          <button
+            className={`py-2 px-4 ${
+              activeTab === "đang chuẩn bị" ? "border-b-2 border-blue-500" : ""
+            }`}
+            onClick={() => handleTabChange("đang chuẩn bị")}
+          >
+            Đang chuẩn bị
+          </button>
+          <button
+            className={`py-2 px-4 ${
+              activeTab === "đang giao" ? "border-b-2 border-blue-500" : ""
+            }`}
+            onClick={() => handleTabChange("đang giao")}
+          >
+            Đang giao hàng
+          </button>
+          <button
+            className={`py-2 px-4 ${
+              activeTab === "hoàn thành" ? "border-b-2 border-blue-500" : ""
+            }`}
+            onClick={() => handleTabChange("hoàn thành")}
+          >
+            Hoàn thành đơn hàng
+          </button>
         </div>
-      ))}
+      </div>
+      <div className="flex flex-col lg:flex-row">
+        <div className="w-full lg:w-1/2 pr-0 lg:pr-4 mb-4 lg:mb-0">
+          <h2 className="text-2xl font-semibold mb-4">Danh sách đơn hàng</h2>
+          {filteredOrders.map((order) => (
+            <div
+              key={order.id}
+              className="bg-white shadow-md rounded-lg p-4 mb-4 transition-all duration-300 hover:shadow-lg"
+            >
+              <div className="flex justify-between items-center">
+                <div>
+                  <h3 className="font-semibold">Đơn hàng #{order.id}</h3>
+                  <p>{order.customerName}</p>
+                  <p className="text-sm text-gray-500">
+                    Trạng thái: {order.status}
+                  </p>
+                </div>
+                <div>
+                  <button
+                    className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors duration-300 mr-5"
+                    onClick={() => handleViewOrder(order)}
+                    aria-label={`View details for order ${order.id}`}
+                  >
+                    Xem chi tiết đơn hàng
+                  </button>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+        <div className="w-full lg:w-1/2 pl-0 lg:pl-4">
+          <h2 className="text-2xl font-semibold mb-4">Chi tiết đơn hàng</h2>
+          {selectedOrder ? (
+            <div className="bg-white shadow-md rounded-lg p-4 transition-all duration-300 hover:shadow-lg">
+              <h3 className="font-semibold text-xl mb-2">
+                Đơn hàng #{selectedOrder.id}
+              </h3>
+              <p className="mb-4">Trạng thái: {selectedOrder.status}</p>
+              <h4 className="font-semibold mb-2">Mặt hàng:</h4>
+              <ul className="mb-4">
+                {selectedOrder.items.map((item, index) => (
+                  <li key={index} className="flex justify-between">
+                    <span>
+                      {item.name} x{item.quantity}
+                    </span>
+                    <span>{item.price * item.quantity} VNĐ</span>
+                  </li>
+                ))}
+              </ul>
+              <div className="flex justify-between">
+                <h4 className="font-semibold mb-2 ">Phí vận chuyển:</h4>
+                <h4>1000 VNĐ</h4>
+              </div>
+
+              <div className="flex justify-between">
+                <h4 className="font-semibold mb-2 "> Tổng đơn hàng:</h4>
+                <h4>
+                  {" "}
+                  {selectedOrder.items.reduce(
+                    (sum, item) => sum + item.price * item.quantity + 1000,
+                    0
+                  )}{" "}
+                  VNĐ
+                </h4>
+              </div>
+
+              {selectedOrder.status !== "hoàn thành" && (
+                <div className="mt-4">
+                  <div className="flex flex-wrap gap-2">
+                    {selectedOrder.status === "đang giao" && (
+                      <button
+                        className="flex items-center bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition-colors duration-300"
+                        onClick={() =>
+                          handleStatusChange(selectedOrder.id, "hoàn thành")
+                        }
+                        aria-label="Change status to complete delivery"
+                        disabled={disabledStatuses[selectedOrder.id]?.includes(
+                          "Hoàn thành"
+                        )}
+                      >
+                        <FaCheckCircle className="mr-2" /> Hoàn thành
+                      </button>
+                    )}
+                  </div>
+                </div>
+              )}
+            </div>
+          ) : (
+            <p>Chọn đơn hàng để xem chi tiết</p>
+          )}
+        </div>
+      </div>
     </div>
-    </div> 
-  )
+  );
 }
-
-
-
-
-
-
-
-/*import React from 'react'
-
-export default function MyOrders() {
-    
-  return (
-   
-  )
-}
-*/

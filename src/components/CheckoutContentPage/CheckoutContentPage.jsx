@@ -23,7 +23,7 @@ const CheckoutContentPage = () => {
   const [promoCode, setPromoCode] = useState("");
   const [errors, setErrors] = useState({});
 
-  const shippingCosts = { economy: 15000,standard: 35000, express: 60000 };
+  const shippingCosts = { economy: 15000, standard: 35000, express: 60000 };
 
   const handleQuantityChange = (id, change) => {
     setCart(
@@ -93,7 +93,7 @@ const CheckoutContentPage = () => {
                   <p className="text-gray-600">x {item.quantity}</p>
                 </div>
                 <span className="font-semibold">
-                  {(item.koi_price * item.quantity)} VNĐ
+                  {item.koi_price * item.quantity} VNĐ
                 </span>
               </div>
             ))}
@@ -119,8 +119,9 @@ const CheckoutContentPage = () => {
                 name="name"
                 value={user.userfullname}
                 onChange={handleInputChange}
-                className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${errors.name ? "border-red-500" : "border-gray-300"
-                  }`}
+                className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                  errors.name ? "border-red-500" : "border-gray-300"
+                }`}
                 required
                 disabled
               />
@@ -141,8 +142,9 @@ const CheckoutContentPage = () => {
                 name="address"
                 value={user.address}
                 onChange={handleInputChange}
-                className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${errors.address ? "border-red-500" : "border-gray-300"
-                  }`}
+                className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                  errors.address ? "border-red-500" : "border-gray-300"
+                }`}
                 required
                 disabled
               />
@@ -163,8 +165,9 @@ const CheckoutContentPage = () => {
                 name="phone"
                 value={user.phone}
                 onChange={handleInputChange}
-                className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${errors.phone ? "border-red-500" : "border-gray-300"
-                  }`}
+                className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                  errors.phone ? "border-red-500" : "border-gray-300"
+                }`}
                 required
                 disabled
               />
@@ -185,8 +188,9 @@ const CheckoutContentPage = () => {
                 name="email"
                 value={user.email}
                 onChange={handleInputChange}
-                className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${errors.email ? "border-red-500" : "border-gray-300"
-                  }`}
+                className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                  errors.email ? "border-red-500" : "border-gray-300"
+                }`}
                 required
                 disabled
               />
@@ -221,7 +225,9 @@ const CheckoutContentPage = () => {
                     onChange={() => setShippingMethod("standard")}
                     className="form-radio text-blue-500"
                   />
-                  <span className="ml-2">Giao hàng tiêu chuẩn (35.000 VNĐ)</span>
+                  <span className="ml-2">
+                    Giao hàng tiêu chuẩn (35.000 VNĐ)
+                  </span>
                 </label>
               </div>
               <div>
@@ -237,7 +243,6 @@ const CheckoutContentPage = () => {
                 </label>
               </div>
             </div>
-
 
             <h2 className="text-2xl font-semibold mb-4">Thanh toán</h2>
             <div className="mb-4">
