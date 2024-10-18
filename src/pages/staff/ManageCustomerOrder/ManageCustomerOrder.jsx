@@ -175,14 +175,22 @@ function ManageCustomerOrder() {
                   </li>
                 ))}
               </ul>
-              <p className="font-semibold">
-                Tổng: <span></span>
-                {selectedOrder.items.reduce(
-                  (sum, item) => sum + item.price * item.quantity,
-                  0
-                )}{" "}
-                VNĐ
-              </p>
+              <div className="flex justify-between">
+                <h4 className="font-semibold mb-2 ">Phí vận chuyển:</h4>
+                <h4>1000 VNĐ</h4>
+              </div>
+
+              <div className="flex justify-between">
+                <h4 className="font-semibold mb-2 "> Tổng đơn hàng:</h4>
+                <h4>
+                  {" "}
+                  {selectedOrder.items.reduce(
+                    (sum, item) => sum + item.price * item.quantity + 1000,
+                    0
+                  )}{" "}
+                  VNĐ
+                </h4>
+              </div>
               {selectedOrder.status !== "hoàn thành" && (
                 <div className="mt-4">
                   <h4 className="font-semibold mb-2">Thay đổi trạng thái:</h4>

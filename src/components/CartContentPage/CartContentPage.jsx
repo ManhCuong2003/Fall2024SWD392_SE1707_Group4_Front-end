@@ -106,21 +106,12 @@ const CartContentPage = () => {
 
             {/* Hiển thị tổng và nút thanh toán nếu giỏ hàng không rỗng */}
             <div className="mt-8">
-              <div className="flex items-center justify-between mb-4">
-                <p>
-                  <span className="inline-block mb-4 font-semibold">
-                    Điểm giảm giá đã tích lũy:
-                  </span>{" "}
-                  100 điểm
-                </p>
-                <button className="bg-green-500 text-white px-4 py-2 rounded-r hover:bg-green-600 transition duration-200">
-                  Áp dụng
-                </button>
-              </div>
               <div className="text-right">
-                <p className="text-xl font-semibold mb-2">Total: {total} VNĐ</p>
+                <p className="text-xl font-semibold mb-5">
+                  Tổng cộng: {total} VNĐ
+                </p>
                 <Link
-                  className="bg-blue-600 text-white px-8 py-3 rounded-lg text-xl font-semibold hover:bg-blue-700 transition duration-200"
+                  className="bg-blue-600 text-white px-8 py-3  rounded-lg text-xl font-semibold hover:bg-blue-700 transition duration-200"
                   to={"/checkout-page"}
                 >
                   Thanh toán
