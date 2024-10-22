@@ -4,6 +4,7 @@ import apiClient from "../../utils/axios";
 import { useParams, useNavigate } from "react-router-dom";
 import { userContext } from "../Context/UserContext";
 import { BsCartCheckFill } from "react-icons/bs";
+import formatCurrencyVND from "../../utils/format";
 
 export default function ProductDetailContentPage() {
   const [quantity, setQuantity] = useState(1);
@@ -50,23 +51,21 @@ export default function ProductDetailContentPage() {
         <FaShoppingCart className="text-2xl" />
       </div>
 
-      <div className="flex flex-wrap -mx-4 mt-10">
-        <div className="w-full md:w-1/2 px-4 mb-8">
+      <div className="flex flex-wrap -mx-4 mt-10 height-fit">
+        <div className="w-full md:w-1/3 h-fit px-4 mb-8">
           <img
             src={product.koi_image_url}
             alt={product.koi_name}
-            className="w-3/4 h-auto mx-auto rounded-lg shadow-lg"
+            className="w-2/3 mx-auto object-fill rounded-lg shadow-lg"
           />
         </div>
 
         <div className="w-full md:w-1/2 px-4">
           <h1 className="text-3xl font-bold mb-4">{product.koi_name}</h1>
           <p className="text-2xl font-semibold text-blue-600 mb-4">
-            {product.koi_price} VNĐ
+            {formatCurrencyVND(product.koi_price)}
           </p>
           <p className="mb-4">{product.koi_description}</p>
-          <p className="inline-block mb-4 mr-2 font-semibold">Kho hàng: </p>
-          {product.koi_quantity}
 
           <div className="flex">
             <button
@@ -77,15 +76,6 @@ export default function ProductDetailContentPage() {
               <FaShoppingCart className="mr-2" />
               Thêm vào giỏ hàng
             </button>
-
-            <button
-              className="bg-amber-500 hover:bg-amber-600 text-white px-2 py-4 mb-2 mr-2 font-bold flex items-center rounded-lg"
-              onClick={handleBuyNow}
-            >
-              <BsCartCheckFill className="mr-2" />
-              Mua ngay
-            </button>
-
             <button
               className="bg-lime-600 hover:bg-lime-700 text-white px-2 py-4 mb-2 mr-2 font-bold flex items-center rounded-lg"
               onClick={handleBuyAndSend}
@@ -121,7 +111,7 @@ export default function ProductDetailContentPage() {
                 {product.koi_color}
               </li>
               <li>
-                <span className="font-semibold">Tuổi:</span> {product.koi_age}
+                <span className="font-semibold">Tuổi:</span> {product.koi_age} tháng
               </li>
               <li>
                 <span className="font-semibold">Giới tính:</span>{" "}

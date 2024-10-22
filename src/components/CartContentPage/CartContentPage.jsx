@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useContext } from "react";
-import { FaTrash, FaMinus, FaPlus } from "react-icons/fa";
+import { FaTrash } from "react-icons/fa";
 import { motion } from "framer-motion";
 import { userContext } from "../Context/UserContext";
 import { Link } from "react-router-dom";
 
 const CartContentPage = () => {
-  const { cartItems, updateQuantity, removeFromcart } = useContext(userContext);
+  const { cartItems, removeFromcart } = useContext(userContext);
   const [total, setTotal] = useState(0);
 
   useEffect(() => {
@@ -18,10 +18,6 @@ const CartContentPage = () => {
       0
     );
     setTotal(sum);
-  };
-
-  const handleQuantityChange = (id, change) => {
-    updateQuantity(id, change);
   };
 
   const handleRemoveItem = (id) => {
@@ -65,33 +61,6 @@ const CartContentPage = () => {
                     </div>
                   </div>
                   <div className="flex items-center">
-                    <button
-                      onClick={() => handleQuantityChange(item.koi_id, -1)}
-                      className={`${
-                        item.quantity === 1
-                          ? "bg-gray-300"
-                          : "bg-blue-500 hover:bg-blue-600"
-                      } text-white p-2 rounded-full transition duration-200`}
-                      aria-label={`Decrease quantity of ${item.koi_name}`}
-                      disabled={item.quantity === 1}
-                    >
-                      <FaMinus />
-                    </button>
-                    <span className="mx-4 text-xl font-semibold">
-                      {item.quantity}
-                    </span>
-                    <button
-                      onClick={() => handleQuantityChange(item.koi_id, 1)}
-                      className={`${
-                        item.quantity === item.koi_quantity
-                          ? "bg-gray-300"
-                          : "bg-blue-500 hover:bg-blue-600"
-                      }  text-white p-2 rounded-full  transition duration-200`}
-                      aria-label={`Increase quantity of ${item.koi_name}`}
-                      disabled={item.quantity === item.koi_quantity}
-                    >
-                      <FaPlus />
-                    </button>
                     <button
                       onClick={() => handleRemoveItem(item.koi_id)}
                       className="ml-4 text-red-500 hover:text-red-600 transition duration-200"

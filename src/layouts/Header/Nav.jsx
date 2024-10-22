@@ -10,7 +10,7 @@ export default function Nav() {
   const [isScrolled, setIsScrolled] = useState(false);
   const navigate = useNavigate();
   const { cartItems } = useContext(userContext);
-  const user = JSON.parse(localStorage.getItem("userInfor"));
+  const { user } = useContext(userContext);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -24,6 +24,8 @@ export default function Nav() {
     localStorage.removeItem("userInfor");
     localStorage.removeItem("access_token");
     localStorage.removeItem("refresh_token");
+    localStorage.removeItem("cart");
+    localStorage.removeItem("favorites");
     navigate("/login");
   };
 
@@ -88,7 +90,7 @@ export default function Nav() {
               >
                 <IoCart />
                 {cartItems.length > 0 && (
-                  <span class="absolute -top-2.5 -right-2 inline-block bg-blue-500 text-xs text-white px-2 py-1 rounded-full">
+                  <span className="absolute -top-2.5 -right-2 inline-block bg-blue-500 text-xs text-white px-2 py-1 rounded-full">
                     {cartItems.length}
                   </span>
                 )}

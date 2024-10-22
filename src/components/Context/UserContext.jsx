@@ -13,7 +13,15 @@ export const UserProvider = ({ children }) => {
     return savedFavorites ? JSON.parse(savedFavorites) : [];
   });
 
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState(() => {
+    const userInfor = localStorage.getItem("userInfor");
+    return userInfor ? JSON.parse(userInfor) : null;
+  });
+
+  useEffect(() => {
+    localStorage.setItem("userInfor", JSON.stringify(user));
+  }, [user]);
+  
 
   useEffect(() => {
     localStorage.setItem("cart", JSON.stringify(cartItems));
