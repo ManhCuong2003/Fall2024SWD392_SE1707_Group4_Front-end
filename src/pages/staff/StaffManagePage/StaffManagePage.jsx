@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { FaListAlt } from "react-icons/fa";
 import { FaBoxesStacked } from "react-icons/fa6";
 import { MdOutlineDashboardCustomize } from "react-icons/md";
@@ -6,15 +6,18 @@ import StaffDashboard from "../../../components/StaffDashboard/StaffDashboard";
 import ManageCustomerOrder from "../ManageCustomerOrder/ManageCustomerOrder";
 import { IoLogOut } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
+import { userContext } from "../../../components/Context/UserContext";
 
 function StaffManagePage() {
   const [activeNavItem, setActiveNavItem] = useState(0);
+  const { user } = useContext(userContext)
   const navigate = useNavigate();
-  const user = JSON.parse(localStorage.getItem("userInfor"));
   const handleLogout = () => {
     localStorage.removeItem("userInfor");
     localStorage.removeItem("access_token");
     localStorage.removeItem("refresh_token");
+    localStorage.removeItem("cart");
+    localStorage.removeItem("favorites");
     navigate("/login");
   };
   const navItems = [

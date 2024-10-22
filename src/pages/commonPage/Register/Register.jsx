@@ -3,7 +3,7 @@ import Logo from '../../../assets/Logo/logo2.png'
 import './style.scss'
 import apiClient from '../../../utils/axios'
 import { checkEmailFormat, checkPhoneFormat } from '../../../utils/validation'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 function Register() {
   const [fullname, setFullname] = useState('')
@@ -15,6 +15,7 @@ function Register() {
   const [error, setError] = useState({})
   const [msg, setMsg] = useState('')
   const [errorMsg, setErrorMsg] = useState('')
+  const navigate = useNavigate()
 
   const validateForm = () => {
     let isValid = true
@@ -81,7 +82,7 @@ function Register() {
           phone
         })
         if (response.status === 201) {
-          setMsg('Register successfull. Please go to login')
+          navigate('/login')
         }
       } catch (error) {
         setErrorMsg(error.response.data.error.message)

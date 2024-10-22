@@ -34,13 +34,8 @@ function Login() {
         const responseUserInfor = await apiClient.get(
           "/api/users/get-current-user"
         );
-        // setUser((prev) => responseUserInfor.data);
-        localStorage.setItem(
-          "userInfor",
-          JSON.stringify(responseUserInfor.data)
-        );
+        setUser((prev) => responseUserInfor.data);
         const role = responseUserInfor.data?.role_name;
-        console.log(role);
         if (role === "staff") {
           navigate("/staff-manage-page");
         } else if (role === "manager") {
@@ -48,6 +43,7 @@ function Login() {
         } else {
           navigate("/");
         }
+        
       } catch (error) {
         setError(error.response.data.error.message);
         console.log(error);

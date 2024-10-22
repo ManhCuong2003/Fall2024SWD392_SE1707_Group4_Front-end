@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { FaBox, FaCheckCircle, FaShippingFast, FaStar } from "react-icons/fa";
 import {
   MdCancel,
@@ -6,53 +6,26 @@ import {
   MdLocalShipping,
   MdRefresh,
 } from "react-icons/md";
+import apiClient from "../../../utils/axios";
+import { userContext } from "../../Context/UserContext";
+import formatCurrencyVND from "../../../utils/format";
 
 export default function MyOrdersSub() {
   const [activeTab, setActiveTab] = useState("all");
   const [selectedOrder, setSelectedOrder] = useState(null);
-  const [orders, setOrders] = useState([
-    {
-      id: 1,
-      details: "Order 1 details",
-      price: 100,
-      items: [
-        { name: "Product D", quantity: 3, price: 15 },
-        { name: "Product E", quantity: 2, price: 20 },
-      ],
-      status: "đang xử lý",
-    },
-    {
-      id: 2,
-      details: "Order 2 details",
-      price: 150,
-      items: [
-        { name: "Product D", quantity: 3, price: 15 },
-        { name: "Product E", quantity: 2, price: 20 },
-      ],
-      status: "đang chuẩn bị",
-    },
-    {
-      id: 3,
-      details: "Order 3 details",
-      price: 200,
-      items: [
-        { name: "Product D", quantity: 3, price: 15 },
-        { name: "Product E", quantity: 2, price: 20 },
-      ],
-      status: "đang giao",
-    },
-    {
-      id: 4,
-      details: "Order 4 details",
-      price: 75,
-      items: [
-        { name: "Product D", quantity: 3, price: 15 },
-        { name: "Product E", quantity: 2, price: 20 },
-      ],
-      status: "hoàn thành",
-    },
-  ]);
+  const [orders, setOrders] = useState([]);
+  const { user } = useContext(userContext)
 
+
+  useEffect(() => {
+    const fetchOrders = async () => {
+      const response = await apiClient.get(`/api/users/${user.user_ID}/orders`)
+      setOrders(response.data)
+      console.log(response.data);
+      
+    }
+    fetchOrders()
+  }, [])
   const [disabledStatuses, setDisabledStatuses] = useState({});
 
   const handleTabChange = (tab) => {
@@ -140,7 +113,6 @@ export default function MyOrdersSub() {
               <div className="flex justify-between items-center">
                 <div>
                   <h3 className="font-semibold">Đơn hàng #{order.id}</h3>
-                  <p>{order.customerName}</p>
                   <p className="text-sm text-gray-500">
                     Trạng thái: {order.status}
                   </p>
@@ -171,26 +143,20 @@ export default function MyOrdersSub() {
                 {selectedOrder.items.map((item, index) => (
                   <li key={index} className="flex justify-between">
                     <span>
-                      {item.name} x{item.quantity}
+                      {item.koi_name} x{item.quantity}
                     </span>
-                    <span>{item.price * item.quantity} VNĐ</span>
+                    <span>{formatCurrencyVND(item.price * item.quantity)}</span>
                   </li>
                 ))}
               </ul>
-              <div className="flex justify-between">
-                <h4 className="font-semibold mb-2 ">Phí vận chuyển:</h4>
-                <h4>1000 VNĐ</h4>
-              </div>
 
               <div className="flex justify-between">
                 <h4 className="font-semibold mb-2 "> Tổng đơn hàng:</h4>
                 <h4>
-                  {" "}
-                  {selectedOrder.items.reduce(
-                    (sum, item) => sum + item.price * item.quantity + 1000,
+                  {formatCurrencyVND(selectedOrder.items.reduce(
+                    (sum, item) => sum + item.price * item.quantity,
                     0
-                  )}{" "}
-                  VNĐ
+                  ))}
                 </h4>
               </div>
 
