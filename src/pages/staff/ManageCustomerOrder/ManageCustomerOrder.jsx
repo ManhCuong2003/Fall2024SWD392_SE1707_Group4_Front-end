@@ -1,55 +1,24 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FaBox, FaCheckCircle, FaShippingFast } from "react-icons/fa";
+import apiClient from "../../../utils/axios";
+import formatCurrencyVND from "../../../utils/format";
 
 function ManageCustomerOrder() {
   const [activeTab, setActiveTab] = useState("all");
   const [selectedOrder, setSelectedOrder] = useState(null);
-  const [orders, setOrders] = useState([
-    {
-      id: 1,
-      customerName: "John Doe",
-      status: "hoàn thành",
-      items: [
-        { name: "Product A", quantity: 2, price: 25 },
-        { name: "Product B", quantity: 1, price: 30 },
-      ],
-    },
-    {
-      id: 2,
-      customerName: "Jane Smith",
-      status: "đang giao",
-      items: [{ name: "Product C", quantity: 1, price: 50 }],
-    },
-    {
-      id: 3,
-      customerName: "Alice Johnson",
-      status: "đang chuẩn bị",
-      items: [
-        { name: "Product D", quantity: 3, price: 15 },
-        { name: "Product E", quantity: 2, price: 20 },
-      ],
-    },
-    {
-      id: 4,
-      customerName: "Anna",
-      status: "đang xử lý",
-      items: [
-        { name: "Product D", quantity: 3, price: 15 },
-        { name: "Product E", quantity: 2, price: 20 },
-      ],
-    },
-    {
-      id: 5,
-      customerName: "Henry",
-      status: "đang xử lý",
-      items: [
-        { name: "Product D", quantity: 3, price: 15 },
-        { name: "Product E", quantity: 2, price: 20 },
-      ],
-    },
-  ]);
+  const [orders, setOrders] = useState([]);
 
   const [disabledStatuses, setDisabledStatuses] = useState({});
+
+  // get all orders
+  useEffect(() => {
+    const fetchOrder = async () => {
+      const response = await apiClient.get("/api/orders");
+      console.log(response.data);
+      setOrders(response.data)
+    };
+    fetchOrder();
+  }, []);
 
   const handleTabChange = (tab) => {
     setActiveTab(tab);
@@ -60,19 +29,42 @@ function ManageCustomerOrder() {
     setSelectedOrder(order);
   };
 
-  const handleStatusChange = (orderId, newStatus) => {
-    setOrders(
-      orders.map((order) =>
-        order.id === orderId ? { ...order, status: newStatus } : order
-      )
-    );
-    setDisabledStatuses((prevState) => ({
-      ...prevState,
-      [orderId]: [...(prevState[orderId] || []), newStatus],
-    }));
-    // setSelectedOrder((prevOrder) => ({ ...prevOrder, status: newStatus }));
-    setSelectedOrder(null);
-    setActiveTab(newStatus);
+  const handleStatusChange = async (orderId, newStatus, newStatusId) => {
+    try {
+      // Gửi yêu cầu PUT để cập nhật trạng thái đơn hàng
+      const response = await apiClient.put(`/api/orders/${orderId}/status`, {
+          newStatusId
+      });
+
+      if (response.status === 200) {
+          // Cập nhật trạng thái đơn hàng trong state nếu API thành công
+          setOrders(
+              orders.map((order) =>
+                  order.id === orderId ? { ...order, status: newStatus } : order
+              )
+          );
+          setDisabledStatuses((prevState) => ({
+            ...prevState,
+            [orderId]: [...(prevState[orderId] || []), newStatus],
+          }));
+          // setSelectedOrder((prevOrder) => ({ ...prevOrder, status: newStatus }));
+          setSelectedOrder(null);
+          setActiveTab(newStatus);
+          // Cập nhật các trạng thái không khả dụng cho nút bấm
+          setDisabledStatuses((prevState) => ({
+              ...prevState,
+              [orderId]: [...(prevState[orderId] || []), newStatus],
+          }));
+
+          // Đặt lại đơn hàng đang được chọn và chuyển sang tab trạng thái mới
+          setSelectedOrder(null);
+          setActiveTab(newStatus);
+      } else {
+          console.error("Failed to update order status.");
+      }
+  } catch (error) {
+      console.error("Error updating order status:", error);
+  }
   };
 
   const filteredOrders =
@@ -169,26 +161,20 @@ function ManageCustomerOrder() {
                 {selectedOrder.items.map((item, index) => (
                   <li key={index} className="flex justify-between">
                     <span>
-                      {item.name} x{item.quantity}
+                      {item.koi_name} x{item.quantity}
                     </span>
-                    <span>{item.price * item.quantity} VNĐ</span>
+                    <span>{formatCurrencyVND(item.price * item.quantity)}</span>
                   </li>
                 ))}
               </ul>
-              <div className="flex justify-between">
-                <h4 className="font-semibold mb-2 ">Phí vận chuyển:</h4>
-                <h4>1000 VNĐ</h4>
-              </div>
 
               <div className="flex justify-between">
                 <h4 className="font-semibold mb-2 "> Tổng đơn hàng:</h4>
                 <h4>
-                  {" "}
-                  {selectedOrder.items.reduce(
+                  {formatCurrencyVND(selectedOrder.items.reduce(
                     (sum, item) => sum + item.price * item.quantity + 1000,
                     0
-                  )}{" "}
-                  VNĐ
+                  ))}
                 </h4>
               </div>
               {selectedOrder.status !== "hoàn thành" && (
@@ -199,7 +185,7 @@ function ManageCustomerOrder() {
                       <button
                         className="flex items-center bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-600 transition-colors duration-300"
                         onClick={() =>
-                          handleStatusChange(selectedOrder.id, "đang chuẩn bị")
+                          handleStatusChange(selectedOrder.id, "đang chuẩn bị", 3)
                         }
                         aria-label="Change status to preparing order"
                         disabled={disabledStatuses[selectedOrder.id]?.includes(
@@ -213,7 +199,7 @@ function ManageCustomerOrder() {
                       <button
                         className="flex items-center bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors duration-300"
                         onClick={() =>
-                          handleStatusChange(selectedOrder.id, "đang giao")
+                          handleStatusChange(selectedOrder.id, "đang giao", 2)
                         }
                         aria-label="Change status to shipping"
                         disabled={disabledStatuses[selectedOrder.id]?.includes(
@@ -227,7 +213,7 @@ function ManageCustomerOrder() {
                       <button
                         className="flex items-center bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition-colors duration-300"
                         onClick={() =>
-                          handleStatusChange(selectedOrder.id, "hoàn thành")
+                          handleStatusChange(selectedOrder.id, "hoàn thành", 1)
                         }
                         aria-label="Change status to complete delivery"
                         disabled={disabledStatuses[selectedOrder.id]?.includes(
