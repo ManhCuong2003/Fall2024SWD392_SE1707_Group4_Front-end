@@ -10,8 +10,9 @@ import { userContext } from "../../../components/Context/UserContext";
 
 function StaffManagePage() {
   const [activeNavItem, setActiveNavItem] = useState(0);
-  const { user } = useContext(userContext)
+  const { user } = useContext(userContext);
   const navigate = useNavigate();
+  
   const handleLogout = () => {
     localStorage.removeItem("userInfor");
     localStorage.removeItem("access_token");
@@ -20,6 +21,7 @@ function StaffManagePage() {
     localStorage.removeItem("favorites");
     navigate("/login");
   };
+
   const navItems = [
     {
       icon: <MdOutlineDashboardCustomize />,
@@ -39,6 +41,11 @@ function StaffManagePage() {
     },
   ];
 
+  // New function to handle navigation to home
+  const handleGoHome = () => {
+    navigate("/koi-list");
+  };
+
   return (
     <div className="container_myOrders mx-auto px-4 py-8">
       <div className="flex flex-col md:flex-row gap-8 mt-10">
@@ -52,6 +59,13 @@ function StaffManagePage() {
               <p className="text-gray-600">{user.email}</p>
             </div>
           </div>
+          <button
+            className="w-full flex items-center mb-4 text-gray-700 hover:text-blue-500 transition-colors duration-200"
+            onClick={handleGoHome}
+          >
+            <span className="mr-3">🏠</span> {/* Home Icon */}
+            Home
+          </button>
           <ul className="py-4">
             {navItems.map((item, index) => (
               <li key={index}>
